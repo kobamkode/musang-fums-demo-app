@@ -1,8 +1,9 @@
-import { error, fail, redirect } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
+import { NODE_ENV } from "$env/static/private";
 import type { Actions } from "./$types";
 
 export const actions: Actions = {
-        login: async ({ request, fetch }) => {
+        login: async ({ request, cookies, fetch }) => {
                 const data = await request.formData()
                 const email = data.get("email") as string
                 const password = data.get("password") as string
@@ -13,32 +14,31 @@ export const actions: Actions = {
                         })
                 }
 
-                try {
-                        const response = await fetch('http://your-golang-api.com/auth/login', {
-                                method: 'POST',
-                                headers: {
-                                        'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ email, password })
-                        });
+                const response = await fetch('http://localhost:8080/api/v1/auth/login', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                });
 
-                        if (!response.ok) {
-                                return fail(401, {
-                                        error: 'Invalid credentials',
-                                        email
-                                });
-                        }
-
-                        const result = await response.json();
-
-                        throw redirect(303, '/');
-
-                } catch (error) {
-                        console.error('Login failed:', error);
-                        return fail(500, {
-                                error: 'Login failed. Please try again.',
+                if (!response.ok) {
+                        return fail(response.status, {
+                                error: response.statusText,
                                 email
                         });
                 }
+
+                const json = await response.json();
+
+                cookies.set('auth', JSON.stringify(json.Data), {
+                        httpOnly: true,
+                        secure: NODE_ENV === 'production',
+                        sameSite: 'strict',
+                        maxAge: 60 * 60 * 24 * 1,
+                        path: '/'
+                });
+
+                throw redirect(303, "/")
         }
 }

@@ -23,13 +23,13 @@
 					</div>
 					<div class="grid gap-3">
 						<Label for="email-{id}">Email</Label>
-						<Input id="email-{id}" type="email" placeholder="m@example.com" required />
+						<Input name="email" id="email-{id}" type="email" placeholder="m@example.com" required />
 					</div>
 					<div class="grid gap-3">
 						<div class="flex items-center">
 							<Label for="password">Password</Label>
 						</div>
-						<Input id="password-{id}" type="password" required />
+						<Input name="password" id="password-{id}" type="password" required />
 					</div>
 					<Button type="submit" class="w-full">Login</Button>
 				</div>
