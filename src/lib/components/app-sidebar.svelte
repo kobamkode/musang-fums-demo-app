@@ -1,14 +1,30 @@
-<script lang="ts" module>
+<script lang="ts">
 	import AudioWaveformIcon from '@lucide/svelte/icons/audio-waveform';
 	import BotIcon from '@lucide/svelte/icons/bot';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 	import SquareTerminalIcon from '@lucide/svelte/icons/square-terminal';
+	import NavMain from './nav-main.svelte';
+	import NavUser from './nav-user.svelte';
+	import TeamSwitcher from './team-switcher.svelte';
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import type { ComponentProps } from 'svelte';
 
-	// This is sample data.
+	let {
+		ref = $bindable(null),
+		collapsible = 'icon',
+		user = { name: '', email: '' },
+		...restProps
+	}: ComponentProps<typeof Sidebar.Root> & {
+		user?: {
+			name: string | undefined;
+			email: string | undefined;
+		};
+	} = $props();
+
 	const data = {
-		user: {
-			name: 'Mario',
-			email: 'mario@musangten.com'
+		userInfo: {
+			name: user.name ? user.name : '',
+			email: user.email ? user.email : ''
 		},
 		companies: [
 			{
@@ -44,34 +60,20 @@
 				items: [
 					{
 						title: 'Company',
-						url: '#'
+						url: '/companies'
 					},
 					{
 						title: 'Users',
-						url: '#'
+						url: '/users'
 					},
 					{
 						title: 'Roles',
-						url: '#'
+						url: '/roles'
 					}
 				]
 			}
 		]
 	};
-</script>
-
-<script lang="ts">
-	import NavMain from './nav-main.svelte';
-	import NavUser from './nav-user.svelte';
-	import TeamSwitcher from './team-switcher.svelte';
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import type { ComponentProps } from 'svelte';
-
-	let {
-		ref = $bindable(null),
-		collapsible = 'icon',
-		...restProps
-	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
 <Sidebar.Root {collapsible} {...restProps}>
@@ -82,7 +84,7 @@
 		<NavMain items={data.navMain} />
 	</Sidebar.Content>
 	<Sidebar.Footer>
-		<NavUser user={data.user} />
+		<NavUser user={data.userInfo} />
 	</Sidebar.Footer>
 	<Sidebar.Rail />
 </Sidebar.Root>

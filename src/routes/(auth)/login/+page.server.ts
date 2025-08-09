@@ -1,6 +1,5 @@
-import { fail, redirect } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import { NODE_ENV } from "$env/static/private";
-import type { Actions } from "./$types";
 
 export const actions: Actions = {
         login: async ({ request, cookies, fetch }) => {
@@ -24,20 +23,20 @@ export const actions: Actions = {
 
                 if (!response.ok) {
                         return fail(response.status, {
-                                error: response.statusText,
-                                email
+                                error: response.statusText, email
                         });
                 }
 
-                const json = await response.json();
+                const user = await response.json();
 
-                cookies.set('auth', JSON.stringify(json.Data), {
+                cookies.set('fumsauth', JSON.stringify(user.Data), {
                         httpOnly: true,
                         secure: NODE_ENV === 'production',
                         sameSite: 'strict',
                         maxAge: 60 * 60 * 24 * 1,
                         path: '/'
                 });
+
 
                 throw redirect(303, "/")
         }

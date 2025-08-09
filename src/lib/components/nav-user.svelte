@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { goto, invalidateAll } from '$app/navigation';
+	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
@@ -10,19 +11,7 @@
 	import CreditCardIcon from '@lucide/svelte/icons/credit-card';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
 	import SparklesIcon from '@lucide/svelte/icons/sparkles';
-
-	async function handleLogout() {
-		const response = await fetch('/?/logout', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		});
-		if (response.redirected) {
-			await invalidateAll();
-			goto('/');
-		}
-	}
+	import { toast } from 'svelte-sonner';
 
 	let { user }: { user: { name: string; email: string } } = $props();
 	const sidebar = useSidebar();
@@ -90,10 +79,28 @@
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item>
-					<button onclick={handleLogout} class="flex w-full items-center gap-2 text-left">
-						<LogOutIcon />
-						Log out
-					</button>
+					<form
+						method="POST"
+						action="?/logout"
+						use:enhance={() => {
+							return async ({ result }) => {
+								if (result.type === 'redirect') {
+									goto(result.location);
+								}
+								if (result.type === 'failure') {
+									toast.error(result.data?.error as string);
+								}
+								if (result.type === 'error') {
+									toast.error(result.error.message);
+								}
+							};
+						}}
+					>
+						<button class="flex w-full items-center gap-2 text-left">
+							<LogOutIcon />
+							Log out
+						</button>
+					</form>
 				</DropdownMenu.Item>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
