@@ -7,7 +7,7 @@
 	let { id }: { id: string } = $props();
 
 	const handleUpdate = (id: string) => {
-		goto(`/users/actions/${id}`);
+		goto(`/users/edit/${id}`);
 	};
 </script>
 

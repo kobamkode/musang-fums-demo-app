@@ -10,13 +10,11 @@
 			users: User[];
 		};
 	} = $props();
-
-	$inspect(data);
 </script>
 
 <div class="flex flex-col gap-4">
 	<div>
-		<Button href="/users/actions">Create</Button>
+		<Button href="/users/add">Create</Button>
 	</div>
 	<DataTable data={data.users} {columns} />
 </div>

@@ -1,5 +1,4 @@
 import { fail, redirect, type Actions } from "@sveltejs/kit";
-import { toast } from "svelte-sonner"
 
 export const actions: Actions = {
         logout: async ({ cookies, fetch }) => {
@@ -11,7 +10,6 @@ export const actions: Actions = {
                 });
 
                 if (!response.ok) {
-                        toast(response.statusText)
                         return fail(response.status, {
                                 error: response.statusText,
                         });

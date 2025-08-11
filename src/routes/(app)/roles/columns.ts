@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/table-core"
 
 export type Role = {
-        id: string
+        id: number
         name: string
 }
 

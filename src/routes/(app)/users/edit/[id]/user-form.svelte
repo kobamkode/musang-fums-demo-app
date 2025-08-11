@@ -4,24 +4,50 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
-	import { formSchema, type FormSchema } from './schema';
+	import { editFormSchema, type EditFormSchema } from './schema';
 	import type { Role } from '../../../roles/columns';
+	import { toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 
 	let {
 		data
 	}: {
 		data: {
 			isUpdate: boolean;
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<EditFormSchema>>;
 			roles: Role[];
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(formSchema)
+		validators: zod4Client(editFormSchema),
+		onError: ({ result }) => toast.error(result.error.message),
+		onUpdated: ({ form }) => {
+			if (form.valid) {
+				toast.success('user updated successfully!');
+				goto('/users');
+			}
+		}
 	});
-
 	const { form: formData, enhance } = form;
+
+	let selectedRoleId = $state('');
+	let selectedItemLabel = $state('');
+
+	$effect(() => {
+		let role;
+		if ($formData.role_id === 0) {
+			role = data.roles.find((r) => {
+				return r.id === Number(selectedRoleId);
+			});
+		} else {
+			role = data.roles.find((r) => {
+				return r.id === $formData.role_id;
+			});
+		}
+		selectedRoleId = String(role?.id);
+		selectedItemLabel = role?.name || 'Select a role';
+	});
 </script>
 
 <form method="POST" use:enhance>
@@ -43,28 +69,17 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	{#if data.isUpdate === false}
-		<Form.Field {form} name="password">
-			<Form.Control>
-				{#snippet children({ props })}
-					<Form.Label>Password</Form.Label>
-					<Input type="password" {...props} bind:value={$formData.password} />
-				{/snippet}
-			</Form.Control>
-			<Form.FieldErrors />
-		</Form.Field>
-	{/if}
-	<Form.Field {form} name="role">
+	<Form.Field {form} name="role_id">
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Role</Form.Label>
-				<Select.Root type="single" bind:value={$formData.role} name={props.name}>
+				<Select.Root type="single" bind:value={selectedRoleId} name={props.name}>
 					<Select.Trigger class="w-full" {...props}>
-						{$formData.role ? $formData.role : 'Select a role'}
+						{selectedItemLabel}
 					</Select.Trigger>
 					<Select.Content>
 						{#each data.roles as role}
-							<Select.Item value={role.name} label={role.name} />
+							<Select.Item value={String(role.id)} label={role.name} />
 						{/each}
 					</Select.Content>
 				</Select.Root>
@@ -72,11 +87,5 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button>
-		{#if data.isUpdate === false}
-			Submit
-		{:else}
-			Update
-		{/if}
-	</Form.Button>
+	<Form.Button>Update</Form.Button>
 </form>
