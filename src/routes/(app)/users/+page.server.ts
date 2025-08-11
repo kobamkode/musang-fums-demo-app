@@ -1,29 +1,30 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
+import { deleteUser, getAllUsers } from './api';
 import type { User } from './columns';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals }) => {
         const users: User[] = await getAllUsers(locals);
-
         return { users }
 }
 
-const getAllUsers = async (locals: App.Locals) => {
-        const response = await fetch('http://localhost:8080/api/v1/users', {
-                method: 'GET',
-                headers: {
-                        'Authorization': `Bearer ${locals.user?.token}`,
+export const actions: Actions = {
+        delete: async (event) => {
+                const formData = event.request.formData()
+                const id = (await formData).get('id')?.toString()
+                if (id === undefined) {
+                        return fail(400, {
+                                message: 'params id not found'
+                        })
                 }
-        });
 
-        if (!response.ok) {
-                return {
-                        error: {
-                                status: response.status,
-                                message: response.statusText
-                        }
+                const result = await deleteUser(event.locals, Number(id))
+                if (result?.error) {
+                        return fail(result.error.status, {
+                                message: result.error.message
+                        })
                 }
+                return { result }
         }
-
-        const { Data } = await response.json()
-        return Data ? Data : []
 }
+

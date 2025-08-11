@@ -1,9 +1,10 @@
-import { fail, superValidate } from 'sveltekit-superforms';
+import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from './$types';
 import type { Role } from '../../roles/columns';
 import { formSchema } from './schema';
 import { createUser, getAllRoles } from '../api';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals }) => {
         const roles: Role[] = await getAllRoles(locals);

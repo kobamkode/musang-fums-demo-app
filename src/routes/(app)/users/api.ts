@@ -1,3 +1,24 @@
+export const getAllUsers = async (locals: App.Locals) => {
+        const response = await fetch('http://localhost:8080/api/v1/users', {
+                method: 'GET',
+                headers: {
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                }
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+
+        const { Data } = await response.json()
+        return Data ? Data : []
+}
+
 export const getAllRoles = async (locals: App.Locals) => {
         const response = await fetch('http://localhost:8080/api/v1/roles', {
                 method: 'GET',
@@ -35,12 +56,7 @@ export const createUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify({
-                        name: data.name,
-                        email: data.email,
-                        password: data.password,
-                        role_id: data.role_id
-                })
+                body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -69,11 +85,7 @@ export const updateUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify({
-                        name: data.name,
-                        email: data.email,
-                        role_id: data.role_id
-                })
+                body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -85,6 +97,30 @@ export const updateUser = async (
                 }
         }
 }
+
+export const deleteUser = async (
+        locals: App.Locals,
+        user_id: number
+) => {
+
+        const response = await fetch(`http://localhost:8080/api/v1/users/${user_id}`, {
+                method: 'DELETE',
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                },
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+}
+
 
 export const findRole = async (locals: App.Locals, ...query: string[]) => {
         let queryString = ''
