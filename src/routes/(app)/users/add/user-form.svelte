@@ -30,23 +30,8 @@
 	});
 	const { form: formData, enhance } = form;
 
-	let selectedRoleId = $state('');
-	let selectedItemLabel = $state('');
-
-	$effect(() => {
-		let role;
-		if ($formData.role_id === 0) {
-			role = data.roles.find((r) => {
-				return r.id === Number(selectedRoleId);
-			});
-		} else {
-			role = data.roles.find((r) => {
-				return r.id === $formData.role_id;
-			});
-		}
-		selectedRoleId = String(role?.id);
-		selectedItemLabel = role?.name || 'Select a role';
-	});
+	let selectedRole = $derived(data.roles.find((r) => String(r.id) === $formData.role_id));
+	let selectedItemLabel = $derived(selectedRole?.name || 'Select a role');
 </script>
 
 <form method="POST" use:enhance>
@@ -81,7 +66,7 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Role</Form.Label>
-				<Select.Root type="single" bind:value={selectedRoleId} name={props.name}>
+				<Select.Root type="single" bind:value={$formData.role_id} name={props.name}>
 					<Select.Trigger class="w-full" {...props}>
 						{selectedItemLabel}
 					</Select.Trigger>

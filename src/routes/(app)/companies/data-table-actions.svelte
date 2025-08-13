@@ -54,8 +54,8 @@
 	<DropdownMenu.Content>
 		<DropdownMenu.Group>
 			<DropdownMenu.Label>Actions</DropdownMenu.Label>
-			<DropdownMenu.Item onclick={() => handleUpdate(id)}>Update user</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => handleDelete(id)}>Delete user</DropdownMenu.Item>
+			<DropdownMenu.Item onclick={() => handleUpdate(id)}>Update company</DropdownMenu.Item>
+			<DropdownMenu.Item onclick={() => handleDelete(id)}>Delete company</DropdownMenu.Item>
 		</DropdownMenu.Group>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

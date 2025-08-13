@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
                 id: userInfo[0].id,
                 email: userInfo[0].email,
                 name: userInfo[0].name,
-                role_id: roleInfo[0].id,
+                role_id: String(roleInfo[0].id),
         }
         const form = await superValidate(user, zod4(editFormSchema))
         const roles: Role[] = await getAllRoles(locals);

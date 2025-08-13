@@ -89,7 +89,7 @@ export const createUser = async (
                 name: string;
                 email: string;
                 password: string;
-                role_id: number;
+                role_id: string;
         },
 
 ) => {
@@ -99,7 +99,12 @@ export const createUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                        name: data.name,
+                        email: data.email,
+                        password: data.password,
+                        role_id: Number(data.role_id)
+                })
         });
 
         if (!response.ok) {
@@ -171,7 +176,7 @@ export const updateUser = async (
         data: {
                 name: string;
                 email: string;
-                role_id: number;
+                role_id: string;
         },
         user_id: number
 ) => {
@@ -182,7 +187,11 @@ export const updateUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                        name: data.name,
+                        email: data.email,
+                        role_id: Number(data.role_id)
+                })
         });
 
         if (!response.ok) {
@@ -449,8 +458,6 @@ export const findCountry = async (locals: App.Locals, ...query: string[]) => {
 
                 queryString = params.toString() ? `?${params.toString()}` : '';
         }
-
-        console.log(queryString)
 
         const response = await fetch(`http://localhost:8080/api/v1/countries${queryString}`, {
                 method: 'GET',

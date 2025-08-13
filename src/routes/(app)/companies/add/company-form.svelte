@@ -30,23 +30,8 @@
 	});
 	const { form: formData, enhance } = form;
 
-	let selectedRoleId = $state('');
-	let selectedItemLabel = $state('');
-
-	$effect(() => {
-		let country;
-		if ($formData.country_id === '') {
-			country = data.countries.find((r) => {
-				return r.alpha2 === selectedRoleId;
-			});
-		} else {
-			country = data.countries.find((r) => {
-				return r.alpha2 === $formData.country_id;
-			});
-		}
-		selectedRoleId = country?.alpha2 || '';
-		selectedItemLabel = country?.name || 'Select a role';
-	});
+	let selectedCountry = $derived(data.countries.find((r) => r.alpha2 === $formData.country_id));
+	let selectedItemLabel = $derived(selectedCountry?.name || 'Select a country');
 </script>
 
 <form method="POST" use:enhance>
@@ -72,13 +57,13 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Country</Form.Label>
-				<Select.Root type="single" bind:value={selectedRoleId} name={props.name}>
+				<Select.Root type="single" bind:value={$formData.country_id} name={props.name}>
 					<Select.Trigger class="w-full" {...props}>
 						{selectedItemLabel}
 					</Select.Trigger>
 					<Select.Content>
 						{#each data.countries as country}
-							<Select.Item value={String(country.alpha2)} label={country.name} />
+							<Select.Item value={country.alpha2} label={country.name} />
 						{/each}
 					</Select.Content>
 				</Select.Root>
