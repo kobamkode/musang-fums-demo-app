@@ -10,7 +10,7 @@
 	let deleting = $state(false);
 
 	const handleUpdate = (id: string) => {
-		goto(`/users/edit/${id}`);
+		goto(`/companies/edit/${id}`);
 	};
 
 	const handleDelete = async (id: string) => {

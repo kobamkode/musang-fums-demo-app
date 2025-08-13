@@ -1,8 +1,20 @@
 <script lang="ts">
-	import DataTable from './data-table.svelte';
-	import { columns } from './columns.js';
+	import DataTable from '$lib/components/data-table.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { columns, type Role } from './columns';
 
-	let { data } = $props();
+	let {
+		data
+	}: {
+		data: {
+			roles: Role[];
+		};
+	} = $props();
 </script>
 
-<DataTable data={data.roles} {columns} />
+<div class="flex flex-col gap-4">
+	<div>
+		<Button href="/roles/add">Create</Button>
+	</div>
+	<DataTable data={data.roles} {columns} />
+</div>

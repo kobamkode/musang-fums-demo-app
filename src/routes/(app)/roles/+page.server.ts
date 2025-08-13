@@ -1,25 +1,29 @@
-import { type ServerLoadEvent } from "@sveltejs/kit";
+import type { Role } from "./columns";
+import { deleteRole, getAllRoles } from "../../../api";
+import type { Actions, PageServerLoad } from "./$types";
+import { fail } from "@sveltejs/kit";
 
-export async function load({ locals }: ServerLoadEvent) {
-        const response = await fetch('http://localhost:8080/api/v1/roles', {
-                method: 'GET',
-                headers: {
-                        'Authorization': `Bearer ${locals.user?.token}`,
+export const load: PageServerLoad = async ({ locals }) => {
+        const roles: Role[] = await getAllRoles(locals);
+        return { roles }
+}
+
+export const actions: Actions = {
+        delete: async (event) => {
+                const formData = event.request.formData()
+                const id = (await formData).get('id')?.toString()
+                if (id === undefined) {
+                        return fail(400, {
+                                message: 'params id not found'
+                        })
                 }
-        });
 
-
-        if (!response.ok) {
-                return {
-                        roles: [],
-                        error: {
-                                status: response.status,
-                                message: response.statusText
-                        }
+                const result = await deleteRole(event.locals, Number(id))
+                if (result?.error) {
+                        return fail(result.error.status, {
+                                message: result.error.message
+                        })
                 }
+                return { result }
         }
-
-        const { Data } = await response.json()
-
-        return { roles: Data ? Data : [] }
 }

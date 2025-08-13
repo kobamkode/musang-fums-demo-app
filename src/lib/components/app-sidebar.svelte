@@ -59,7 +59,7 @@
 				icon: BotIcon,
 				items: [
 					{
-						title: 'Company',
+						title: 'Companies',
 						url: '/companies'
 					},
 					{

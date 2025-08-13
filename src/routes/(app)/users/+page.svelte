@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DataTable from './data-table.svelte';
+	import DataTable from '$lib/components/data-table.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { columns, type User } from './columns';
 

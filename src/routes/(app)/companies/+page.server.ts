@@ -1,25 +1,29 @@
-import { type ServerLoadEvent } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
+import type { Actions, PageServerLoad } from "./$types";
+import { deleteCompany, getAllCompanies } from "../../../api";
+import type { Company } from "./columns";
 
-export async function load({ locals }: ServerLoadEvent) {
-        const response = await fetch('http://localhost:8080/api/v1/companies', {
-                method: 'GET',
-                headers: {
-                        'Authorization': `Bearer ${locals.user?.token}`,
+export const load: PageServerLoad = async ({ locals }) => {
+        const companies: Company[] = await getAllCompanies(locals);
+        return { companies }
+}
+
+export const actions: Actions = {
+        delete: async (event) => {
+                const formData = event.request.formData()
+                const id = (await formData).get('id')?.toString()
+                if (id === undefined) {
+                        return fail(400, {
+                                message: 'params id not found'
+                        })
                 }
-        });
 
-
-        if (!response.ok) {
-                return {
-                        companies: [],
-                        error: {
-                                status: response.status,
-                                message: response.statusText
-                        }
+                const result = await deleteCompany(event.locals, Number(id))
+                if (result?.error) {
+                        return fail(result.error.status, {
+                                message: result.error.message
+                        })
                 }
+                return { result }
         }
-
-        const { Data } = await response.json()
-
-        return { companies: Data ? Data : [] }
 }

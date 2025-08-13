@@ -1,30 +1,30 @@
 <script lang="ts">
 	import * as Form from '$lib/components/ui/form';
-	import * as Select from '$lib/components/ui/select';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
-	import { editFormSchema, type EditFormSchema } from './schema';
-	import type { Role } from '../../../roles/columns';
+	import { formSchema, type FormSchema } from './schema';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
+	import * as Select from '$lib/components/ui/select';
+	import type { Country } from '../columns';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<EditFormSchema>>;
-			roles: Role[];
+			form: SuperValidated<Infer<FormSchema>>;
+			countries: Country[];
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(editFormSchema),
+		validators: zod4Client(formSchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {
-				toast.success('user updated successfully!');
-				goto('/users');
+				toast.success('company created successfully!');
+				goto('/companies');
 			}
 		}
 	});
@@ -34,18 +34,18 @@
 	let selectedItemLabel = $state('');
 
 	$effect(() => {
-		let role;
-		if ($formData.role_id === 0) {
-			role = data.roles.find((r) => {
-				return r.id === Number(selectedRoleId);
+		let country;
+		if ($formData.country_id === '') {
+			country = data.countries.find((r) => {
+				return r.alpha2 === selectedRoleId;
 			});
 		} else {
-			role = data.roles.find((r) => {
-				return r.id === $formData.role_id;
+			country = data.countries.find((r) => {
+				return r.alpha2 === $formData.country_id;
 			});
 		}
-		selectedRoleId = String(role?.id);
-		selectedItemLabel = role?.name || 'Select a role';
+		selectedRoleId = country?.alpha2 || '';
+		selectedItemLabel = country?.name || 'Select a role';
 	});
 </script>
 
@@ -59,26 +59,26 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Field {form} name="email">
+	<Form.Field {form} name="code">
 		<Form.Control>
 			{#snippet children({ props })}
-				<Form.Label>Email</Form.Label>
-				<Input {...props} bind:value={$formData.email} />
+				<Form.Label>Code</Form.Label>
+				<Input {...props} bind:value={$formData.code} />
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Field {form} name="role_id">
+	<Form.Field {form} name="country_id">
 		<Form.Control>
 			{#snippet children({ props })}
-				<Form.Label>Role</Form.Label>
+				<Form.Label>Country</Form.Label>
 				<Select.Root type="single" bind:value={selectedRoleId} name={props.name}>
 					<Select.Trigger class="w-full" {...props}>
 						{selectedItemLabel}
 					</Select.Trigger>
 					<Select.Content>
-						{#each data.roles as role}
-							<Select.Item value={String(role.id)} label={role.name} />
+						{#each data.countries as country}
+							<Select.Item value={String(country.alpha2)} label={country.name} />
 						{/each}
 					</Select.Content>
 				</Select.Root>
@@ -86,5 +86,5 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button>Update</Form.Button>
+	<Form.Button>Submit</Form.Button>
 </form>
