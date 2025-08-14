@@ -69,6 +69,10 @@
 					{
 						title: 'Roles',
 						url: '/roles'
+					},
+					{
+						title: 'Permissions',
+						url: '/permission'
 					}
 				]
 			}

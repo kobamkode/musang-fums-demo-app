@@ -1,15 +1,18 @@
 <script lang="ts">
 	import DataTable from '$lib/components/data-table.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { columns, type Company } from './columns';
+	import { createColumns, type Company, type Country } from './columns';
 
 	let {
 		data
 	}: {
 		data: {
 			companies: Company[];
+			countries: Country[];
 		};
 	} = $props();
+
+	const columns = createColumns(data.countries);
 </script>
 
 <div class="flex flex-col gap-4">

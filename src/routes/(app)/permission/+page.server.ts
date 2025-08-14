@@ -1,12 +1,17 @@
-import { fail } from "@sveltejs/kit";
-import type { Actions, PageServerLoad } from "./$types";
-import { deleteCompany, getAllCompanies, getAllCountries } from "../../../api";
-import { type Company, type Country } from "./columns";
+import { fail, type Actions } from "@sveltejs/kit";
+import type { PageServerLoad } from "../$types";
+import type { Permission } from "./columns";
+import type { User } from "../users/columns";
+import { deletePermission, getAllCompanies, getAllPermissions, getAllRoles, getAllUsers } from "../../../api";
+import type { Role } from "../roles/columns";
+import type { Company } from "../companies/columns";
 
 export const load: PageServerLoad = async ({ locals }) => {
+        const users: User[] = await getAllUsers(locals);
+        const roles: Role[] = await getAllRoles(locals);
         const companies: Company[] = await getAllCompanies(locals);
-        const countries: Country[] = await getAllCountries(locals);
-        return { companies, countries }
+        const permission: Permission[] = await getAllPermissions(locals);
+        return { users, roles, companies, permission }
 }
 
 export const actions: Actions = {
@@ -19,7 +24,7 @@ export const actions: Actions = {
                         })
                 }
 
-                const result = await deleteCompany(event.locals, Number(id))
+                const result = await deletePermission(event.locals, Number(id))
                 if (result?.error) {
                         return fail(result.error.status, {
                                 message: result.error.message

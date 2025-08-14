@@ -82,6 +82,26 @@ export const getAllCountries = async (locals: App.Locals) => {
         return Data ? Data : []
 }
 
+export const getAllPermissions = async (locals: App.Locals) => {
+        const response = await fetch('http://localhost:8080/api/v1/permissions', {
+                method: 'GET',
+                headers: {
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                }
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+
+        const { Data } = await response.json()
+        return Data ? Data : []
+}
 
 export const createUser = async (
         locals: App.Locals,
@@ -159,6 +179,38 @@ export const createCompany = async (
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
                 body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+}
+
+export const createPermission = async (
+        locals: App.Locals,
+        data: {
+                user_id: string;
+                company_id: string
+                role_id: string
+        },
+
+) => {
+        const response = await fetch('http://localhost:8080/api/v1/permissions', {
+                method: 'POST',
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                },
+                body: JSON.stringify({
+                        user_id: Number(data.user_id),
+                        company_id: Number(data.company_id),
+                        role_id: Number(data.role_id),
+                })
         });
 
         if (!response.ok) {
@@ -260,6 +312,39 @@ export const updateCompany = async (
         }
 }
 
+export const updatePermission = async (
+        locals: App.Locals,
+        data: {
+                user_id: string;
+                company_id: string
+                role_id: string
+        },
+        permission_id: number
+) => {
+
+        const response = await fetch(`http://localhost:8080/api/v1/permissions/${permission_id}`, {
+                method: 'PUT',
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                },
+                body: JSON.stringify({
+                        user_id: Number(data.user_id),
+                        company_id: Number(data.company_id),
+                        role_id: Number(data.role_id),
+                })
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+}
+
 export const deleteUser = async (
         locals: App.Locals,
         user_id: number
@@ -312,6 +397,29 @@ export const deleteCompany = async (
 ) => {
 
         const response = await fetch(`http://localhost:8080/api/v1/companies/${company_id}`, {
+                method: 'DELETE',
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                },
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+}
+
+export const deletePermission = async (
+        locals: App.Locals,
+        permission_id: number
+) => {
+
+        const response = await fetch(`http://localhost:8080/api/v1/permission/${permission_id}`, {
                 method: 'DELETE',
                 headers: {
                         'Content-Type': 'application/json',
@@ -460,6 +568,43 @@ export const findCountry = async (locals: App.Locals, ...query: string[]) => {
         }
 
         const response = await fetch(`http://localhost:8080/api/v1/countries${queryString}`, {
+                method: 'GET',
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                },
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+
+        const { Data } = await response.json()
+        return Data ? Data : []
+}
+
+export const findPermission = async (locals: App.Locals, ...query: string[]) => {
+        let queryString = ''
+
+        if (query.length > 0) {
+                const params = new URLSearchParams();
+
+                for (const param of query) {
+                        if (param.includes('is=')) {
+                                const id = param.split('=')[1];
+                                params.append('id', id);
+                        }
+                }
+
+                queryString = params.toString() ? `?${params.toString()}` : '';
+        }
+
+        const response = await fetch(`http://localhost:8080/api/v1/permissions${queryString}`, {
                 method: 'GET',
                 headers: {
                         'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ export type Company = {
         country_id: string
 }
 
-export const columns: ColumnDef<Company>[] = [
+export const createColumns = (countries: Country[]): ColumnDef<Company>[] => [
         {
                 accessorKey: "name",
                 header: "Name"
@@ -26,8 +26,12 @@ export const columns: ColumnDef<Company>[] = [
                 header: "Code"
         },
         {
-                accessorKey: "country_id",
-                header: "Country"
+                id: "country",
+                header: "Country",
+                cell: ({ row }) => {
+                        const country = countries.find(c => c.alpha2 === row.original.country_id)
+                        return country?.name
+                }
         },
         {
                 id: 'actions',
