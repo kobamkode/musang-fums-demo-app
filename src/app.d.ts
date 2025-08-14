@@ -9,7 +9,14 @@ declare global {
                                 name: string
                                 email: string
                                 token: string
-                                role: string
+                                perms: [
+                                        {
+
+                                                user_id: number
+                                                company_id: number
+                                                role_id: number
+                                        }
+                                ]
                         }
                 }
                 // interface PageData {}

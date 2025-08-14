@@ -3,22 +3,18 @@ import { zod4 } from "sveltekit-superforms/adapters";
 import { editFormSchema } from './schema';
 import type { Actions, PageServerLoad } from './$types';
 import type { User } from '../../columns';
-import type { Role } from '../../../roles/columns';
 import { fail } from '@sveltejs/kit';
-import { findRole, findUser, getAllRoles, updateUser } from '../../../../../api';
+import { findUser, updateUser } from '../../../../../api';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
         const userInfo: User[] = await findUser(locals, `id=${params.id}`)
-        const roleInfo: Role[] = await findRole(locals, `id=${userInfo[0].role_id}`)
         const user = {
                 id: userInfo[0].id,
                 email: userInfo[0].email,
                 name: userInfo[0].name,
-                role_id: String(roleInfo[0].id),
         }
         const form = await superValidate(user, zod4(editFormSchema))
-        const roles: Role[] = await getAllRoles(locals);
-        return { roles, form }
+        return { form }
 }
 
 export const actions: Actions = {

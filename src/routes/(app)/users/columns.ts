@@ -6,7 +6,6 @@ export type User = {
         id: number
         email: string
         name: string
-        role_id: string
 }
 
 export const columns: ColumnDef<User>[] = [

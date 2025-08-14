@@ -12,7 +12,7 @@
 <Toaster position="top-right" />
 
 <Sidebar.Provider>
-	<AppSidebar user={{ name: data.user?.name, email: data.user?.email }} />
+	<AppSidebar user={{ name: data.user?.name, email: data.user?.email, perms: data.user?.perms }} />
 	<Sidebar.Inset>
 		<header
 			class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"

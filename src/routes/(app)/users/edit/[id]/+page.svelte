@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { Role } from '../../../roles/columns';
 	import UserForm from './user-form.svelte';
 	import type { EditFormSchema } from './schema';
 
@@ -9,7 +8,6 @@
 	}: {
 		data: {
 			form: SuperValidated<Infer<EditFormSchema>>;
-			roles: Role[];
 		};
 	} = $props();
 </script>

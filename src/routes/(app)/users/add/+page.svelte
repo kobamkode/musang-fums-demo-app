@@ -2,14 +2,12 @@
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 	import UserForm from './user-form.svelte';
 	import type { FormSchema } from './schema';
-	import type { Role } from '../../roles/columns';
 
 	let {
 		data
 	}: {
 		data: {
 			form: SuperValidated<Infer<FormSchema>>;
-			roles: Role[];
 		};
 	} = $props();
 </script>

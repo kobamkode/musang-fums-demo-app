@@ -12,14 +12,35 @@
 	let {
 		ref = $bindable(null),
 		collapsible = 'icon',
-		user = { name: '', email: '' },
+		user = {
+			name: '',
+			email: '',
+			perms: [
+				{
+					user_id: 0,
+					company_id: 0,
+					role_id: 0
+				}
+			]
+		},
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> & {
 		user?: {
 			name: string | undefined;
 			email: string | undefined;
+			perms:
+				| [
+						{
+							user_id: number;
+							company_id: number;
+							role_id: number;
+						}
+				  ]
+				| undefined;
 		};
 	} = $props();
+
+	console.log(user);
 
 	const data = {
 		userInfo: {
@@ -52,7 +73,9 @@
 						url: '#'
 					}
 				]
-			},
+			}
+		],
+		navAdmin: [
 			{
 				title: 'Admin',
 				url: '#',
@@ -86,6 +109,7 @@
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />
+		<NavMain items={data.navAdmin} />
 	</Sidebar.Content>
 	<Sidebar.Footer>
 		<NavUser user={data.userInfo} />

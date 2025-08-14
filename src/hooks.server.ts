@@ -8,26 +8,40 @@ export const handle: Handle = async ({ event, resolve }) => {
                 }
 
                 const { email, token } = JSON.parse(authCookie)
-                const response = await fetch(`http://localhost:8080/api/v1/users?email=${email}`, {
+                const userResponse = await fetch(`http://localhost:8080/api/v1/users?email=${email}`, {
                         method: 'GET',
                         headers: {
                                 'Authorization': `Bearer ${token}`,
                         }
                 })
 
-                if (!response.ok) {
+                if (!userResponse.ok) {
                         event.cookies.delete('fumsauth', { path: '/' })
                         throw redirect(303, '/login')
                 }
 
-                const { Data } = await response.json()
+                const { Data: [userData] } = await userResponse.json()
+
+                const permResponse = await fetch(`http://localhost:8080/api/v1/permissions?user=${userData.id}`, {
+                        method: 'GET',
+                        headers: {
+                                'Authorization': `Bearer ${token}`,
+                        }
+                })
+
+                if (!permResponse.ok) {
+                        event.cookies.delete('fumsauth', { path: '/' })
+                        throw redirect(303, '/login')
+                }
+
+                const { Data: permData } = await permResponse.json()
 
                 const user = {
-                        'id': Data[0].id,
-                        'name': Data[0].name,
-                        'email': Data[0].email,
+                        'id': userData.id,
+                        'name': userData.name,
+                        'email': userData.email,
                         'token': token,
-                        'role': Data[0].role,
+                        'perms': permData
                 }
 
                 event.locals.user = user

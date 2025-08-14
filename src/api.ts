@@ -109,7 +109,6 @@ export const createUser = async (
                 name: string;
                 email: string;
                 password: string;
-                role_id: string;
         },
 
 ) => {
@@ -119,12 +118,7 @@ export const createUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify({
-                        name: data.name,
-                        email: data.email,
-                        password: data.password,
-                        role_id: Number(data.role_id)
-                })
+                body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -228,7 +222,6 @@ export const updateUser = async (
         data: {
                 name: string;
                 email: string;
-                role_id: string;
         },
         user_id: number
 ) => {
@@ -239,11 +232,7 @@ export const updateUser = async (
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${locals.user?.token}`,
                 },
-                body: JSON.stringify({
-                        name: data.name,
-                        email: data.email,
-                        role_id: Number(data.role_id)
-                })
+                body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -595,9 +584,13 @@ export const findPermission = async (locals: App.Locals, ...query: string[]) => 
                 const params = new URLSearchParams();
 
                 for (const param of query) {
-                        if (param.includes('is=')) {
+                        if (param.includes('id=')) {
                                 const id = param.split('=')[1];
                                 params.append('id', id);
+                        }
+                        if (param.includes('user=')) {
+                                const user = param.split('=')[1];
+                                params.append('user', user);
                         }
                 }
 
