@@ -2,8 +2,8 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from '../../$types';
-import { formSchema } from '../../add/schema';
-import { findCompany, findCountry, getAllCountries, updateCompany } from '../../../../../api';
+import { formSchema } from '../../schema';
+import { findCompany, findCountry, getAllCountries, updateCompany } from '$lib/api';
 import type { Company, Country } from '../../columns';
 
 export const load: PageServerLoad = async ({ locals, params }) => {

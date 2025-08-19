@@ -3,9 +3,9 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
-	import { editFormSchema, type EditFormSchema } from './schema';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
+	import { editFormSchema, type EditFormSchema } from '../../schema';
 
 	let {
 		data

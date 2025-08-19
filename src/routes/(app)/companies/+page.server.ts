@@ -1,6 +1,6 @@
 import { fail } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { deleteCompany, getAllCompanies, getAllCountries } from "../../../api";
+import { deleteCompany, getAllCompanies, getAllCountries } from "$lib/api";
 import { type Company, type Country } from "./columns";
 
 export const load: PageServerLoad = async ({ locals }) => {

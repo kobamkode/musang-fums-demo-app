@@ -2,9 +2,9 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
 import type { Role } from '../../../roles/columns';
 import { fail, type Actions } from '@sveltejs/kit';
-import { findRole, updateRole } from '../../../../../api';
+import { findRole, updateRole } from '$lib/api';
 import type { PageServerLoad } from '../../$types';
-import { formSchema } from '../../add/schema';
+import { formSchema } from '../../schema';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
         const roleInfo: Role[] = await findRole(locals, `id=${params.id}`)

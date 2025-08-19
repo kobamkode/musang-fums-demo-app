@@ -1,8 +1,8 @@
 import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
-import { formSchema } from './schema';
+import { formSchema } from '../schema';
 import { fail, type Actions } from '@sveltejs/kit';
-import { createPermission, getAllCompanies, getAllRoles, getAllUsers } from '../../../../api';
+import { createPermission, getAllCompanies, getAllRoles, getAllUsers } from '$lib/api';
 import type { PageServerLoad } from './$types';
 import type { User } from '../../users/columns';
 

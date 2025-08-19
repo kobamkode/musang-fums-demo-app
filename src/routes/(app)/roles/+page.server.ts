@@ -1,5 +1,5 @@
 import type { Role } from "./columns";
-import { deleteRole, getAllRoles } from "../../../api";
+import { deleteRole, getAllRoles } from "$lib/api";
 import type { Actions, PageServerLoad } from "./$types";
 import { fail } from "@sveltejs/kit";
 

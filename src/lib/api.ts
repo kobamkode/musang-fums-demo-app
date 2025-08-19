@@ -103,6 +103,50 @@ export const getAllPermissions = async (locals: App.Locals) => {
         return Data ? Data : []
 }
 
+export const getAllAtgDevices = async (locals: App.Locals) => {
+        const permissions = locals.user?.perms
+        console.log(permissions)
+        const response = await fetch('http://localhost:8080/api/v1/devices/atg?cc=MSTN&l=5&o=0', {
+                method: 'GET',
+                headers: {
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                }
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+
+        const { Data } = await response.json()
+        return Data ? Data : []
+}
+
+export const getAllFlowmeterDevices = async (locals: App.Locals) => {
+        const response = await fetch('http://localhost:8080/api/v1/devices/flowmeter', {
+                method: 'GET',
+                headers: {
+                        'Authorization': `Bearer ${locals.user?.token}`,
+                }
+        });
+
+        if (!response.ok) {
+                return {
+                        error: {
+                                status: response.status,
+                                message: response.statusText
+                        }
+                }
+        }
+
+        const { Data } = await response.json()
+        return Data ? Data : []
+}
+
 export const createUser = async (
         locals: App.Locals,
         data: {

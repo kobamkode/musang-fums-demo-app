@@ -5,10 +5,10 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import * as Select from '$lib/components/ui/select';
-	import { formSchema, type FormSchema } from '../../add/schema';
 	import type { User } from '../../../users/columns';
 	import type { Company } from '../../../companies/columns';
 	import type { Role } from '../../../roles/columns';
+	import { formSchema, type FormSchema } from '../../schema';
 
 	let {
 		data

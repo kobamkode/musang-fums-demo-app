@@ -1,8 +1,8 @@
 import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
-import { formSchema } from './schema';
+import { formSchema } from '../schema';
 import { fail, type Actions } from '@sveltejs/kit';
-import { createRole } from '../../../../api';
+import { createRole } from '$lib/api';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

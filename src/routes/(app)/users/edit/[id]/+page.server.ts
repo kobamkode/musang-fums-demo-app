@@ -1,10 +1,11 @@
+import { findUser, updateUser } from '$lib/api';
+import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
-import { editFormSchema } from './schema';
-import type { Actions, PageServerLoad } from './$types';
 import type { User } from '../../columns';
-import { fail } from '@sveltejs/kit';
-import { findUser, updateUser } from '../../../../../api';
+import type { Actions, PageServerLoad } from './$types';
+import { editFormSchema } from '../../schema';
+
 
 export const load: PageServerLoad = async ({ locals, params }) => {
         const userInfo: User[] = await findUser(locals, `id=${params.id}`)

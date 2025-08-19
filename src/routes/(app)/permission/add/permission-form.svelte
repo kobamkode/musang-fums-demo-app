@@ -2,13 +2,13 @@
 	import * as Form from '$lib/components/ui/form';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
-	import { formSchema, type FormSchema } from './schema';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import * as Select from '$lib/components/ui/select';
 	import type { User } from '../../users/columns';
 	import type { Company } from '../../companies/columns';
 	import type { Role } from '../../roles/columns';
+	import { formSchema, type FormSchema } from '../schema';
 
 	let {
 		data

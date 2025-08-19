@@ -2,7 +2,7 @@ import { fail, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { Permission } from "./columns";
 import type { User } from "../users/columns";
-import { deletePermission, getAllCompanies, getAllPermissions, getAllRoles, getAllUsers } from "../../../api";
+import { deletePermission, getAllCompanies, getAllPermissions, getAllRoles, getAllUsers } from "$lib/api";
 import type { Role } from "../roles/columns";
 import type { Company } from "../companies/columns";
 

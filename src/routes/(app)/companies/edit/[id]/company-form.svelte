@@ -5,9 +5,9 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { formSchema, type FormSchema } from '../../add/schema';
 	import type { Country } from '../../columns';
 	import * as Select from '$lib/components/ui/select';
+	import { formSchema, type FormSchema } from '../../schema';
 
 	let {
 		data

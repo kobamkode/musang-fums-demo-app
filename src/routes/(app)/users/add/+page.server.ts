@@ -1,9 +1,9 @@
 import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from './$types';
-import { formSchema } from './schema';
+import { formSchema } from '../schema';
 import { fail } from '@sveltejs/kit';
-import { createUser } from '../../../../api';
+import { createUser } from '$lib/api';
 
 export const load: PageServerLoad = async () => {
         const form = await superValidate(zod4(formSchema))

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AudioWaveformIcon from '@lucide/svelte/icons/audio-waveform';
 	import BotIcon from '@lucide/svelte/icons/bot';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 	import SquareTerminalIcon from '@lucide/svelte/icons/square-terminal';
@@ -19,6 +18,8 @@
 				{
 					user_id: 0,
 					company_id: 0,
+					company_code: '',
+					company_name: '',
 					role_id: 0
 				}
 			]
@@ -33,30 +34,24 @@
 						{
 							user_id: number;
 							company_id: number;
+							company_code: string;
+							company_name: string;
 							role_id: number;
 						}
 				  ]
 				| undefined;
 		};
 	} = $props();
-
-	console.log(user);
-
+	const companies: { name: string; logo: any }[] | undefined = user.perms?.map((c) => ({
+		name: c.company_name,
+		logo: GalleryVerticalEndIcon
+	}));
 	const data = {
 		userInfo: {
 			name: user.name ? user.name : '',
 			email: user.email ? user.email : ''
 		},
-		companies: [
-			{
-				name: 'Musang TEN',
-				logo: GalleryVerticalEndIcon
-			},
-			{
-				name: 'ITM',
-				logo: AudioWaveformIcon
-			}
-		],
+		companies,
 		navMain: [
 			{
 				title: 'Monitoring',
@@ -66,11 +61,11 @@
 				items: [
 					{
 						title: 'ATG',
-						url: '#'
+						url: '/atg'
 					},
 					{
 						title: 'Flowmeter',
-						url: '#'
+						url: '/flowmeter'
 					}
 				]
 			}
@@ -105,7 +100,7 @@
 
 <Sidebar.Root {collapsible} {...restProps}>
 	<Sidebar.Header>
-		<TeamSwitcher teams={data.companies} />
+		<TeamSwitcher teams={data.companies ?? []} />
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />

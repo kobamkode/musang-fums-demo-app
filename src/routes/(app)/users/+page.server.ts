@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers } from '../../../api';
+import { deleteUser, getAllUsers } from '$lib/api';
 import type { Actions, PageServerLoad } from './$types';
 import type { User } from './columns';
 import { fail } from '@sveltejs/kit';

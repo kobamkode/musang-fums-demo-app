@@ -5,7 +5,7 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { formSchema, type FormSchema } from '../../add/schema';
+	import { formSchema, type FormSchema } from '../../schema';
 
 	let {
 		data

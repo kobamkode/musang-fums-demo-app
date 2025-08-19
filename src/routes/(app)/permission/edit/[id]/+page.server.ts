@@ -1,6 +1,6 @@
 import { zod4 } from "sveltekit-superforms/adapters"
-import { findPermission, getAllCompanies, getAllRoles, getAllUsers, updatePermission } from "../../../../../api"
-import { formSchema } from "../../add/schema"
+import { findPermission, getAllCompanies, getAllRoles, getAllUsers, updatePermission } from "$lib/api"
+import { formSchema } from "../../schema"
 import type { Permission } from "../../columns"
 import type { Actions, PageServerLoad } from "./$types"
 import { superValidate } from "sveltekit-superforms"
