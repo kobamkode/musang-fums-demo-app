@@ -7,6 +7,8 @@
 	import '../../app.css';
 
 	let { children, data } = $props();
+
+	console.log(data.user?.perms);
 </script>
 
 <Toaster position="top-right" />

@@ -42,16 +42,26 @@
 				| undefined;
 		};
 	} = $props();
-	const companies: { name: string; logo: any }[] | undefined = user.perms?.map((c) => ({
-		name: c.company_name,
-		logo: GalleryVerticalEndIcon
-	}));
 	const data = {
 		userInfo: {
 			name: user.name ? user.name : '',
 			email: user.email ? user.email : ''
 		},
-		companies,
+		companies: () => {
+			if (user.perms) {
+				return user.perms.map((c) => ({
+					name: c.company_name,
+					logo: GalleryVerticalEndIcon
+				}));
+			} else {
+				return [
+					{
+						name: 'No Company',
+						logo: GalleryVerticalEndIcon
+					}
+				];
+			}
+		},
 		navMain: [
 			{
 				title: 'Monitoring',
@@ -100,7 +110,7 @@
 
 <Sidebar.Root {collapsible} {...restProps}>
 	<Sidebar.Header>
-		<TeamSwitcher teams={data.companies ?? []} />
+		<TeamSwitcher teams={data.companies()} />
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />
