@@ -44,5 +44,5 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-api:${{ github.sha }}
-          ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-api:latest
+          ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-app:${{ github.sha }}
+          ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-app:latest
