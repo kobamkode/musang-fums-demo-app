@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { FormSchema } from './schema';
 	import CompanyForm from './company-form.svelte';
-	import type { Country } from '../columns';
+	import type { Country } from '$lib/types';
+	import type { CompanySchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<CompanySchema>>;
 			countries: Country[];
 		};
 	} = $props();

@@ -7,41 +7,21 @@
 	import TeamSwitcher from './team-switcher.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { ComponentProps } from 'svelte';
+	import type { ProcessedPermission } from '$lib/types';
 
 	let {
 		ref = $bindable(null),
 		collapsible = 'icon',
-		user = {
-			name: '',
-			email: '',
-			perms: [
-				{
-					user_id: 0,
-					company_id: 0,
-					company_code: '',
-					company_name: '',
-					role_id: 0
-				}
-			]
-		},
+		user,
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> & {
-		user?: {
+		user: {
 			name: string | undefined;
 			email: string | undefined;
-			perms:
-				| [
-						{
-							user_id: number;
-							company_id: number;
-							company_code: string;
-							company_name: string;
-							role_id: number;
-						}
-				  ]
-				| undefined;
+			perms: ProcessedPermission[] | null | undefined;
 		};
 	} = $props();
+
 	const data = {
 		userInfo: {
 			name: user.name ? user.name : '',
@@ -51,16 +31,39 @@
 			if (user.perms) {
 				return user.perms.map((c) => ({
 					name: c.company_name,
+					code: c.company_code,
 					logo: GalleryVerticalEndIcon
 				}));
-			} else {
-				return [
-					{
-						name: 'No Company',
-						logo: GalleryVerticalEndIcon
-					}
-				];
 			}
+
+			return [
+				{
+					name: 'No Company',
+					code: '',
+					active: true,
+					logo: GalleryVerticalEndIcon
+				}
+			];
+		},
+		active: () => {
+			if (user.perms) {
+				const act = user.perms.find((c) => {
+					return c.company_active === true;
+				});
+				if (act) {
+					return {
+						name: act.company_name,
+						code: act.company_code,
+						logo: GalleryVerticalEndIcon
+					};
+				}
+			}
+			return {
+				name: 'Select Company',
+				code: '',
+				active: true,
+				logo: GalleryVerticalEndIcon
+			};
 		},
 		navMain: [
 			{
@@ -69,6 +72,10 @@
 				icon: SquareTerminalIcon,
 				isActive: true,
 				items: [
+					{
+						title: 'Dashboard',
+						url: '/'
+					},
 					{
 						title: 'ATG',
 						url: '/atg'
@@ -110,7 +117,7 @@
 
 <Sidebar.Root {collapsible} {...restProps}>
 	<Sidebar.Header>
-		<TeamSwitcher teams={data.companies()} />
+		<TeamSwitcher teams={data.companies()} activeTeam={data.active()} />
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />

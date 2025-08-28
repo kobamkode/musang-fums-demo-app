@@ -5,21 +5,21 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import type { Country } from '../../columns';
 	import * as Select from '$lib/components/ui/select';
-	import { formSchema, type FormSchema } from '../../schema';
+	import type { Country } from '$lib/types';
+	import { companySchema, type CompanySchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<CompanySchema>>;
 			countries: Country[];
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(formSchema),
+		validators: zod4Client(companySchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import DataTable from '$lib/components/data-table.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { createColumns, type Company, type Country } from './columns';
+	import type { Company, Country } from '$lib/types';
+	import { createColumns } from './columns';
 
 	let {
 		data

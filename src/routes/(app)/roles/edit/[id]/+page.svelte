@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { FormSchema } from '../../add/schema';
 	import RoleForm from './role-form.svelte';
+	import type { RoleSchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<RoleSchema>>;
 		};
 	} = $props();
 </script>

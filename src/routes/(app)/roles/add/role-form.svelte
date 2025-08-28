@@ -3,20 +3,20 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
-	import { formSchema, type FormSchema } from '../schema';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
+	import { roleSchema, type RoleSchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<RoleSchema>>;
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(formSchema),
+		validators: zod4Client(roleSchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {

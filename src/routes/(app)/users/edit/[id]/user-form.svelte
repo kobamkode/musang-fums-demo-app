@@ -5,18 +5,18 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { editFormSchema, type EditFormSchema } from '../../schema';
+	import { editUserSchema, type EditUserSchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<EditFormSchema>>;
+			form: SuperValidated<Infer<EditUserSchema>>;
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(editFormSchema),
+		validators: zod4Client(editUserSchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {

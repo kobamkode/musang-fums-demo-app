@@ -1,20 +1,34 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
+	import { getInitials } from '$lib/utils';
 	import BadgeCheckIcon from '@lucide/svelte/icons/badge-check';
 	import BellIcon from '@lucide/svelte/icons/bell';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
-	import CreditCardIcon from '@lucide/svelte/icons/credit-card';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
-	import SparklesIcon from '@lucide/svelte/icons/sparkles';
-	import { toast } from 'svelte-sonner';
 
 	let { user }: { user: { name: string; email: string } } = $props();
 	const sidebar = useSidebar();
+
+	const logout = async () => {
+		try {
+			const response = await fetch('/api/logout', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if (response.ok) {
+				invalidateAll();
+			}
+		} catch (error) {
+			console.error('Failed to logout:', error);
+		}
+	};
 </script>
 
 <Sidebar.Menu>
@@ -28,7 +42,7 @@
 						{...props}
 					>
 						<Avatar.Root class="size-8 rounded-lg">
-							<Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
+							<Avatar.Fallback class="rounded-lg">{getInitials(user.name)}</Avatar.Fallback>
 						</Avatar.Root>
 						<div class="grid flex-1 text-left text-sm leading-tight">
 							<span class="truncate font-medium">{user.name}</span>
@@ -47,7 +61,7 @@
 				<DropdownMenu.Label class="p-0 font-normal">
 					<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 						<Avatar.Root class="size-8 rounded-lg">
-							<Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
+							<Avatar.Fallback class="rounded-lg">{getInitials(user.name)}</Avatar.Fallback>
 						</Avatar.Root>
 						<div class="grid flex-1 text-left text-sm leading-tight">
 							<span class="truncate font-medium">{user.name}</span>
@@ -58,19 +72,8 @@
 				<DropdownMenu.Separator />
 				<DropdownMenu.Group>
 					<DropdownMenu.Item>
-						<SparklesIcon />
-						Upgrade to Pro
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
-				<DropdownMenu.Separator />
-				<DropdownMenu.Group>
-					<DropdownMenu.Item>
 						<BadgeCheckIcon />
 						Account
-					</DropdownMenu.Item>
-					<DropdownMenu.Item>
-						<CreditCardIcon />
-						Billing
 					</DropdownMenu.Item>
 					<DropdownMenu.Item>
 						<BellIcon />
@@ -79,28 +82,10 @@
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item>
-					<form
-						method="POST"
-						action="?/logout"
-						use:enhance={() => {
-							return async ({ result }) => {
-								if (result.type === 'redirect') {
-									goto(result.location);
-								}
-								if (result.type === 'failure') {
-									toast.error(result.data?.error as string);
-								}
-								if (result.type === 'error') {
-									toast.error(result.error.message);
-								}
-							};
-						}}
-					>
-						<button class="flex w-full items-center gap-2 text-left">
-							<LogOutIcon />
-							Log out
-						</button>
-					</form>
+					<button class="flex w-full items-center gap-2 text-left" onclick={() => logout()}>
+						<LogOutIcon />
+						Log out
+					</button>
 				</DropdownMenu.Item>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>

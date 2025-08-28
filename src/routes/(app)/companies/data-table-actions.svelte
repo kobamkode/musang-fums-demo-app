@@ -14,7 +14,7 @@
 	};
 
 	const handleDelete = async (id: string) => {
-		if (!confirm('Are you sure you want to delete this roles?')) return;
+		if (!confirm('Are you sure you want to delete this company?')) return;
 
 		deleting = true;
 

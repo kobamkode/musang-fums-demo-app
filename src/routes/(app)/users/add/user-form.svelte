@@ -5,18 +5,18 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { formSchema, type FormSchema } from '../schema';
+	import { userSchema, type UserSchema } from '$lib/schemas';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<UserSchema>>;
 		};
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(formSchema),
+		validators: zod4Client(userSchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {

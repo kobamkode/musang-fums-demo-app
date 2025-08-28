@@ -1,6 +1,7 @@
 <script lang="ts">
 	import DataTable from '$lib/components/data-table.svelte';
-	import { columns, type Atg } from './columns';
+	import type { Atg } from '$lib/types';
+	import { columns } from './columns';
 
 	let {
 		data
