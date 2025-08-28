@@ -32,6 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			}
 		})
 
+
 		if (!permResponse.ok) {
 			event.cookies.delete('fumsauth', { path: '/' })
 			throw redirect(303, '/login')
