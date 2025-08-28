@@ -5,16 +5,14 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import * as Select from '$lib/components/ui/select';
-	import type { User } from '../../users/columns';
-	import type { Company } from '../../companies/columns';
-	import type { Role } from '../../roles/columns';
-	import { formSchema, type FormSchema } from '../schema';
+	import { permissionSchema, type PermissionSchema } from '$lib/schemas';
+	import type { Company, Role, User } from '$lib/types';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<PermissionSchema>>;
 			users: User[];
 			companies: Company[];
 			roles: Role[];
@@ -22,7 +20,7 @@
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zod4Client(formSchema),
+		validators: zod4Client(permissionSchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
 			if (form.valid) {

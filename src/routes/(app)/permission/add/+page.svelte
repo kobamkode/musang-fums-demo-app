@@ -1,16 +1,14 @@
 <script lang="ts">
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import type { FormSchema } from './schema';
 	import PermissionForm from './permission-form.svelte';
-	import type { User } from '../../users/columns';
-	import type { Company } from '../../companies/columns';
-	import type { Role } from '../../roles/columns';
+	import type { PermissionSchema } from '$lib/schemas';
+	import type { Company, Role, User } from '$lib/types';
 
 	let {
 		data
 	}: {
 		data: {
-			form: SuperValidated<Infer<FormSchema>>;
+			form: SuperValidated<Infer<PermissionSchema>>;
 			users: User[];
 			companies: Company[];
 			roles: Role[];
