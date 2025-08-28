@@ -125,6 +125,28 @@ export const getAllAtgDevices = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
+export const getAtgStatuses = async (locals: App.Locals) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const response = await fetch(`http://localhost:8080/api/v1/devices/atgstatus?cc=${activeTeam?.company_code}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { Data } = await response.json()
+	return Data ? Data : []
+}
+
 export const getAllFlowmeterDevices = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const response = await fetch(`http://localhost:8080/api/v1/devices/flowmeter?cc=${activeTeam?.company_code}&l=5&o=0`, {

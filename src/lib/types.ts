@@ -68,13 +68,13 @@ export interface Company {
 }
 
 
-export interface ATGMonitor {
+export interface ATGStatus {
 	id: number
 	status: string
 	label: string
 }
 
-export interface FlowmeterMonitor {
+export interface FlowmeterStatus {
 	id: number
 	status: string
 	label: string

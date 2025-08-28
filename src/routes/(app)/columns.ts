@@ -1,20 +1,18 @@
-import type { ATGMonitor, FlowmeterMonitor } from "$lib/types"
+import type { ATGStatus, FlowmeterStatus } from "$lib/types"
 import type { ColumnDef } from "@tanstack/table-core"
 
-
-export const atgColumns: ColumnDef<ATGMonitor>[] = [
+export const atgColumns: ColumnDef<ATGStatus>[] = [
 	{
-		accessorKey: "email",
-		header: "Email"
+		accessorKey: "",
+		header: "Status"
 	},
 	{
 		accessorKey: "name",
-		header: "Name"
+		header: "ATG"
 	},
 ]
 
-
-export const flowmeterColumns: ColumnDef<FlowmeterMonitor>[] = [
+export const flowmeterColumns: ColumnDef<FlowmeterStatus>[] = [
 	{
 		accessorKey: "email",
 		header: "Email"
