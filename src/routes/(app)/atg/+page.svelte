@@ -8,12 +8,23 @@
 		data
 	}: {
 		data: {
-			atgDevices: Atg[];
+			atg: Atg[];
 		};
 	} = $props();
+	const latest = data.atg[0];
 </script>
 
 <div class="flex flex-col gap-4">
-	<Tank />
-	<DataTable data={data.atgDevices} {columns} />
+	<Tank
+		product={latest.volume}
+		water={latest.water_volume}
+		ullage={latest.ullage}
+		temp={latest.temp}
+		lastUpdate={latest.date_update}
+		location={latest.location}
+		fuelStation={latest.fuel_station}
+		dataloggerId={latest.datalogger_id}
+		tankLabel={latest.tank_label}
+	/>
+	<DataTable data={data.atg} {columns} />
 </div>

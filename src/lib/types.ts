@@ -68,10 +68,18 @@ export interface Company {
 }
 
 
+export interface ATGDevice {
+	fuel_station: string
+	tank_label: string
+	datalogger_id: string
+}
+
+
 export interface ATGStatus {
-	id: number
 	status: string
-	label: string
+	fuel_station: string
+	tank_label: string
+	datalogger_id: string
 }
 
 export interface FlowmeterStatus {

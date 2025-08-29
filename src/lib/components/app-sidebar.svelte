@@ -75,14 +75,6 @@
 					{
 						title: 'Dashboard',
 						url: '/'
-					},
-					{
-						title: 'ATG',
-						url: '/atg'
-					},
-					{
-						title: 'Flowmeter',
-						url: '/flowmeter'
 					}
 				]
 			}

@@ -103,9 +103,9 @@ export const getAllPermissions = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
-export const getAllAtgDevices = async (locals: App.Locals) => {
+export const getAtgData = async (locals: App.Locals, fuelStation: string, tankLabel: string, dataloggerId: string) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`http://localhost:8080/api/v1/devices/atg?cc=${activeTeam?.company_code}&l=5&o=0`, {
+	const response = await fetch(`http://localhost:8080/api/v1/devices/atg?cc=${activeTeam?.company_code}&fs=${fuelStation}&t=${tankLabel}&dl=${dataloggerId}&l=5&o=0`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -125,7 +125,7 @@ export const getAllAtgDevices = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
-export const getAtgStatuses = async (locals: App.Locals) => {
+export const findAtgByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const response = await fetch(`http://localhost:8080/api/v1/devices/atgstatus?cc=${activeTeam?.company_code}`, {
 		method: 'GET',

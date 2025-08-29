@@ -1,39 +1,59 @@
 <script lang="ts">
 	import { Thermometer } from '@lucide/svelte';
 	let {
-		waterHeightPercentage = 0,
-		productHeightPercentage = 0,
+		product = 0,
+		water = 0,
+		ullage = 0,
 		temp = null,
 		lastUpdate = '',
 		location = '',
 		fuelStation = '',
 		dataloggerId = '',
 		tankLabel = '',
-		// SVG dimensions for viewBox calculations
 		svgWidth = 500,
 		svgHeight = 400,
 		tankWidth = 450,
 		tankHeight = 250
+	}: {
+		product?: number;
+		water?: number;
+		ullage?: number;
+		temp?: number | null;
+		lastUpdate?: string | Date;
+		location?: string;
+		fuelStation?: string;
+		dataloggerId?: string;
+		tankLabel?: string;
+		svgWidth?: number;
+		svgHeight?: number;
+		tankWidth?: number;
+		tankHeight?: number;
 	} = $props();
 
-	// Reactive calculations
-	let safeProductPercentage = $derived(Math.round(productHeightPercentage * 100));
-	let safeWaterPercentage = $derived(Math.round(waterHeightPercentage * 100));
-	let emptyPercentage = $derived(
-		Math.round((1 - waterHeightPercentage - productHeightPercentage) * 100)
+	let fullTankVolume = $derived(product + water + ullage);
+	let productPercentage = $derived(Math.round((product / fullTankVolume) * 100));
+	let waterPercentage = $derived(Math.round((water / fullTankVolume) * 100));
+	let emptyPercentage = $derived(Math.round((ullage / fullTankVolume) * 100));
+
+	let safeProductPercentage = $derived(Math.min(productPercentage, 100));
+	let safeWaterPercentage = $derived(Math.min(waterPercentage, 100 - safeProductPercentage));
+
+	let waterHeightPercentage = $derived(safeWaterPercentage / 100);
+	let productHeightPercentage = $derived(safeProductPercentage / 100);
+
+	let formattedLastUpdate = $derived(
+		lastUpdate instanceof Date ? lastUpdate.toLocaleString() : lastUpdate
 	);
 </script>
 
 <div class="flex flex-col gap-4 lg:flex-row lg:gap-4">
 	<div class="flex flex-col items-center">
-		<!-- Responsive container for SVG -->
 		<div class="aspect-[5/4] w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-md xl:max-w-lg">
 			<svg
 				class="h-full w-full"
 				viewBox="0 0 {svgWidth} {svgHeight}"
 				preserveAspectRatio="xMidYMid meet"
 			>
-				<!-- Definitions for gradients -->
 				<defs>
 					<linearGradient id="tankGradient" x1="0%" y1="0%" x2="0%" y2="100%">
 						<stop offset="0%" stop-color="#b0b0b0" />
@@ -65,9 +85,7 @@
 					</clipPath>
 				</defs>
 
-				<!-- Tank body - capsule shape -->
 				<g transform="translate({svgWidth * 0.05}, {svgHeight / 2 - tankHeight / 2})">
-					<!-- Tank outline - single capsule shape -->
 					<rect
 						x="0"
 						y="0"
@@ -80,9 +98,7 @@
 						stroke-width="1"
 					/>
 
-					<!-- Fluid levels - clipped to tank shape -->
 					<g clip-path="url(#tankClip)">
-						<!-- Water level (bottom) -->
 						<rect
 							x="0"
 							y={tankHeight * (1 - waterHeightPercentage)}
@@ -91,7 +107,6 @@
 							fill="url(#waterGradient)"
 						/>
 
-						<!-- Product level (middle) -->
 						<rect
 							x="0"
 							y={tankHeight * (1 - waterHeightPercentage - productHeightPercentage)}
@@ -99,11 +114,8 @@
 							height={tankHeight * productHeightPercentage}
 							fill="url(#productGradient)"
 						/>
-
-						<!-- Empty space (top) - no need to draw this explicitly -->
 					</g>
 
-					<!-- Level gauge line -->
 					<line
 						x1={tankWidth * 0.5}
 						y1="0"
@@ -114,7 +126,6 @@
 						stroke-dasharray="4 2"
 					/>
 
-					<!-- Level labels -->
 					{#if productHeightPercentage > 0.1}
 						<text
 							x={tankWidth * 0.5}
@@ -141,7 +152,6 @@
 						</text>
 					{/if}
 
-					<!-- Glass effect overlay -->
 					<rect
 						x="0"
 						y="0"
@@ -158,7 +168,6 @@
 			</svg>
 		</div>
 
-		<!-- Responsive legend -->
 		<div class="flex flex-wrap items-center justify-center gap-3 text-sm sm:gap-6">
 			<div class="flex items-center">
 				<div class="mr-2 h-4 w-4 rounded bg-amber-800"></div>
@@ -185,7 +194,7 @@
 			<tbody>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Last Update</td>
-					<td>{lastUpdate}</td>
+					<td>{formattedLastUpdate}</td>
 				</tr>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Location</td>

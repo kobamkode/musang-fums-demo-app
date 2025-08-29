@@ -1,7 +1,11 @@
-import { getAllAtgDevices } from "$lib/api";
-import type { PageServerLoad } from "./$types";
+import { getAtgData } from "$lib/api"
+import type { Atg } from "$lib/types"
+import type { PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async ({ locals }) => {
-        const atgDevices = await getAllAtgDevices(locals);
-        return { atgDevices }
+export const load: PageServerLoad = async ({ locals, url }) => {
+	const fuelStation = url.searchParams.get('fs')
+	const tankLabel = url.searchParams.get('t')
+	const dataloggerId = url.searchParams.get('dl')
+	const atg: Atg[] = await getAtgData(locals, fuelStation ?? "", tankLabel ?? "", dataloggerId ?? "")
+	return { atg }
 }
