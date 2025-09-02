@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "$env/static/private"
 import type { Local, Permission, ProcessedPermission, User } from "$lib/types"
 import { redirect, type Handle } from "@sveltejs/kit"
 
@@ -11,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const activeTeamCookie = event.cookies.get('activeTeam')
 
 		const { email, token }: { email: string; token: string } = JSON.parse(authCookie)
-		const userResponse = await fetch(`http://localhost:8080/api/v1/users?email=${email}`, {
+		const userResponse = await fetch(`${API_BASE_URL}/v1/users?email=${email}`, {
 			method: 'GET',
 			headers: {
 				'Authorization': `Bearer ${token}`,
@@ -25,7 +26,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 		const { Data: [userData] } = await userResponse.json()
 
-		const permResponse = await fetch(`http://localhost:8080/api/v1/permissions?user=${userData.id}`, {
+		const permResponse = await fetch(`${API_BASE_URL}/v1/permissions?user=${userData.id}`, {
 			method: 'GET',
 			headers: {
 				'Authorization': `Bearer ${token}`,
@@ -47,7 +48,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 					.filter((perm: Permission) => !perm.is_deleted)
 					.map((perm: Permission) => perm.company_id))]
 
-				const companiesResponse = await fetch(`http://localhost:8080/api/v1/companies?id=${companyIds.join(',')}`, {
+				const companiesResponse = await fetch(`${API_BASE_URL}/v1/companies?id=${companyIds.join(',')}`, {
 					method: 'GET',
 					headers: {
 						'Authorization': `Bearer ${token}`,
@@ -103,7 +104,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 }
 
 const isSuperadmin = async (token: string, permData: Permission, userData: User, activeTeamCookies: string): Promise<Local> => {
-	const companiesResponse = await fetch(`http://localhost:8080/api/v1/companies`, {
+	const companiesResponse = await fetch(`${API_BASE_URL}/v1/companies`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${token}`,
