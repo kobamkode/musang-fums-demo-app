@@ -1,8 +1,10 @@
 <script lang="ts">
-	import DataTable from '$lib/components/data-table.svelte';
 	import Tank from '$lib/components/tank.svelte';
+	import CardContent from '$lib/components/ui/card/card-content.svelte';
+	import CardHeader from '$lib/components/ui/card/card-header.svelte';
+	import Card from '$lib/components/ui/card/card.svelte';
 	import type { Atg } from '$lib/types';
-	import { columns } from './columns';
+	import ProductChart from './product-chart.svelte';
 
 	let {
 		data
@@ -15,16 +17,21 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<Tank
-		product={latest.volume}
-		water={latest.water_volume}
-		ullage={latest.ullage}
-		temp={latest.temp}
-		lastUpdate={latest.date_update}
-		location={latest.location}
-		fuelStation={latest.fuel_station}
-		dataloggerId={latest.datalogger_id}
-		tankLabel={latest.tank_label}
-	/>
-	<DataTable data={data.atg} {columns} />
+	<ProductChart atg={data.atg} />
+	<Card>
+		<CardHeader>Product Details</CardHeader>
+		<CardContent>
+			<Tank
+				product={latest.volume}
+				water={latest.water_volume}
+				ullage={latest.ullage}
+				temp={latest.temp}
+				lastUpdate={latest.date_update}
+				location={latest.location}
+				fuelStation={latest.fuel_station}
+				dataloggerId={latest.datalogger_id}
+				tankLabel={latest.tank_label}
+			/>
+		</CardContent>
+	</Card>
 </div>

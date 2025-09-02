@@ -212,6 +212,14 @@
 					<td class="py-1 pr-4 text-muted-foreground">Tank Label</td>
 					<td>{tankLabel}</td>
 				</tr>
+				<tr>
+					<td class="py-1 pr-4 text-muted-foreground">Product Volume </td>
+					<td>{product}ℓ</td>
+				</tr>
+				<tr>
+					<td class="py-1 pr-4 text-muted-foreground">Water Volume </td>
+					<td>{water}ℓ</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

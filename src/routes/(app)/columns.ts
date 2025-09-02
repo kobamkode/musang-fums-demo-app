@@ -2,11 +2,17 @@ import { renderComponent } from "$lib/components/ui/data-table"
 import type { ATGStatus, FlowmeterStatus } from "$lib/types"
 import type { ColumnDef } from "@tanstack/table-core"
 import DataTableActions from './data-table-actions.svelte'
+import StatusActions from './status-actions.svelte'
 
 export const atgColumns: ColumnDef<ATGStatus>[] = [
 	{
-		accessorKey: "status",
-		header: "Status"
+		id: 'status',
+		cell: ({ row }) => {
+			return renderComponent(StatusActions, {
+				status: row.original.status,
+				noUpdate: row.original.noUpdate
+			})
+		}
 	},
 	{
 		accessorKey: "fuel_station",
