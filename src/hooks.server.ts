@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "$env/static/private"
+import { API_BASE_URL } from "$env/dynamic/private"
 import type { Local, Permission, ProcessedPermission, User } from "$lib/types"
 import { redirect, type Handle } from "@sveltejs/kit"
 
