@@ -20,4 +20,6 @@ USER musang
 
 EXPOSE 3000
 ENV NODE_ENV=production
+ARG ORIGIN
+ENV ORIGIN=$ORIGIN
 CMD ["node", "build"]

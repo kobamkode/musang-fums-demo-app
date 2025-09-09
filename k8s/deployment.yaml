@@ -21,7 +21,8 @@ metadata:
   namespace: fums-dev-ns
 data:
   NODE_ENV: "production"
-  API_BASE_URL: "https://musang-fums-api-service:80"
+  API_BASE_URL: "https://musang-fums-api-service"
+  ORIGIN: "https://musang-fums-app-service"
 ---
 apiVersion: apps/v1
 kind: Deployment

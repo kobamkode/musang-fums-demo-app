@@ -42,6 +42,7 @@ jobs:
         push: true
         build-args: |
           API_BASE_URL=${{ secrets.API_BASE_URL }}
+          ORIGIN=${{ secrets.ORIGIN }}
         tags: |
           ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-app:${{ github.sha }}
           ${{ secrets.ACR_LOGIN_SERVER }}/musang-fums-app:latest
