@@ -21,8 +21,8 @@ metadata:
   namespace: fums-dev-ns
 data:
   NODE_ENV: "production"
-  API_BASE_URL: "https://musang-fums-api-service"
-  ORIGIN: "https://musang-fums-app-service"
+  API_BASE_URL: "http://10.224.0.12"
+  ORIGIN: "http://10.224.0.4"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,6 +52,16 @@ spec:
             configMapKeyRef:
               name: musang-fums-app-config
               key: NODE_ENV
+        - name: API_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: musang-fums-app-config
+              key: API_BASE_URL
+        - name: ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: musang-fums-app-config
+              key: ORIGIN
         # Health checks
         livenessProbe:
           httpGet:
