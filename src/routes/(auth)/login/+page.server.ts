@@ -32,6 +32,7 @@ export const actions: Actions = {
 		cookies.set('fumsauth', JSON.stringify(user.Data), {
 			httpOnly: true,
 			// secure: NODE_ENV === 'production',
+			secure: false,
 			sameSite: 'strict',
 			maxAge: 60 * 60 * 24 * 1,
 			path: '/'
