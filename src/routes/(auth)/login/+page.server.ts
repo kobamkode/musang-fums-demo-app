@@ -22,18 +22,16 @@ export const actions: Actions = {
 		});
 
 		if (!response.ok) {
-			console.log(response)
 			return fail(response.status, {
 				error: response.statusText, email
 			});
 		}
 
 		const user = await response.json();
-		console.log(user)
 
 		cookies.set('fumsauth', JSON.stringify(user.Data), {
 			httpOnly: true,
-			secure: NODE_ENV === 'production',
+			// secure: NODE_ENV === 'production',
 			sameSite: 'strict',
 			maxAge: 60 * 60 * 24 * 1,
 			path: '/'
