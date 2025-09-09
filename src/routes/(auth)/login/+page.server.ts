@@ -22,6 +22,7 @@ export const actions: Actions = {
 		});
 
 		if (!response.ok) {
+			console.log(response)
 			return fail(response.status, {
 				error: response.statusText, email
 			});

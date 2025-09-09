@@ -21,7 +21,7 @@ metadata:
   namespace: fums-dev-ns
 data:
   NODE_ENV: "production"
-  API_BASE_URL: "http://10.224.0.12"
+  API_BASE_URL: "http://10.224.0.12/api"
   ORIGIN: "http://10.224.0.4"
 ---
 apiVersion: apps/v1
