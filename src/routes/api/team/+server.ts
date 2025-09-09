@@ -8,7 +8,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 	cookies.set('activeTeam', teamCode, {
 		path: '/',
 		httpOnly: true,
-		secure: NODE_ENV === 'production',
+		// secure: NODE_ENV === 'production',
+		secure: false,
 		sameSite: 'strict',
 		maxAge: 60 * 60 * 24 * 30 // 30 days
 	});
