@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "$env/dynamic/private";
+import { API_BASE_URL } from "$env/static/private";
 
 export const getAllUsers = async (locals: App.Locals) => {
 	const response = await fetch(`${API_BASE_URL}/v1/users`, {

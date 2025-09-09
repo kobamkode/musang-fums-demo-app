@@ -1,6 +1,6 @@
 import { redirect } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { API_BASE_URL } from "$env/dynamic/private";
+import { API_BASE_URL } from "$env/static/private";
 
 export const POST: RequestHandler = async ({ cookies }) => {
 	const authToken = cookies.get('fumsauth')

@@ -1,5 +1,5 @@
 import { fail, redirect, type Actions } from "@sveltejs/kit";
-import { API_BASE_URL, NODE_ENV } from "$env/dynamic/private";
+import { API_BASE_URL, NODE_ENV } from "$env/static/private";
 
 export const actions: Actions = {
 	login: async ({ request, cookies, fetch }) => {

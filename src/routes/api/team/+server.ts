@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { NODE_ENV } from '$env/dynamic/private';
+import { NODE_ENV } from '$env/static/private';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const { teamCode } = await request.json();
