@@ -1,4 +1,6 @@
 FROM node:24-alpine AS builder
+ARG API_BASE_URL
+ENV API_BASE_URL=$API_BASE_URL
 RUN npm install -g pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
