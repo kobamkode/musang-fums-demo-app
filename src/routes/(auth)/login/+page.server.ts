@@ -29,6 +29,7 @@ export const actions: Actions = {
 		}
 
 		const user = await response.json();
+		console.log(user)
 
 		cookies.set('fumsauth', JSON.stringify(user.Data), {
 			httpOnly: true,
