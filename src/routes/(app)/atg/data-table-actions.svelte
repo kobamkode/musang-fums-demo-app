@@ -7,7 +7,7 @@
 	let { fs, t, dl }: { id: string; fs: string; t: string; dl: string } = $props();
 
 	const handleDetail = (fs: string, t: string, dl: string) => {
-		goto(`/atg?fs=${fs}&t=${t}&dl=${dl}`);
+		goto(`/atg/details?fs=${fs}&t=${t}&dl=${dl}`);
 	};
 </script>
 

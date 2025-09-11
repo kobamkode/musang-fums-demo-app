@@ -131,7 +131,7 @@
 							x={tankWidth * 0.5}
 							y={tankHeight * (1 - waterHeightPercentage - productHeightPercentage / 2)}
 							text-anchor="middle"
-							font-size="14"
+							font-size="18"
 							font-weight="bold"
 							fill="white"
 						>
@@ -190,11 +190,11 @@
 
 	<div class="border-t pt-4 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-4">
 		<p class="mb-2 font-semibold">Tank Information</p>
-		<table class="w-full text-sm">
+		<table class="w-full">
 			<tbody>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Last Update</td>
-					<td>{formattedLastUpdate}</td>
+					<td class="font-extrabold">{formattedLastUpdate}</td>
 				</tr>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Location</td>
@@ -214,11 +214,11 @@
 				</tr>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Product Volume </td>
-					<td>{product}ℓ</td>
+					<td>{product} ℓ</td>
 				</tr>
 				<tr>
 					<td class="py-1 pr-4 text-muted-foreground">Water Volume </td>
-					<td>{water}ℓ</td>
+					<td>{water} ℓ</td>
 				</tr>
 			</tbody>
 		</table>

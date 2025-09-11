@@ -12,7 +12,8 @@ export const atgColumns: ColumnDef<ATGStatus>[] = [
 				status: row.original.status,
 				noUpdate: row.original.noUpdate
 			})
-		}
+		},
+		header: "Status"
 	},
 	{
 		accessorKey: "fuel_station",

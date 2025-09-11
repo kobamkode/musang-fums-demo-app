@@ -67,16 +67,32 @@
 		},
 		navMain: [
 			{
-				title: 'Monitoring',
+				title: 'Home',
+				url: '/',
+				icon: SquareTerminalIcon,
+				isActive: false
+			},
+			{
+				title: 'IFuel',
 				url: '#',
 				icon: SquareTerminalIcon,
 				isActive: true,
 				items: [
 					{
-						title: 'Dashboard',
-						url: '/'
+						title: 'Fixed Stations',
+						url: '#'
+					},
+					{
+						title: 'Mobile Stations',
+						url: '#'
 					}
 				]
+			},
+			{
+				title: 'ATG',
+				url: '/atg',
+				icon: SquareTerminalIcon,
+				isActive: false
 			}
 		],
 		navAdmin: [
