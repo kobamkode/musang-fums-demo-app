@@ -29,7 +29,7 @@ export interface Local {
 	perms: ProcessedPermission[] | null
 }
 
-export interface Atg {
+export interface ATG {
 	id: number;
 	transaction_id: string;
 	tank_number: number;

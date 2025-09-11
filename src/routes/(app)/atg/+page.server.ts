@@ -1,5 +1,5 @@
 import { findAtgByCC, getAtgData } from "$lib/api";
-import type { Atg, ATGDevice } from "$lib/types";
+import type { ATG, ATGDevice } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const atgStats = await Promise.all(
 		atgDevices.map(async (device) => {
-			const atg: Atg = await getAtgData(locals, device.fuel_station, device.tank_label, device.datalogger_id);
+			const atg: ATG = await getAtgData(locals, device.fuel_station, device.tank_label, device.datalogger_id);
 
 			// Low is below 20%
 			const isLow = atg.volume < atg.full_volume * 0.2;
