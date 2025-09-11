@@ -1,10 +1,10 @@
 import { renderComponent } from "$lib/components/ui/data-table"
-import type { ATGStatus, FlowmeterStatus } from "$lib/types"
+import type { ATGStatus } from "$lib/types"
 import type { ColumnDef } from "@tanstack/table-core"
 import DataTableActions from './data-table-actions.svelte'
 import StatusActions from './status-actions.svelte'
 
-export const atgColumns: ColumnDef<ATGStatus>[] = [
+export const columns: ColumnDef<ATGStatus>[] = [
 	{
 		id: 'status',
 		cell: ({ row }) => {
@@ -37,15 +37,4 @@ export const atgColumns: ColumnDef<ATGStatus>[] = [
 			})
 		}
 	}
-]
-
-export const flowmeterColumns: ColumnDef<FlowmeterStatus>[] = [
-	{
-		accessorKey: "email",
-		header: "Email"
-	},
-	{
-		accessorKey: "name",
-		header: "Name"
-	},
 ]

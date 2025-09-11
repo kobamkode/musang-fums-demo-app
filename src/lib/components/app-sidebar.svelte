@@ -1,13 +1,13 @@
 <script lang="ts">
 	import BotIcon from '@lucide/svelte/icons/bot';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
-	import SquareTerminalIcon from '@lucide/svelte/icons/square-terminal';
 	import NavMain from './nav-main.svelte';
 	import NavUser from './nav-user.svelte';
 	import TeamSwitcher from './team-switcher.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { ComponentProps } from 'svelte';
 	import type { ProcessedPermission } from '$lib/types';
+	import { CircleGauge, Fuel, House } from '@lucide/svelte';
 
 	let {
 		ref = $bindable(null),
@@ -69,18 +69,18 @@
 			{
 				title: 'Home',
 				url: '/',
-				icon: SquareTerminalIcon,
+				icon: House,
 				isActive: false
 			},
 			{
 				title: 'IFuel',
 				url: '#',
-				icon: SquareTerminalIcon,
+				icon: Fuel,
 				isActive: true,
 				items: [
 					{
 						title: 'Fixed Stations',
-						url: '#'
+						url: '/fixed'
 					},
 					{
 						title: 'Mobile Stations',
@@ -91,7 +91,7 @@
 			{
 				title: 'ATG',
 				url: '/atg',
-				icon: SquareTerminalIcon,
+				icon: CircleGauge,
 				isActive: false
 			}
 		],

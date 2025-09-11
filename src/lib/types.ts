@@ -52,6 +52,29 @@ export interface ATG {
 	status: boolean;
 }
 
+export interface Flowmeter {
+	id: number;
+	transaction_id: string;
+	user_id: string;
+	user_name: string;
+	panel_id: string;
+	location: string;
+	company_code: string;
+	country_code: string;
+	unit_number: string;
+	start_time: Date;
+	end_time: Date;
+	start_totalizer: number;
+	end_totalizer: number;
+	volume: number;
+	preset_volume: number;
+	odometer: number;
+	longitude: number;
+	slip_number: number;
+	created_at: Date;
+	status: boolean;
+}
+
 
 export interface Country {
 	id: number
@@ -83,10 +106,9 @@ export interface ATGStatus {
 	datalogger_id: string
 }
 
-export interface FlowmeterStatus {
-	id: number
-	status: string
-	label: string
+export interface FlowmeterDevice {
+	panel_id: string
+	location: string
 }
 
 export interface Role {

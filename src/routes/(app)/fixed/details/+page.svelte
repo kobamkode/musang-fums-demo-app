@@ -1,25 +1,25 @@
 <script lang="ts">
-	import DataTable from '$lib/components/data-table.svelte';
+	import DataTableAtg from '$lib/components/data-table-atg.svelte';
 	import CardContent from '$lib/components/ui/card/card-content.svelte';
 	import CardHeader from '$lib/components/ui/card/card-header.svelte';
 	import Card from '$lib/components/ui/card/card.svelte';
-	import type { ATGStatus } from '$lib/types.js';
+	import type { Flowmeter } from '$lib/types';
 	import { columns } from './columns';
 
 	let {
 		data
 	}: {
 		data: {
-			atgStats: ATGStatus[];
+			flowmeters: Flowmeter[];
 		};
 	} = $props();
 </script>
 
 <div class="flex flex-col gap-4">
 	<Card>
-		<CardHeader>ATG Devices</CardHeader>
+		<CardHeader class="text-xl">Transactions</CardHeader>
 		<CardContent>
-			<DataTable data={data.atgStats} {columns} />
+			<DataTableAtg data={data.flowmeters} {columns} />
 		</CardContent>
 	</Card>
 </div>

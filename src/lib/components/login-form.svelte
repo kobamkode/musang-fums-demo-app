@@ -52,8 +52,8 @@
 			</form>
 			<div class="relative hidden bg-muted md:block">
 				<img
-					src="/placeholder.svg"
-					alt="placeholder"
+					src="/itm.webp"
+					alt="logo"
 					class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
 				/>
 			</div>

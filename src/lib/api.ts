@@ -149,9 +149,9 @@ export const findAtgByCC = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
-export const getAllFlowmeterDevices = async (locals: App.Locals) => {
+export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter?cc=${activeTeam?.company_code}&l=5&o=0`, {
+	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter/fixed?cc=${activeTeam?.company_code}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -170,6 +170,29 @@ export const getAllFlowmeterDevices = async (locals: App.Locals) => {
 	const { Data } = await response.json()
 	return Data ? Data : []
 }
+
+export const getFlowmeterData = async (locals: App.Locals, panelId: string, location: string) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter?cc=${activeTeam?.company_code}&p=${panelId}&loc=${location}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { Data } = await response.json()
+	return Data ? Data : []
+}
+
 
 export const createUser = async (
 	locals: App.Locals,

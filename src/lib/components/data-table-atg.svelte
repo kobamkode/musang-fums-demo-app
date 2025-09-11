@@ -9,6 +9,7 @@
 
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import Button from './ui/button/button.svelte';
+	import RangeDatepicker from './range-datepicker.svelte';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -40,6 +41,9 @@
 	});
 </script>
 
+<div class="flex items-center py-4">
+	<RangeDatepicker />
+</div>
 <div class="rounded-md border">
 	<Table.Root>
 		<Table.Header>
