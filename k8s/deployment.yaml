@@ -23,6 +23,7 @@ data:
   NODE_ENV: "production"
   API_BASE_URL: "http://10.224.0.12/api"
   ORIGIN: "http://10.224.0.4"
+  SECURE: "false"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,6 +63,11 @@ spec:
             configMapKeyRef:
               name: musang-fums-app-config
               key: ORIGIN
+        - name: SECURE
+          valueFrom:
+            configMapKeyRef:
+              name: musang-fums-app-config
+              key: SECURE
         # Health checks
         livenessProbe:
           httpGet:
