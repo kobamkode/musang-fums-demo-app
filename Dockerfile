@@ -21,5 +21,7 @@ RUN adduser --system --uid 1001 musang
 USER musang
 
 EXPOSE 3000
+ARG ORIGIN
+ENV ORIGIN=$ORIGIN
 ENV NODE_ENV=production
 CMD ["node", "build"]
