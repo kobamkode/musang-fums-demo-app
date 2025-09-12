@@ -2,10 +2,10 @@ import type { ColumnDef } from "@tanstack/table-core"
 import type { ATG } from "$lib/types"
 
 export const atgColumns: ColumnDef<ATG>[] = [
-	{
-		accessorKey: 'transaction_id',
-		header: 'Transaction Id',
-	},
+	// {
+	// 	accessorKey: 'transaction_id',
+	// 	header: 'Transaction Id',
+	// },
 	{
 		accessorKey: 'height',
 		header: 'Product Level (mm)',
@@ -29,5 +29,9 @@ export const atgColumns: ColumnDef<ATG>[] = [
 	{
 		accessorKey: 'date_update',
 		header: 'Updated at',
+		cell: ({ getValue }) => {
+			const isoString = getValue() as string;
+			return isoString.replace('T', ' ').replace('Z', '');
+		},
 	},
 ]

@@ -40,12 +40,12 @@ export interface ATG {
 	water_height: number;
 	temp: number;
 	water_volume: number;
-	date_update: Date;
+	date_update: string;
 	location: string;
 	code_company: string;
 	fuel_station: string;
 	data_source: string;
-	created_at: Date;
+	created_at: string;
 	full_volume: number;
 	datalogger_id: string;
 	tank_label: string;
@@ -62,8 +62,8 @@ export interface Flowmeter {
 	company_code: string;
 	country_code: string;
 	unit_number: string;
-	start_time: Date;
-	end_time: Date;
+	start_time: string;
+	end_time: string;
 	start_totalizer: number;
 	end_totalizer: number;
 	volume: number;
@@ -71,7 +71,7 @@ export interface Flowmeter {
 	odometer: number;
 	longitude: number;
 	slip_number: number;
-	created_at: Date;
+	created_at: string;
 	status: boolean;
 }
 

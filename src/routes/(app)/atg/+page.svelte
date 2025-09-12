@@ -17,7 +17,7 @@
 
 <div class="flex flex-col gap-4">
 	<Card>
-		<CardHeader>ATG Devices</CardHeader>
+		<CardHeader class="text-xl">ATG Devices</CardHeader>
 		<CardContent>
 			<DataTable data={data.atgStats} {columns} />
 		</CardContent>

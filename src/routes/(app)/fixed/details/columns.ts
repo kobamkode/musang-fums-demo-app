@@ -17,6 +17,11 @@ export const columns: ColumnDef<Flowmeter>[] = [
 	{
 		accessorKey: 'start_time',
 		header: 'Start Time',
+		cell: ({ getValue }) => {
+			const isoString = getValue() as string;
+			return isoString.replace('T', ' ').replace('Z', '');
+		},
+
 	},
 	{
 		accessorKey: 'start_totalizer',
@@ -25,6 +30,10 @@ export const columns: ColumnDef<Flowmeter>[] = [
 	{
 		accessorKey: 'end_time',
 		header: 'End Time',
+		cell: ({ getValue }) => {
+			const isoString = getValue() as string;
+			return isoString.replace('T', ' ').replace('Z', '');
+		},
 	},
 	{
 		accessorKey: 'end_totalizer',

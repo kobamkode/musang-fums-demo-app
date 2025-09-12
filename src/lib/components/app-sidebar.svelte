@@ -74,7 +74,7 @@
 			},
 			{
 				title: 'IFuel',
-				url: '#',
+				url: '/fixed',
 				icon: Fuel,
 				isActive: true,
 				items: [
