@@ -31,7 +31,7 @@ export const atgColumns: ColumnDef<ATG>[] = [
 		header: 'Updated at',
 		cell: ({ getValue }) => {
 			const isoString = getValue() as string;
-			return isoString.replace('T', ' ').replace('Z', '');
+			return isoString.replace('T', ' ').substring(0, 16);
 		},
 	},
 ]

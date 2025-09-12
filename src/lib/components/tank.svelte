@@ -19,7 +19,7 @@
 		water?: number;
 		ullage?: number;
 		temp?: number | null;
-		lastUpdate?: string | Date;
+		lastUpdate?: string;
 		location?: string;
 		fuelStation?: string;
 		dataloggerId?: string;
@@ -41,9 +41,7 @@
 	let waterHeightPercentage = $derived(safeWaterPercentage / 100);
 	let productHeightPercentage = $derived(safeProductPercentage / 100);
 
-	let formattedLastUpdate = $derived(
-		lastUpdate instanceof Date ? lastUpdate.toLocaleString() : lastUpdate
-	);
+	let formattedLastUpdate = $derived(lastUpdate.replace('T', ' ').substring(0, 16));
 </script>
 
 <div class="flex flex-col gap-4 lg:flex-row lg:gap-4">
