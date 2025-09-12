@@ -2,12 +2,12 @@
 	import BotIcon from '@lucide/svelte/icons/bot';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 	import NavMain from './nav-main.svelte';
-	import NavUser from './nav-user.svelte';
 	import TeamSwitcher from './team-switcher.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { ComponentProps } from 'svelte';
 	import type { ProcessedPermission } from '$lib/types';
 	import { CircleGauge, Fuel, House } from '@lucide/svelte';
+	import NavUserOrg from './nav-user-org.svelte';
 
 	let {
 		ref = $bindable(null),
@@ -125,14 +125,12 @@
 
 <Sidebar.Root {collapsible} {...restProps}>
 	<Sidebar.Header>
-		<TeamSwitcher teams={data.companies()} activeTeam={data.active()} />
+		<NavUserOrg user={data.userInfo} teams={data.companies()} activeTeam={data.active()} />
+		<!-- <TeamSwitcher teams={data.companies()} activeTeam={data.active()} /> -->
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />
 		<NavMain items={data.navAdmin} />
 	</Sidebar.Content>
-	<Sidebar.Footer>
-		<NavUser user={data.userInfo} />
-	</Sidebar.Footer>
 	<Sidebar.Rail />
 </Sidebar.Root>

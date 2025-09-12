@@ -10,7 +10,15 @@
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
 
-	let { user }: { user: { name: string; email: string } } = $props();
+	let {
+		user,
+		teams,
+		activeTeam = $bindable()
+	}: {
+		user: { name: string; email: string };
+		teams: { name: string; logo: any; code: string }[];
+		activeTeam: { name: string; logo: any; code: string };
+	} = $props();
 	const sidebar = useSidebar();
 
 	const logout = async () => {
@@ -27,6 +35,25 @@
 			}
 		} catch (error) {
 			console.error('Failed to logout:', error);
+		}
+	};
+
+	const setActiveTeam = async (team: { name: string; logo: any; code: string }) => {
+		try {
+			const response = await fetch('/api/team', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ teamCode: team.code })
+			});
+
+			if (response.ok) {
+				activeTeam = team;
+				invalidateAll();
+			}
+		} catch (error) {
+			console.error('Failed to set active team:', error);
 		}
 	};
 </script>
@@ -58,28 +85,27 @@
 				align="end"
 				sideOffset={4}
 			>
-				<DropdownMenu.Label class="p-0 font-normal">
-					<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-						<Avatar.Root class="size-8 rounded-lg">
-							<Avatar.Fallback class="rounded-lg">{getInitials(user.name)}</Avatar.Fallback>
-						</Avatar.Root>
-						<div class="grid flex-1 text-left text-sm leading-tight">
-							<span class="truncate font-medium">{user.name}</span>
-							<span class="truncate text-xs">{user.email}</span>
+				<!-- <DropdownMenu.Label class="p-0 font-normal"> -->
+				<!-- 	<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm"> -->
+				<!-- 		<Avatar.Root class="size-8 rounded-lg"> -->
+				<!-- 			<Avatar.Fallback class="rounded-lg">{getInitials(user.name)}</Avatar.Fallback> -->
+				<!-- 		</Avatar.Root> -->
+				<!-- 		<div class="grid flex-1 text-left text-sm leading-tight"> -->
+				<!-- 			<span class="truncate font-medium">{user.name}</span> -->
+				<!-- 			<span class="truncate text-xs">{user.email}</span> -->
+				<!-- 		</div> -->
+				<!-- 	</div> -->
+				<!-- </DropdownMenu.Label> -->
+
+				<DropdownMenu.Label class="text-xs text-muted-foreground">Teams</DropdownMenu.Label>
+				{#each teams as team (team.name)}
+					<DropdownMenu.Item onSelect={() => setActiveTeam(team)} class="gap-2 p-2">
+						<div class="flex size-6 items-center justify-center rounded-md border">
+							<team.logo class="size-3.5 shrink-0" />
 						</div>
-					</div>
-				</DropdownMenu.Label>
-				<DropdownMenu.Separator />
-				<DropdownMenu.Group>
-					<DropdownMenu.Item>
-						<BadgeCheckIcon />
-						Account
+						{team.name}
 					</DropdownMenu.Item>
-					<DropdownMenu.Item>
-						<BellIcon />
-						Notifications
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
+				{/each}
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item>
 					<button class="flex w-full items-center gap-2 text-left" onclick={() => logout()}>
