@@ -105,9 +105,32 @@ export const getAllPermissions = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
-export const getAtgData = async (locals: App.Locals, fuelStation: string, tankLabel: string, dataloggerId: string) => {
+export const getAtgData = async (
+	locals: App.Locals,
+	fuelStation: string,
+	tankLabel: string,
+	dataloggerId: string,
+	startDate?: string,
+	endDate?: string
+
+) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/atg?cc=${activeTeam?.company_code}&fs=${fuelStation}&t=${tankLabel}&dl=${dataloggerId}`, {
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		fs: fuelStation,
+		t: tankLabel,
+		dl: dataloggerId,
+	})
+
+	if (startDate) {
+		params.append('s', startDate)
+	}
+
+	if (endDate) {
+		params.append('e', endDate)
+	}
+
+	const response = await fetch(`${API_BASE_URL}/v1/devices/atg?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -171,9 +194,31 @@ export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
-export const getFlowmeterData = async (locals: App.Locals, panelId: string, location: string) => {
+export const getFlowmeterData = async (
+	locals: App.Locals,
+	panelId: string,
+	location: string,
+	startDate?: string,
+	endDate?: string
+) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter?cc=${activeTeam?.company_code}&p=${panelId}&loc=${location}`, {
+
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		p: panelId,
+		loc: location
+
+	})
+
+	if (startDate) {
+		params.append('s', startDate)
+	}
+
+	if (endDate) {
+		params.append('e', endDate)
+	}
+
+	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -192,7 +237,6 @@ export const getFlowmeterData = async (locals: App.Locals, panelId: string, loca
 	const { Data } = await response.json()
 	return Data ? Data : []
 }
-
 
 export const createUser = async (
 	locals: App.Locals,

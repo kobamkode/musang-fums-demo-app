@@ -10,6 +10,8 @@
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import Button from './ui/button/button.svelte';
 	import RangeDatepicker from './range-datepicker.svelte';
+	import type { DateRange } from 'bits-ui';
+	import type { ATG } from '$lib/types';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -17,11 +19,15 @@
 	};
 
 	let { data, columns }: DataTableProps<TData, TValue> = $props();
+	let tableData = $state<TData[]>(data);
 	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 10 });
+	const fuelStation = $derived((tableData[0] as ATG)?.fuel_station);
+	const tankLabel = $derived((tableData[0] as ATG)?.tank_label);
+	const dataloggerId = $derived((tableData[0] as ATG)?.datalogger_id);
 
 	const table = createSvelteTable({
 		get data() {
-			return data;
+			return tableData;
 		},
 		columns,
 		state: {
@@ -39,10 +45,42 @@
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
+
+	let selectedDateRange = $state<DateRange>();
+	const handleFindClick = async () => {
+		if (selectedDateRange?.start && selectedDateRange?.end) {
+			try {
+				const response = await fetch('/api/findAtgByRangeDate', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						fuelStation,
+						tankLabel,
+						dataloggerId,
+						start: selectedDateRange.start.toString(),
+						end: selectedDateRange.end.toString()
+					})
+				});
+
+				if (response.ok) {
+					const { atg } = await response.json();
+					tableData = atg;
+					pagination = { pageIndex: 0, pageSize: 10 };
+				}
+			} catch (error) {
+				console.error('Failed to find data:', error);
+			}
+		} else {
+			console.log('No date range selected');
+		}
+	};
 </script>
 
-<div class="flex items-center py-4">
-	<RangeDatepicker />
+<div class="flex items-center gap-2 py-4">
+	<RangeDatepicker bind:value={selectedDateRange} />
+	<Button onclick={handleFindClick}>Find</Button>
 </div>
 <div class="rounded-md border">
 	<Table.Root>

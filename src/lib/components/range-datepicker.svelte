@@ -1,38 +1,52 @@
 <script lang="ts">
-	import RangeCalendar from '$lib/components/ui/range-calendar/range-calendar.svelte';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
-	import { getLocalTimeZone } from '@internationalized/date';
+	import CalendarIcon from '@lucide/svelte/icons/calendar';
 	import type { DateRange } from 'bits-ui';
+	import {
+		CalendarDate,
+		DateFormatter,
+		type DateValue,
+		getLocalTimeZone
+	} from '@internationalized/date';
+	import { cn } from '$lib/utils.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	import { RangeCalendar } from '$lib/components/ui/range-calendar/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
 
-	const id = $props.id();
+	const df = new DateFormatter('en-US', {
+		dateStyle: 'medium'
+	});
 
-	let open = $state(false);
-	let value = $state<DateRange | undefined>();
+	let { value = $bindable() } = $props();
+	let startValue: DateValue | undefined = $state(undefined);
 </script>
 
-<div class="flex gap-3">
-	<Label for="{id}-dates" class="px-1">Select range date</Label>
-	<Popover.Root bind:open>
-		<Popover.Trigger id="{id}-dates">
-			{#snippet child({ props })}
-				<Button {...props} variant="outline" class="w-56 justify-between font-normal">
-					{value?.start && value?.end
-						? `${value.start.toDate(getLocalTimeZone()).toLocaleDateString()} - ${value.end.toDate(getLocalTimeZone()).toLocaleDateString()}`
-						: 'Select date'}
-					<ChevronDownIcon />
-				</Button>
-			{/snippet}
+<div class="grid gap-2">
+	<Popover.Root>
+		<Popover.Trigger
+			class={cn(buttonVariants({ variant: 'outline' }), !value && 'text-muted-foreground')}
+		>
+			<CalendarIcon class="mr-2 size-4" />
+			{#if value && value.start}
+				{#if value.end}
+					{df.format(value.start.toDate(getLocalTimeZone()))} - {df.format(
+						value.end.toDate(getLocalTimeZone())
+					)}
+				{:else}
+					{df.format(value.start.toDate(getLocalTimeZone()))}
+				{/if}
+			{:else if startValue}
+				{df.format(startValue.toDate(getLocalTimeZone()))}
+			{:else}
+				Pick a range date
+			{/if}
 		</Popover.Trigger>
-		<Popover.Content class="w-auto overflow-hidden p-0" align="start">
+		<Popover.Content class="w-auto p-0" align="start">
 			<RangeCalendar
 				bind:value
-				minDays={2}
-				maxDays={30}
-				numberOfMonths={2}
-				class="rounded-lg border shadow-sm"
+				onStartValueChange={(v) => {
+					startValue = v;
+				}}
+				numberOfMonths={3}
 			/>
 		</Popover.Content>
 	</Popover.Root>
