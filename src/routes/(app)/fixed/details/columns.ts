@@ -32,7 +32,7 @@ export const columns: ColumnDef<Flowmeter>[] = [
 		header: 'End Time',
 		cell: ({ getValue }) => {
 			const isoString = getValue() as string;
-			return isoString.replace('T', ' ').replace('Z', '');
+			return isoString.replace('T', ' ').substring(0, 16);
 		},
 	},
 	{
@@ -41,11 +41,11 @@ export const columns: ColumnDef<Flowmeter>[] = [
 	},
 	{
 		accessorKey: 'volume',
-		header: 'Volume',
+		header: 'Volume (ℓ)',
 	},
 	{
 		accessorKey: 'preset_volume',
-		header: 'Preset Volume',
+		header: 'Preset Volume (ℓ)',
 	},
 	{
 		accessorKey: 'odometer',
