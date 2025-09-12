@@ -52,7 +52,7 @@
 			</form>
 			<div class="relative hidden bg-muted md:block">
 				<img
-					src="/itm.webp"
+					src="/login.png"
 					alt="logo"
 					class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
 				/>
