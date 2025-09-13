@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DataTableAtg from '$lib/components/data-table-atg.svelte';
+	import DataTableFixed from '$lib/components/data-table-fixed.svelte';
 	import CardContent from '$lib/components/ui/card/card-content.svelte';
 	import CardHeader from '$lib/components/ui/card/card-header.svelte';
 	import Card from '$lib/components/ui/card/card.svelte';
@@ -19,7 +19,7 @@
 	<Card>
 		<CardHeader class="text-xl">Transactions</CardHeader>
 		<CardContent>
-			<DataTableAtg data={data.flowmeters} {columns} />
+			<DataTableFixed data={data.flowmeters} {columns} />
 		</CardContent>
 	</Card>
 </div>
