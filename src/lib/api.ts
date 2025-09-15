@@ -194,6 +194,29 @@ export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 	return Data ? Data : []
 }
 
+export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter/mobile?cc=${activeTeam?.company_code}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+	console.log(response)
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { Data } = await response.json()
+	return Data ? Data : []
+}
+
 export const getFlowmeterData = async (
 	locals: App.Locals,
 	panelId: string,

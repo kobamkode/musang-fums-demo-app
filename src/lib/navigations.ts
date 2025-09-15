@@ -19,7 +19,7 @@ export const navMain = [
 			},
 			{
 				title: 'Mobile Stations',
-				url: '#'
+				url: '/mobile'
 			}
 		]
 	},
