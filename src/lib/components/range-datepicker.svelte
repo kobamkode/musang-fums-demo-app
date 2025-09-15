@@ -1,11 +1,11 @@
 <script lang="ts">
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
-	import type { DateRange } from 'bits-ui';
 	import {
 		CalendarDate,
 		DateFormatter,
 		type DateValue,
-		getLocalTimeZone
+		getLocalTimeZone,
+		today
 	} from '@internationalized/date';
 	import { cn } from '$lib/utils.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
@@ -43,6 +43,8 @@
 		<Popover.Content class="w-auto p-0" align="start">
 			<RangeCalendar
 				bind:value
+				minValue={new CalendarDate(2025, 8, 1)}
+				maxValue={today(getLocalTimeZone())}
 				onStartValueChange={(v) => {
 					startValue = v;
 				}}
