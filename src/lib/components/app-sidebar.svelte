@@ -1,13 +1,11 @@
 <script lang="ts">
-	import BotIcon from '@lucide/svelte/icons/bot';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 	import NavMain from './nav-main.svelte';
-	import TeamSwitcher from './team-switcher.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { ComponentProps } from 'svelte';
 	import type { ProcessedPermission } from '$lib/types';
-	import { CircleGauge, Fuel, House } from '@lucide/svelte';
 	import NavUserOrg from './nav-user-org.svelte';
+	import { navAdmin, navMain } from '$lib/navigations';
 
 	let {
 		ref = $bindable(null),
@@ -65,61 +63,8 @@
 				logo: GalleryVerticalEndIcon
 			};
 		},
-		navMain: [
-			{
-				title: 'Home',
-				url: '/',
-				icon: House,
-				isActive: false
-			},
-			{
-				title: 'IFuel',
-				url: '/fixed',
-				icon: Fuel,
-				isActive: true,
-				items: [
-					{
-						title: 'Fixed Stations',
-						url: '/fixed'
-					},
-					{
-						title: 'Mobile Stations',
-						url: '#'
-					}
-				]
-			},
-			{
-				title: 'ATG',
-				url: '/atg',
-				icon: CircleGauge,
-				isActive: false
-			}
-		],
-		navAdmin: [
-			{
-				title: 'Admin',
-				url: '#',
-				icon: BotIcon,
-				items: [
-					{
-						title: 'Companies',
-						url: '/companies'
-					},
-					{
-						title: 'Users',
-						url: '/users'
-					},
-					{
-						title: 'Roles',
-						url: '/roles'
-					},
-					{
-						title: 'Permissions',
-						url: '/permission'
-					}
-				]
-			}
-		]
+		navMain,
+		navAdmin
 	};
 </script>
 
