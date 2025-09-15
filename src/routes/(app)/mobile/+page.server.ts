@@ -4,6 +4,5 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const panels: FlowmeterDevice[] = await findMobileFlowmeterByCC(locals);
-	console.log(panels)
 	return { panels }
 }

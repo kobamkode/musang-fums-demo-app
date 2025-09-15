@@ -202,7 +202,6 @@ export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
 			'Authorization': `Bearer ${locals.user?.token}`,
 		}
 	});
-	console.log(response)
 
 	if (!response.ok) {
 		return {
