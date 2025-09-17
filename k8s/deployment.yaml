@@ -42,11 +42,22 @@ spec:
       labels:
         app: musang-fums-app
     spec:
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: musang-fums-app-keyvault-csi
       containers:
       - name: musang-fums-app
         image: bpitmACRdev.azurecr.io/musang-fums-app:latest
         ports:
         - containerPort: 3000
+        volumeMounts:
+        - name: secrets-store
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
         env:
         - name: NODE_ENV
           valueFrom:
@@ -89,9 +100,7 @@ metadata:
   name: musang-fums-app-ingress
   namespace: fums-dev-ns
   annotations:
-    spec.ingressClassName: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: azure/application-gateway
 spec:
   tls:
   - hosts:
