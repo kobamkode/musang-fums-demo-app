@@ -105,7 +105,7 @@ spec:
   tls:
   - hosts:
     - fums.banpuindo.co.id
-    secretName: musang-fums-app-tls
+    secretName: fums-app-service-tls
   rules:
   - host: fums.banpuindo.co.id
     http:
