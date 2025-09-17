@@ -101,6 +101,7 @@ export interface ATGDevice {
 export interface ATGStatus {
 	status: string
 	noUpdate: boolean
+	location: string
 	fuel_station: string
 	tank_label: string
 	datalogger_id: string

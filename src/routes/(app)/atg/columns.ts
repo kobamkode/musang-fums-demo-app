@@ -16,6 +16,10 @@ export const columns: ColumnDef<ATGStatus>[] = [
 		header: "Status"
 	},
 	{
+		accessorKey: "location",
+		header: "Location"
+	},
+	{
 		accessorKey: "fuel_station",
 		header: "Fuel Station"
 	},
