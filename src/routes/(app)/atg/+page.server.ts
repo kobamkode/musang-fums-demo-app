@@ -11,12 +11,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 			// Low is below 20%
 			const isLow = atg.volume < atg.full_volume * 0.2;
-			const noUpdate = (Date.now() - new Date(atg.date_update).getTime()) > (24 * 60 * 1000)
+			const noUpdate = (Date.now() - new Date(atg.date_update).getTime()) > (3 * 60 * 1000)
 			const status = isLow ? 'critical' : 'normal';
 
 			return {
 				status,
 				noUpdate,
+				location: device.location,
 				fuel_station: device.fuel_station,
 				tank_label: device.tank_label,
 				datalogger_id: device.datalogger_id,
