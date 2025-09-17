@@ -15,7 +15,7 @@
 
 <div class="flex flex-col gap-4">
 	<Card>
-		<CardHeader class="text-xl">Mobile Stations</CardHeader>
+		<CardHeader class="text-xl">Fuel Trucks</CardHeader>
 		<CardContent>
 			<DataTable data={data.panels} {columns} />
 		</CardContent>

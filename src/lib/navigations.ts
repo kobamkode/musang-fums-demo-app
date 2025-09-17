@@ -9,17 +9,17 @@ export const navMain = [
 	},
 	{
 		title: 'IFuel',
-		url: '/fixed',
+		url: '/stations',
 		icon: Fuel,
 		isActive: true,
 		items: [
 			{
 				title: 'Fixed Stations',
-				url: '/fixed'
+				url: '/stations'
 			},
 			{
-				title: 'Mobile Stations',
-				url: '/mobile'
+				title: 'Fuel trucks',
+				url: '/trucks'
 			}
 		]
 	},

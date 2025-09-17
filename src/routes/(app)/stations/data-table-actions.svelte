@@ -7,7 +7,7 @@
 	let { p, loc }: { p: string; loc: string } = $props();
 
 	const handleDetail = (p: string, loc: string) => {
-		goto(`/mobile/details?p=${p}&loc=${loc}`);
+		goto(`/stations/details?p=${p}&loc=${loc}`);
 	};
 </script>
 
@@ -23,7 +23,7 @@
 					handleDetail(p, loc);
 				}}
 			>
-				<span class="sr-only">Show Mobile Station</span>
+				<span class="sr-only">Show Fixed Station</span>
 				<Search />
 			</Button>
 		{/snippet}
