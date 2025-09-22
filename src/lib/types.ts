@@ -95,6 +95,7 @@ export interface ATGDevice {
 	fuel_station: string
 	tank_label: string
 	datalogger_id: string
+	location: string
 }
 
 
