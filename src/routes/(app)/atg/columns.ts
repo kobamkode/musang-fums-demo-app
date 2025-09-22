@@ -2,7 +2,7 @@ import { renderComponent } from "$lib/components/ui/data-table"
 import type { ATGStatus } from "$lib/types"
 import type { ColumnDef } from "@tanstack/table-core"
 import DataTableActions from './data-table-actions.svelte'
-import StatusActions from './status-actions.svelte'
+import StatusActions from "$lib/components/status-actions.svelte"
 
 export const columns: ColumnDef<ATGStatus>[] = [
 	{

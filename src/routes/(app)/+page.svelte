@@ -1,4 +1,5 @@
 <script lang="ts">
+	import StatusActions from '$lib/components/status-actions.svelte';
 	import TankDashboard from '$lib/components/tank-dashboard.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	let { data } = $props();
@@ -28,9 +29,12 @@
 	</Card>
 
 	<div class="flex gap-4">
-		{#each data.atg as atg}
+		{#each data.atgStats as atg}
 			<Card class="w-80">
-				<CardHeader>{atg.location} - {atg.tank_label}</CardHeader>
+				<CardHeader class="flex items-center">
+					<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
+					<p class="text-center">{atg.location} - {atg.tank_label}</p>
+				</CardHeader>
 				<CardContent>
 					<TankDashboard
 						product={atg.volume}
