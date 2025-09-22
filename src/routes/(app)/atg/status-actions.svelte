@@ -16,7 +16,7 @@
 			{/if}
 
 			{#if status === 'critical'}
-				<circle cx="80" cy="25" r="15" fill="#ef4444" stroke="#dc2626" stroke-width="2">
+				<circle cx="20" cy="25" r="15" fill="#ef4444" stroke="#dc2626" stroke-width="2">
 					<animate attributeName="r" values="15;18;15" dur="1s" repeatCount="indefinite" />
 					<animate attributeName="opacity" values="1;0.4;1" dur="0.8s" repeatCount="indefinite" />
 				</circle>
