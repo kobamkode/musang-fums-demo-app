@@ -10,8 +10,10 @@
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import Button from './ui/button/button.svelte';
 	import RangeDatepicker from './range-datepicker.svelte';
-	import type { DateRange } from 'bits-ui';
+	import type { DatePicker, DateRange } from 'bits-ui';
 	import type { Flowmeter } from '$lib/types';
+	import Datepicker from './datepicker.svelte';
+	import { DateValue } from '@internationalized/date';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -45,9 +47,10 @@
 		getPaginationRowModel: getPaginationRowModel()
 	});
 
-	let selectedDateRange = $state<DateRange>();
+	let selectedDateFrom = $state<DateValue>();
+	let selectedDateTo = $state<DateValue>();
 	const handleFindClick = async () => {
-		if (selectedDateRange?.start && selectedDateRange?.end) {
+		if (selectedDateFrom && selectedDateTo) {
 			try {
 				const response = await fetch('/api/findFixedByRangeDate', {
 					method: 'POST',
@@ -57,8 +60,8 @@
 					body: JSON.stringify({
 						panelId,
 						location,
-						start: selectedDateRange.start.toString(),
-						end: selectedDateRange.end.toString()
+						start: selectedDateFrom.toString(),
+						end: selectedDateTo.toString()
 					})
 				});
 
@@ -77,7 +80,10 @@
 </script>
 
 <div class="flex items-center gap-2 py-4">
-	<RangeDatepicker bind:value={selectedDateRange} />
+	From
+	<Datepicker bind:value={selectedDateFrom} />
+	To
+	<Datepicker bind:value={selectedDateTo} />
 	<Button onclick={handleFindClick}>Find</Button>
 </div>
 <div class="rounded-md border">

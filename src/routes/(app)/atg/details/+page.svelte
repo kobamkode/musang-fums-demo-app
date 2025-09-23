@@ -19,7 +19,7 @@
 
 <div class="flex flex-col gap-4">
 	<Card>
-		<CardHeader class="text-xl">Product Info</CardHeader>
+		<CardHeader class="text-xl">Tank Info</CardHeader>
 		<CardContent>
 			<Tank
 				product={latest.volume}
@@ -35,7 +35,7 @@
 		</CardContent>
 	</Card>
 	<Card>
-		<CardHeader class="text-xl">Product Data</CardHeader>
+		<CardHeader class="text-xl">Tank Data</CardHeader>
 		<CardContent>
 			<DataTableAtg data={data.atg} columns={atgColumns} />
 		</CardContent>

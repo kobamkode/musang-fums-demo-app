@@ -17,6 +17,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			if (device.date_update === undefined) {
 				noUpdate = true
 			} else {
+				// noUpdate == true, if date_update no new change > 3 hours
 				noUpdate = (Date.now() - new Date(device.date_update).getTime()) > (3 * 60 * 60 * 1000)
 			}
 			const status = isLow ? 'critical' : 'normal';
