@@ -1,4 +1,4 @@
-import { BotIcon, CircleGauge, Fuel, House } from '@lucide/svelte'
+import { BotIcon, CircleGauge, FileDown, Fuel, House } from '@lucide/svelte'
 
 export const navMain = [
 	{
@@ -28,7 +28,14 @@ export const navMain = [
 		url: '/atg',
 		icon: CircleGauge,
 		isActive: false
+	},
+	{
+		title: 'Data Loader',
+		url: '/dataloader',
+		icon: FileDown,
+		isActive: false
 	}
+
 ]
 
 export const navAdmin = [

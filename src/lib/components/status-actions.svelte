@@ -4,7 +4,7 @@
 	let { status, noUpdate }: { status: string; noUpdate: boolean } = $props();
 </script>
 
-<div class="h-15 w-15 content-center">
+<div class="content-center">
 	{#if noUpdate === true}
 		<TriangleAlert />
 	{:else}
