@@ -2,6 +2,7 @@
 	import StatusActions from '$lib/components/status-actions.svelte';
 	import TankDashboard from '$lib/components/tank-dashboard.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
+	import Separator from '$lib/components/ui/separator/separator.svelte';
 	let { data } = $props();
 
 	function getTimeBasedGreeting(): string {
@@ -33,7 +34,8 @@
 			<Card class="w-80">
 				<CardHeader class="flex items-center">
 					<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
-					<p class="text-center">{atg.location} - {atg.tank_label}</p>
+					<Separator orientation="vertical" />
+					<p>{atg.location} - {atg.tank_label}</p>
 				</CardHeader>
 				<CardContent>
 					<TankDashboard
