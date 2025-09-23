@@ -51,7 +51,7 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Name</Form.Label>
-				<Input {...props} bind:value={$formData.name} />
+				<Input {...props} bind:value={$formData.name} class="w-[400px]" />
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />
@@ -60,7 +60,7 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Code</Form.Label>
-				<Input {...props} bind:value={$formData.code} />
+				<Input {...props} bind:value={$formData.code} class="w-[400px]" />
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />
@@ -73,7 +73,7 @@
 					<Popover.Trigger
 						class={cn(
 							buttonVariants({ variant: 'outline' }),
-							'w-[200px] justify-between',
+							'w-[400px] justify-between',
 							!$formData.country_id && 'text-muted-foreground'
 						)}
 						role="combobox"
@@ -87,7 +87,7 @@
 				{/snippet}
 			</Form.Control>
 
-			<Popover.Content class="w-[200px] p-0">
+			<Popover.Content class="w-[400px] p-0">
 				<Command.Root>
 					<Command.Input autofocus placeholder="Search language..." class="h-9" />
 					<Command.Empty>No language found.</Command.Empty>
