@@ -9,11 +9,9 @@
 
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import Button from './ui/button/button.svelte';
-	import RangeDatepicker from './range-datepicker.svelte';
-	import type { DatePicker, DateRange } from 'bits-ui';
 	import type { Flowmeter } from '$lib/types';
 	import Datepicker from './datepicker.svelte';
-	import { DateValue } from '@internationalized/date';
+	import type { DateValue } from '@internationalized/date';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];

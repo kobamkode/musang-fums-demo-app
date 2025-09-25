@@ -802,3 +802,49 @@ export const findPermission = async (locals: App.Locals, ...query: string[]) => 
 	const { Data } = await response.json()
 	return Data ? Data : []
 }
+
+export const downloadMaximo = async (locals: App.Locals, location?: string, panel?: string, startDate?: string, endDate?: string) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+	})
+	if (location) {
+		params.append('loc', location)
+	}
+	if (panel) {
+		params.append('p', panel)
+	}
+	if (startDate) {
+		params.append('s', startDate)
+	}
+	if (endDate) {
+		params.append('e', endDate)
+	}
+
+	const response = await fetch(`${API_BASE_URL}/v1/loader/maximo?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${locals.user?.token}`,
+		},
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const contentDisposition = response.headers.get('content-disposition');
+	const filename = contentDisposition
+		? contentDisposition.split('filename=')[1]?.replace(/"/g, '')
+		: 'maximo_report.xlsx';
+
+	return {
+		response, filename
+	}
+
+}

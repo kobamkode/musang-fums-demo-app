@@ -11,10 +11,11 @@
 		value = $bindable(),
 		items = [],
 		placeholder = '',
-		searchPlaceholder = '',
-		emptyText = '',
+		searchPlaceholder = 'Search...',
+		emptyText = 'No items found',
 		valueKey = 'value',
-		labelKey = 'label'
+		labelKey = 'label',
+		disabled = false
 	} = $props();
 
 	let open = $state(false);
@@ -35,17 +36,18 @@
 		{#snippet child({ props })}
 			<Button
 				variant="outline"
-				class="w-[200px] justify-between"
+				class="w-[300px] justify-between"
 				{...props}
 				role="combobox"
 				aria-expanded={open}
+				{disabled}
 			>
 				{selectedValue || placeholder}
 				<ChevronsUpDownIcon class="ml-2 size-4 shrink-0 opacity-50" />
 			</Button>
 		{/snippet}
 	</Popover.Trigger>
-	<Popover.Content class="w-[200px] p-0">
+	<Popover.Content class="w-[300px] p-0">
 		<Command.Root>
 			<Command.Input placeholder={searchPlaceholder} />
 			<Command.List>

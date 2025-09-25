@@ -28,7 +28,6 @@
 		validators: zod4Client(companySchema),
 		onError: ({ result }) => toast.error(result.error.message),
 		onUpdated: ({ form }) => {
-			console.log(form);
 			if (form.valid) {
 				toast.success('company created successfully!');
 				goto('/companies');
