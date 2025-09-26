@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Thermometer } from '@lucide/svelte';
+	import { ClockArrowUp, Thermometer } from '@lucide/svelte';
 	let {
 		product = 0,
 		water = 0,
@@ -44,7 +44,7 @@
 	let formattedLastUpdate = $derived(lastUpdate.replace('T', ' ').substring(0, 16));
 </script>
 
-<div>
+<div class="flex flex-col gap-4">
 	<svg viewBox="0 0 {svgWidth} {svgHeight}" preserveAspectRatio="xMidYMid meet">
 		<defs>
 			<linearGradient id="tankGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -159,22 +159,20 @@
 		</g>
 	</svg>
 
-	<div class="flex flex-wrap items-center justify-center gap-3 text-sm sm:gap-6">
-		<div class="flex items-center">
-			<div class="mr-2 h-4 w-4 rounded bg-amber-800"></div>
-			<span>Product: {safeProductPercentage}%</span>
-		</div>
-		<div class="flex items-center">
-			<div class="mr-2 h-4 w-4 rounded bg-blue-500"></div>
-			<span>Water: {safeWaterPercentage}%</span>
-		</div>
-		<div class="flex items-center">
-			<div class="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-200"></div>
-			<span>Empty: {emptyPercentage}%</span>
-		</div>
-		<div class="flex items-center">
-			<Thermometer size={18} />
-			<span>{temp ?? 0}°C</span>
-		</div>
+	<div class="flex items-center gap-4">
+		<div class="h-5 w-5 rounded bg-amber-800"></div>
+		<span>Product: {product} ℓ</span>
+	</div>
+	<div class="flex items-center gap-4">
+		<div class="h-5 w-5 rounded bg-blue-500"></div>
+		<span>Water: {water} ℓ</span>
+	</div>
+	<div class="flex items-center gap-4">
+		<Thermometer size={24} />
+		<span>{temp ?? 0}°C</span>
+	</div>
+	<div class="flex items-center gap-4">
+		<ClockArrowUp size={24} />
+		<span>{formattedLastUpdate}</span>
 	</div>
 </div>
