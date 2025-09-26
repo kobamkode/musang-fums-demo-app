@@ -13,6 +13,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			} else {
 				isLow = device.volume < device.full_volume * 0.2;
 			}
+
 			let noUpdate = false
 			if (device.date_update === undefined) {
 				noUpdate = true
