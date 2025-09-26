@@ -57,7 +57,6 @@
 						<Command.Item
 							value={item[valueKey]}
 							onSelect={() => {
-								console.log(item[valueKey]);
 								value = item[valueKey];
 								closeAndFocusTrigger();
 							}}
