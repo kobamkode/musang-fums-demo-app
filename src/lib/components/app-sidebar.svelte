@@ -75,7 +75,9 @@
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />
-		<NavMain items={data.navAdmin} />
+		{#if user.perms && user.perms.length > 0 && user.perms[0].role_id == 999}
+			<NavMain items={data.navAdmin} />
+		{/if}
 	</Sidebar.Content>
 	<Sidebar.Rail />
 </Sidebar.Root>
