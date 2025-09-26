@@ -53,4 +53,9 @@
 			</Card>
 		{/each}
 	</div>
+
+	<Card class="w-full">
+		<CardHeader class="flex items-center">iFuel - Fixed Station</CardHeader>
+		<CardContent>ROB</CardContent>
+	</Card>
 </div>

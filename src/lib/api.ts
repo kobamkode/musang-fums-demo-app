@@ -158,7 +158,7 @@ export const getGroupedAtgData = async (
 		cc: activeTeam?.company_code || 'MSTN',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/grouped-atg?${params.toString()}`, {
+	const response = await fetch(`${API_BASE_URL}/v1/devices/atg/dashboard?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
