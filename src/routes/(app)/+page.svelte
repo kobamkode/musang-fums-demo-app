@@ -3,6 +3,7 @@
 	import TankDashboard from '$lib/components/tank-dashboard.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import SectionFixed from './section-fixed.svelte';
 	let { data } = $props();
 
 	function getTimeBasedGreeting(): string {
@@ -53,4 +54,13 @@
 			</Card>
 		{/each}
 	</div>
+
+	<Card class="w-full">
+		<CardHeader class="flex items-center">iFuel - Fixed Station</CardHeader>
+		<CardContent>
+			{#each data.fixedStats as fixed}
+				<SectionFixed fixedStat={fixed} />
+			{/each}
+		</CardContent>
+	</Card>
 </div>

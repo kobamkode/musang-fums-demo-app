@@ -1,5 +1,5 @@
-import { getGroupedAtgData } from "$lib/api"
-import type { ATG } from "$lib/types"
+import { getGroupedAtgData, getGroupedFixedData } from "$lib/api"
+import type { ATG, FixedStat } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -38,5 +38,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 			};
 		})
 	);
-	return { atgStats }
+
+	const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
+
+	return { atgStats, fixedStats }
 }

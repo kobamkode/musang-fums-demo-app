@@ -117,3 +117,11 @@ export interface Role {
 	id: number
 	name: string
 }
+
+export interface FixedStat {
+	location: string
+	rob_volume: number
+	outlets_volume: number
+	inlets_volume: number
+	calculation: number
+}
