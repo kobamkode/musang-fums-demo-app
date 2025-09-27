@@ -848,3 +848,31 @@ export const downloadMaximo = async (locals: App.Locals, location?: string, pane
 	}
 
 }
+
+export const getGroupedFixedData = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/dashboard?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { Data } = await response.json()
+	return Data ? Data : []
+}
