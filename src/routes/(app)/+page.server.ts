@@ -1,5 +1,5 @@
-import { getGroupedAtgData, getGroupedFixedData } from "$lib/api"
-import type { ATG, FixedStat } from "$lib/types"
+import { getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getGroupedFixedData } from "$lib/api"
+import type { ATG, FixedStat, PanelIO } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -39,7 +39,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 		})
 	);
 
+	const fixedIOLastShiftTrans: PanelIO[] = await getFixedIOLastShiftTrans(locals)
+	const fixedIOCurrentShiftTrans: PanelIO[] = await getFixedIOCurrentShiftTrans(locals)
 	const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
 
-	return { atgStats, fixedStats }
+	return { atgStats, fixedStats, fixedIOLastShiftTrans, fixedIOCurrentShiftTrans }
 }

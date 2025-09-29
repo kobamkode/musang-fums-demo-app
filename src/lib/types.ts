@@ -125,3 +125,14 @@ export interface FixedStat {
 	inlets_volume: number
 	calculation: number
 }
+
+
+export interface PanelIO {
+	location: string
+	outlets_volume: number
+	inlets_volume: number
+	in_update: string
+	out_update: string
+	shift_start: string
+	shift_end: string
+}
