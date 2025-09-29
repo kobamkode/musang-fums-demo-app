@@ -1,5 +1,5 @@
 import { fail, redirect, type Actions } from "@sveltejs/kit";
-import { API_BASE_URL, SECURE } from "$env/static/private";
+import { API_BASE_URL } from "$env/static/private";
 
 export const actions: Actions = {
 	login: async ({ request, cookies, fetch }) => {
@@ -31,8 +31,7 @@ export const actions: Actions = {
 
 		cookies.set('fumsauth', JSON.stringify(user.Data), {
 			httpOnly: true,
-			// secure: Boolean(SECURE),
-			secure: false,
+			secure: true,
 			sameSite: 'strict',
 			maxAge: 60 * 60 * 24 * 1,
 			path: '/'
