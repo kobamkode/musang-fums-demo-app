@@ -1,4 +1,4 @@
-import { getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getGroupedFixedData } from "$lib/api"
+import { getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getGroupedFixedData, getMobileIOLastShiftTrans, getPercentageVariance } from "$lib/api"
 import type { ATG, FixedStat, PanelIO } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
@@ -40,8 +40,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 	);
 
 	const fixedIOLastShiftTrans: PanelIO[] = await getFixedIOLastShiftTrans(locals)
+	const mobileIOLastShiftTrans: PanelIO[] = await getMobileIOLastShiftTrans(locals)
 	const fixedIOCurrentShiftTrans: PanelIO[] = await getFixedIOCurrentShiftTrans(locals)
+	const fixedPercentageVariance: PanelIO[] = await getPercentageVariance(locals)
+
 	const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
 
-	return { atgStats, fixedStats, fixedIOLastShiftTrans, fixedIOCurrentShiftTrans }
+	return { atgStats, fixedStats, fixedIOLastShiftTrans, fixedIOCurrentShiftTrans, fixedPercentageVariance, mobileIOLastShiftTrans }
 }

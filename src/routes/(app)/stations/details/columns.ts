@@ -51,4 +51,12 @@ export const columns: ColumnDef<Flowmeter>[] = [
 		accessorKey: 'odometer',
 		header: 'Odometer',
 	},
+	{
+		accessorKey: 'latitude',
+		header: 'Latitude',
+	},
+	{
+		accessorKey: 'longitude',
+		header: 'Longitude',
+	},
 ]
