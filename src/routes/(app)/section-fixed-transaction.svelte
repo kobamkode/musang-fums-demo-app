@@ -1,70 +1,106 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import type { PanelIO } from '$lib/types';
+	import type { PanelIO, PanelIOMobile, PanelVariance } from '$lib/types';
 
-	const { panel, shift }: { panel: PanelIO; shift: string } = $props();
+	const { panel, type }: { panel: PanelIO | PanelVariance | PanelIOMobile; type: string } =
+		$props();
 
 	function formatTimestamp(timestamp: string): string {
 		return timestamp.replace(' +0000 UTC', '');
 	}
 </script>
 
-<div class="w-72">
-	<Card.Root class="@container/card h-70">
-		<Card.Header>
-			{#if shift == 'last'}
-				<Card.Description>Last Shift Transaction</Card.Description>
-				<Card.Description>{panel.location}</Card.Description>
-				<Separator />
-				<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
-					<table class="w-full">
-						<tbody>
-							<tr>
-								<td class="font-light">IN</td>
-								<td class="text-right">{panel.inlets_volume} ℓ</td>
-							</tr>
-							<tr>
-								<td class="font-light">OUT</td>
-								<td class="text-right">{panel.outlets_volume} ℓ</td>
-							</tr>
-						</tbody>
-					</table>
-				</Card.Title>
-				<Separator />
-				<div class="flex flex-col">
-					<div>Inlet last update</div>
-					<div>{formatTimestamp(panel.in_update)}</div>
-					<div>Outlet last update</div>
-					<div>{formatTimestamp(panel.out_update)}</div>
-				</div>
-			{/if}
-			{#if shift == 'current'}
-				<Card.Description>Current Shift Transaction</Card.Description>
-				<Card.Description>{panel.location}</Card.Description>
-				<Separator />
-				<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
-					<table class="w-full">
-						<tbody>
-							<tr>
-								<td class="font-light">IN</td>
-								<td class="text-right">{panel.inlets_volume} ℓ</td>
-							</tr>
-							<tr>
-								<td class="font-light">OUT</td>
-								<td class="text-right">{panel.outlets_volume} ℓ</td>
-							</tr>
-						</tbody>
-					</table>
-				</Card.Title>
-				<Separator />
-				<div class="flex flex-col">
-					<div>Inlet last update</div>
-					<div>{formatTimestamp(panel.in_update)}</div>
-					<div>Outlet last update</div>
-					<div>{formatTimestamp(panel.out_update)}</div>
-				</div>
-			{/if}
-		</Card.Header>
-	</Card.Root>
-</div>
+<Card.Root class="@container/card h-72 w-72">
+	<Card.Header>
+		{#if type == 'variance'}
+			<Card.Description>Variance</Card.Description>
+			<Card.Description>{panel.location}</Card.Description>
+			<Separator />
+			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+				{(panel as PanelVariance).panel_variance} ℓ
+			</Card.Title>
+			<Separator />
+			<div class="flex flex-col">
+				<div>ROB</div>
+				<div class="font-semibold">{(panel as PanelVariance).rob_init_value} ℓ</div>
+				<div>Inlets</div>
+				<div class="font-semibold">{(panel as PanelVariance).variance_inlets_volume} ℓ</div>
+				<div>Outlets</div>
+				<div class="font-semibold">{(panel as PanelVariance).variance_outlets_volume} ℓ</div>
+			</div>
+		{/if}
+		{#if type == 'last'}
+			<Card.Description>Last Shift Transaction</Card.Description>
+			<Card.Description>{panel.location}</Card.Description>
+			<Separator />
+			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+				<table class="w-full">
+					<tbody>
+						<tr>
+							<td class="font-light">IN</td>
+							<td class="text-right">{(panel as PanelIO).inlets_volume} ℓ</td>
+						</tr>
+						<tr>
+							<td class="font-light">OUT</td>
+							<td class="text-right">{(panel as PanelIO).outlets_volume} ℓ</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card.Title>
+			<Separator />
+			<div class="flex flex-col">
+				<div>Inlet last update</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIO).in_update)}</div>
+				<div>Outlet last update</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIO).out_update)}</div>
+			</div>
+		{/if}
+		{#if type == 'current'}
+			<Card.Description>Current Shift Transaction</Card.Description>
+			<Card.Description>{panel.location}</Card.Description>
+			<Separator />
+			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+				<table class="w-full">
+					<tbody>
+						<tr>
+							<td class="font-light">IN</td>
+							<td class="text-right">{(panel as PanelIO).inlets_volume} ℓ</td>
+						</tr>
+						<tr>
+							<td class="font-light">OUT</td>
+							<td class="text-right">{(panel as PanelIO).outlets_volume} ℓ</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card.Title>
+			<Separator />
+			<div class="flex flex-col">
+				<div>Inlet last update</div>
+				<div>{formatTimestamp((panel as PanelIO).in_update)}</div>
+				<div>Outlet last update</div>
+				<div>{formatTimestamp((panel as PanelIO).out_update)}</div>
+			</div>
+		{/if}
+		{#if type == 'lastMobile'}
+			<Card.Description>Current Shift Transaction</Card.Description>
+			<Card.Description>{panel.location} - {(panel as PanelIOMobile).fuel_truck}</Card.Description>
+			<Separator />
+			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+				<table class="w-full">
+					<tbody>
+						<tr>
+							<td class="font-light">OUT</td>
+							<td class="text-right">{(panel as PanelIOMobile).outlets_volume} ℓ</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card.Title>
+			<Separator />
+			<div class="flex flex-col">
+				<div>Outlet last update</div>
+				<div>{formatTimestamp((panel as PanelIOMobile).out_update)}</div>
+			</div>
+		{/if}
+	</Card.Header>
+</Card.Root>

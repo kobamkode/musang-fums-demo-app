@@ -126,7 +126,6 @@ export interface FixedStat {
 	calculation: number
 }
 
-
 export interface PanelIO {
 	location: string
 	outlets_volume: number
@@ -135,4 +134,19 @@ export interface PanelIO {
 	out_update: string
 	shift_start: string
 	shift_end: string
+}
+
+export interface PanelVariance {
+	location: string
+	rob_init_value: number
+	variance_outlets_volume: number
+	variance_inlets_volume: number
+	panel_variance: number
+}
+
+export interface PanelIOMobile {
+	location: string
+	fuel_truck: string
+	outlets_volume: number
+	out_update: string
 }
