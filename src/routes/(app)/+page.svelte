@@ -33,31 +33,29 @@
 
 	<Card class="w-full">
 		<CardHeader class="text-xl">ATG</CardHeader>
-		<CardContent>
-			<div class="flex gap-4">
-				{#each data.atgStats as atg}
-					<Card class="w-80">
-						<CardHeader class="flex items-center">
-							<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
-							<Separator orientation="vertical" />
-							<p>{atg.location} - {atg.tank_label}</p>
-						</CardHeader>
-						<CardContent>
-							<TankDashboard
-								product={atg.volume}
-								water={atg.water_volume}
-								ullage={atg.ullage}
-								temp={atg.temp}
-								lastUpdate={atg.date_update}
-								location={atg.location}
-								fuelStation={atg.fuel_station}
-								dataloggerId={atg.datalogger_id}
-								tankLabel={atg.tank_label}
-							/>
-						</CardContent>
-					</Card>
-				{/each}
-			</div>
+		<CardContent class="flex flex-wrap gap-4">
+			{#each data.atgStats as atg}
+				<Card class="w-80">
+					<CardHeader class="flex items-center">
+						<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
+						<Separator orientation="vertical" />
+						<p>{atg.location} - {atg.tank_label}</p>
+					</CardHeader>
+					<CardContent>
+						<TankDashboard
+							product={atg.volume}
+							water={atg.water_volume}
+							ullage={atg.ullage}
+							temp={atg.temp}
+							lastUpdate={atg.date_update}
+							location={atg.location}
+							fuelStation={atg.fuel_station}
+							dataloggerId={atg.datalogger_id}
+							tankLabel={atg.tank_label}
+						/>
+					</CardContent>
+				</Card>
+			{/each}
 		</CardContent>
 	</Card>
 
