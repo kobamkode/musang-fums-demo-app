@@ -60,7 +60,7 @@
 	</Card>
 
 	<Card class="w-full">
-		<CardHeader class="text-xl">iFuel - Fixed Station</CardHeader>
+		<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			{#each data.fixedPercentageVariance as variance}
 				<SectionFixedTransaction panel={variance} type="variance" />
@@ -71,6 +71,12 @@
 			{#each data.fixedIOCurrentShiftTrans as currentIO}
 				<SectionFixedTransaction panel={currentIO} type="current" />
 			{/each}
+		</CardContent>
+	</Card>
+
+	<Card class="w-full">
+		<CardHeader class="text-xl">iFuel - Fuel Trucks</CardHeader>
+		<CardContent class="flex flex-wrap gap-4">
 			{#each data.mobileIOLastShiftTrans as lastIOMobile}
 				<SectionFixedTransaction panel={lastIOMobile} type="lastMobile" />
 			{/each}

@@ -17,17 +17,29 @@
 			<Card.Description>Variance</Card.Description>
 			<Card.Description>{panel.location}</Card.Description>
 			<Separator />
-			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+			<Card.Title class="text-right text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				{(panel as PanelVariance).panel_variance} ℓ
 			</Card.Title>
 			<Separator />
 			<div class="flex flex-col">
-				<div>ROB</div>
-				<div class="font-semibold">{(panel as PanelVariance).rob_init_value} ℓ</div>
-				<div>Inlets</div>
-				<div class="font-semibold">{(panel as PanelVariance).variance_inlets_volume} ℓ</div>
-				<div>Outlets</div>
-				<div class="font-semibold">{(panel as PanelVariance).variance_outlets_volume} ℓ</div>
+				<div class="flex">
+					ROB
+					<div class="w-full text-right font-semibold">
+						{(panel as PanelVariance).rob_init_value} ℓ
+					</div>
+				</div>
+				<div class="flex">
+					Inlets
+					<div class="w-full text-right font-semibold">
+						{(panel as PanelVariance).variance_inlets_volume} ℓ
+					</div>
+				</div>
+				<div class="flex">
+					Outlets
+					<div class="w-full text-right font-semibold">
+						{(panel as PanelVariance).variance_outlets_volume} ℓ
+					</div>
+				</div>
 			</div>
 		{/if}
 		{#if type == 'last'}
@@ -84,7 +96,7 @@
 		{/if}
 		{#if type == 'lastMobile'}
 			<Card.Description>Last Shift Transaction</Card.Description>
-			<Card.Description>{panel.location} - {(panel as PanelIOMobile).fuel_truck}</Card.Description>
+			<Card.Description>{(panel as PanelIOMobile).fuel_truck}</Card.Description>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				<table class="w-full">
