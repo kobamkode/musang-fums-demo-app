@@ -77,13 +77,13 @@
 			<Separator />
 			<div class="flex flex-col">
 				<div>Inlet last update</div>
-				<div>{formatTimestamp((panel as PanelIO).in_update)}</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIO).in_update)}</div>
 				<div>Outlet last update</div>
-				<div>{formatTimestamp((panel as PanelIO).out_update)}</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIO).out_update)}</div>
 			</div>
 		{/if}
 		{#if type == 'lastMobile'}
-			<Card.Description>Current Shift Transaction</Card.Description>
+			<Card.Description>Last Shift Transaction</Card.Description>
 			<Card.Description>{panel.location} - {(panel as PanelIOMobile).fuel_truck}</Card.Description>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
@@ -99,7 +99,7 @@
 			<Separator />
 			<div class="flex flex-col">
 				<div>Outlet last update</div>
-				<div>{formatTimestamp((panel as PanelIOMobile).out_update)}</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIOMobile).out_update)}</div>
 			</div>
 		{/if}
 	</Card.Header>
