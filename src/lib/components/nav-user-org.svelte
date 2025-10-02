@@ -9,6 +9,7 @@
 	import BellIcon from '@lucide/svelte/icons/bell';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
+	import { toast } from 'svelte-sonner';
 
 	let {
 		user,
@@ -34,7 +35,7 @@
 				invalidateAll();
 			}
 		} catch (error) {
-			console.error('Failed to logout:', error);
+			toast.error(`Failed to logout: ${error}`);
 		}
 	};
 
@@ -53,7 +54,7 @@
 				invalidateAll();
 			}
 		} catch (error) {
-			console.error('Failed to set active team:', error);
+			toast.error(`Failed to set active team: ${error}`);
 		}
 	};
 </script>

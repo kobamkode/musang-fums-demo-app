@@ -17,8 +17,8 @@ export const getAllUsers = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getAllRoles = async (locals: App.Locals) => {
@@ -38,8 +38,8 @@ export const getAllRoles = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getAllCompanies = async (locals: App.Locals) => {
@@ -59,8 +59,8 @@ export const getAllCompanies = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getAllCountries = async (locals: App.Locals) => {
@@ -80,8 +80,8 @@ export const getAllCountries = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getAllPermissions = async (locals: App.Locals) => {
@@ -101,8 +101,8 @@ export const getAllPermissions = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getAtgData = async (
@@ -146,8 +146,8 @@ export const getAtgData = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getGroupedAtgData = async (
@@ -174,8 +174,8 @@ export const getGroupedAtgData = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const findAtgByCC = async (locals: App.Locals) => {
@@ -196,8 +196,8 @@ export const findAtgByCC = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
@@ -218,8 +218,8 @@ export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
@@ -240,8 +240,8 @@ export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getFlowmeterData = async (
@@ -284,8 +284,8 @@ export const getFlowmeterData = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const createUser = async (
@@ -644,8 +644,8 @@ export const findRole = async (locals: App.Locals, ...query: string[]) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const findUser = async (locals: App.Locals, ...query: string[]) => {
@@ -682,8 +682,8 @@ export const findUser = async (locals: App.Locals, ...query: string[]) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 
@@ -720,8 +720,8 @@ export const findCompany = async (locals: App.Locals, ...query: string[]) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 
@@ -758,8 +758,8 @@ export const findCountry = async (locals: App.Locals, ...query: string[]) => {
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const findPermission = async (locals: App.Locals, ...query: string[]) => {
@@ -799,8 +799,8 @@ export const findPermission = async (locals: App.Locals, ...query: string[]) => 
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const downloadMaximo = async (locals: App.Locals, location?: string, panel?: string, startDate?: string, endDate?: string) => {
@@ -874,8 +874,8 @@ export const getFixedIOLastShiftTrans = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getFixedIOCurrentShiftTrans = async (
@@ -902,8 +902,8 @@ export const getFixedIOCurrentShiftTrans = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getPercentageVariance = async (
@@ -930,8 +930,8 @@ export const getPercentageVariance = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 
@@ -959,8 +959,8 @@ export const getMobileIOLastShiftTrans = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }
 
 export const getGroupedFixedData = async (
@@ -987,6 +987,6 @@ export const getGroupedFixedData = async (
 		}
 	}
 
-	const { Data } = await response.json()
-	return Data ? Data : []
+	const { data } = await response.json()
+	return data ? data : []
 }

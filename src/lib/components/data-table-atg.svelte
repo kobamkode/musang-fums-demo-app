@@ -12,6 +12,7 @@
 	import type { ATG } from '$lib/types';
 	import Datepicker from './datepicker.svelte';
 	import type { DateValue } from '@internationalized/date';
+	import { toast } from 'svelte-sonner';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -69,12 +70,17 @@
 					const { atg } = await response.json();
 					tableData = atg;
 					pagination = { pageIndex: 0, pageSize: 10 };
+				} else {
+					const errorMessage = `Failed to fetch data: ${response.status} ${response.statusText}`;
+					toast.error(errorMessage);
 				}
 			} catch (error) {
-				console.error('Failed to find data:', error);
+				toast.error(
+					`Failed to find data: ${error instanceof Error ? error.message : 'Unknown error'}`
+				);
 			}
 		} else {
-			console.log('No date range selected');
+			toast.warning('Please select both from and to dates');
 		}
 	};
 </script>
