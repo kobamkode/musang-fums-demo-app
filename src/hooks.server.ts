@@ -5,7 +5,8 @@ import { redirect, type Handle } from "@sveltejs/kit"
 export const handle: Handle = async ({ event, resolve }) => {
 	if (event.url.pathname !== '/login') {
 		const authCookie = event.cookies.get('fumsauth')
-		if (!authCookie) {
+		if (!authCookie || authCookie === 'undefined') {
+			event.cookies.delete('fumsauth', { path: '/' })
 			throw redirect(303, '/login')
 		}
 
@@ -24,7 +25,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			throw redirect(303, '/login')
 		}
 
-		const { Data: [userData] } = await userResponse.json()
+		const { data: [userData] } = await userResponse.json()
 
 		const permResponse = await fetch(`${API_BASE_URL}/v1/permissions?user=${userData.id}`, {
 			method: 'GET',
@@ -39,7 +40,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			throw redirect(303, '/login')
 		}
 
-		const { Data: permData } = await permResponse.json()
+		const { data: permData } = await permResponse.json()
 
 		let user: Local
 		if (permData != null) {
@@ -58,7 +59,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 				const companyCodeMap = new Map<number, string>()
 				const companyNameMap = new Map<number, string>()
 				if (companiesResponse.ok) {
-					const { Data: companiesData } = await companiesResponse.json()
+					const { data: companiesData } = await companiesResponse.json()
 					companiesData.forEach((company: any) => {
 						companyCodeMap.set(company.id, company.code)
 						companyNameMap.set(company.id, company.name)
@@ -114,7 +115,7 @@ const isSuperadmin = async (token: string, permData: Permission, userData: User,
 
 	let perms: ProcessedPermission[] | null = null
 	if (companiesResponse.ok) {
-		const { Data: companiesData } = await companiesResponse.json()
+		const { data: companiesData } = await companiesResponse.json()
 		perms = companiesData.map((company: any) => ({
 			id: permData.id,
 			user_id: permData.user_id,

@@ -7,6 +7,7 @@
 	import Card from '$lib/components/ui/card/card.svelte';
 	import { downloadBlob } from '$lib/utils.js';
 	import type { DateValue } from '@internationalized/date';
+	import { toast } from 'svelte-sonner';
 
 	const { data } = $props();
 	const locations = [...new Set(data.panels.map((f) => f.location))].map((location) => ({
@@ -47,12 +48,17 @@
 						response.headers.get('content-disposition')?.split('filename=')[1]?.replace(/"/g, '') ||
 						'maximo_reports.xlsx';
 					downloadBlob(blob, filename);
+				} else {
+					const errorMessage = `Failed to fetch data: ${response.status} ${response.statusText}`;
+					toast.error(errorMessage);
 				}
 			} catch (error) {
-				console.error('Failed to find data:', error);
+				toast.error(
+					`Failed to find data: ${error instanceof Error ? error.message : 'Unknown error'}`
+				);
 			}
 		} else {
-			console.log('No date range selected');
+			toast.warning('Please select both from and to dates');
 		}
 	};
 </script>

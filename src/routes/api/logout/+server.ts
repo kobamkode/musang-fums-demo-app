@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ cookies }) => {
 		});
 
 		if (!response.ok) {
-			console.error('Backend logout failed:', response.statusText);
+			console.error('Logout failed:', response.statusText);
 		}
 	}
 

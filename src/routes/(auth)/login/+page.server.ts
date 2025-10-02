@@ -29,7 +29,7 @@ export const actions: Actions = {
 
 		const user = await response.json();
 
-		cookies.set('fumsauth', JSON.stringify(user.Data), {
+		cookies.set('fumsauth', JSON.stringify(user.data), {
 			httpOnly: true,
 			secure: true,
 			sameSite: 'strict',
