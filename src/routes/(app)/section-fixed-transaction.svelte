@@ -95,7 +95,7 @@
 			</div>
 		{/if}
 		{#if type == 'lastMobile'}
-			<Card.Description>Last Shift Transaction</Card.Description>
+			<Card.Description>Last Transaction</Card.Description>
 			<Card.Description>{(panel as PanelIOMobile).fuel_truck}</Card.Description>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
@@ -110,7 +110,9 @@
 			</Card.Title>
 			<Separator />
 			<div class="flex flex-col">
-				<div>Outlet last update</div>
+				<div>Start update</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelIOMobile).start_update)}</div>
+				<div>End update</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelIOMobile).out_update)}</div>
 			</div>
 		{/if}

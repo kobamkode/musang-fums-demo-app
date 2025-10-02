@@ -149,4 +149,5 @@ export interface PanelIOMobile {
 	fuel_truck: string
 	outlets_volume: number
 	out_update: string
+	start_update: string
 }
