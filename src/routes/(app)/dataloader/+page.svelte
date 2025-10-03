@@ -10,19 +10,39 @@
 	import { toast } from 'svelte-sonner';
 
 	const { data } = $props();
+
 	const locations = [...new Set(data.panels.map((f) => f.location))].map((location) => ({
 		value: location,
 		label: location
 	}));
-	const panels = [...new Set(data.panels.map((f) => f.panel_id))].map((panel) => ({
-		value: panel,
-		label: panel
-	}));
+
+	// Filter panels based on selected location
+	const filteredPanels = $derived(() => {
+		if (!selectedLocation) {
+			return [...new Set(data.panels.map((f) => f.panel_id))].map((panel) => ({
+				value: panel,
+				label: panel
+			}));
+		}
+
+		return data.panels
+			.filter((panel) => panel.location === selectedLocation)
+			.map((panel) => ({
+				value: panel.panel_id,
+				label: panel.panel_id
+			}));
+	});
 
 	let selectedLocation = $state<string | undefined>();
 	let selectedPanel = $state<string | undefined>();
 	let selectedDateFrom = $state<DateValue | undefined>();
 	let selectedDateTo = $state<DateValue | undefined>();
+
+	$effect(() => {
+		if (selectedLocation !== undefined) {
+			selectedPanel = undefined;
+		}
+	});
 
 	const isPanelIdDisabled = $derived(selectedLocation ? false : true);
 
@@ -74,7 +94,7 @@
 			<div>
 				Panel Id
 				<Combobox
-					items={panels}
+					items={filteredPanels()}
 					placeholder="All"
 					bind:value={selectedPanel}
 					disabled={isPanelIdDisabled}
