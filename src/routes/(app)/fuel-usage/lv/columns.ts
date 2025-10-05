@@ -1,0 +1,29 @@
+import type { FuelUsage } from "$lib/types"
+import type { ColumnDef } from "@tanstack/table-core"
+
+export const columns: ColumnDef<FuelUsage>[] = [
+	{
+		accessorKey: "unit_number",
+		header: "Unit"
+	},
+	{
+		accessorKey: "asset.String",
+		header: "Asset"
+	},
+	{
+		accessorKey: "asset_description.String",
+		header: "Vehicle"
+	},
+	{
+		accessorKey: "start_time",
+		header: "Date"
+	},
+	{
+		accessorKey: "volume",
+		header: "Volume"
+	},
+	{
+		accessorKey: "odometer",
+		header: "Odometer"
+	},
+]

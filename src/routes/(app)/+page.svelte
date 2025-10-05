@@ -32,7 +32,7 @@
 	</Card>
 
 	<Card class="w-full">
-		<CardHeader class="text-xl">ATG</CardHeader>
+		<CardHeader class="text-xl">Automatic Tank Gauging (ATG)</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			{#each data.atgStats as atg}
 				<Card class="w-80">

@@ -75,7 +75,6 @@ export interface Flowmeter {
 	status: boolean;
 }
 
-
 export interface Country {
 	id: number
 	alpha2: string
@@ -150,4 +149,13 @@ export interface PanelIOMobile {
 	outlets_volume: number
 	out_update: string
 	start_update: string
+}
+
+export interface FuelUsage {
+	unit_number: string
+	asset: string
+	asset_description: string
+	start_time: string
+	volume: string
+	odometer: string
 }

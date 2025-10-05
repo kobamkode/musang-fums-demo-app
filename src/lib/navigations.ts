@@ -30,6 +30,34 @@ export const navMain = [
 		isActive: false
 	},
 	{
+		title: 'Fuel Usage',
+		url: '',
+		icon: CircleGauge,
+		isActive: true,
+		items: [
+			{
+				title: 'Heavy Equipment',
+				url: '/fuel-usage/heavy-equipment'
+			},
+			{
+				title: 'Unit Support',
+				url: '/fuel-usage/unit-support'
+			},
+			{
+				title: 'Contractor',
+				url: '/fuel-usage/contractor'
+			},
+			{
+				title: 'Site Dump Truck',
+				url: '/fuel-usage/sdt'
+			},
+			{
+				title: 'Light Vehicle',
+				url: '/fuel-usage/lv'
+			},
+		]
+	},
+	{
 		title: 'Data Loader',
 		url: '/dataloader',
 		icon: FileDown,
