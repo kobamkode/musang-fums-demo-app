@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DataTable from '$lib/components/data-table.svelte';
+	import DataTableFuelUsage from '$lib/components/data-table-fuel-usage.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { columns } from './columns';
@@ -30,47 +30,51 @@
 				</Tabs.List>
 				{#if selectedAssetType === 'fire truck'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.fireTruck} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.fireTruck} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'mesin las'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.mesinLas} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.mesinLas} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'mesin compressor'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.mesinCompressor} />
+						<DataTableFuelUsage
+							assetType={selectedAssetType}
+							{columns}
+							data={data.mesinCompressor}
+						/>
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'pompa'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.pompa} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.pompa} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'sarana manhaul'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.saranaManhaul} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.saranaManhaul} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'tower lamp'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.towerLamp} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.towerLamp} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'genset trust'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.gensetTrust} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.gensetTrust} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'genset bek'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.gensetBek} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.gensetBek} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'genset'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.genset} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.genset} />
 					</Tabs.Content>
 				{/if}
 			</Tabs.Root>

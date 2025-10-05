@@ -1,10 +1,10 @@
 <script lang="ts">
-	import DataTable from '$lib/components/data-table.svelte';
+	import DataTableFuelUsage from '$lib/components/data-table-fuel-usage.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { columns } from './columns';
 	const { data } = $props();
-	const assetTypes = ['compact', 'crane truck', 'dozer', 'drilling', 'dumptruck', 'excavator'];
+	const assetTypes = ['compact', 'crane truck', 'dozer', 'drilling', 'dump truck', 'excavator'];
 	let selectedAssetType = $state<string>(assetTypes?.[0] ?? '');
 </script>
 
@@ -20,32 +20,32 @@
 				</Tabs.List>
 				{#if selectedAssetType === 'compact'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.compacts} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.compacts} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'crane truck'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.crane} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.crane} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'dozer'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.dozer} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.dozer} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'drilling'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.drilling} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.drilling} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'excavator'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.excavator} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.excavator} />
 					</Tabs.Content>
 				{/if}
 				{#if selectedAssetType === 'dumptruck'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.dumptruck} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.dumptruck} />
 					</Tabs.Content>
 				{/if}
 			</Tabs.Root>
