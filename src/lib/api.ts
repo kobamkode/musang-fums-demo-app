@@ -1015,7 +1015,9 @@ export const getGroupedFixedData = async (
 
 export const getFuelUsagesByType = async (
 	locals: App.Locals,
-	assetType: string
+	assetType: string,
+	startDate?: string,
+	endDate?: string
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
@@ -1023,7 +1025,15 @@ export const getFuelUsagesByType = async (
 		atype: assetType
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/heavyequipment?${params.toString()}`, {
+	if (startDate) {
+		params.append('s', startDate)
+	}
+
+	if (endDate) {
+		params.append('e', endDate)
+	}
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,

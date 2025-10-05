@@ -3,7 +3,7 @@
 	import TankDashboard from '$lib/components/tank-dashboard.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import SectionFixedTransaction from './section-fixed-transaction.svelte';
+	import SectionTransaction from './section-transaction.svelte';
 	let { data } = $props();
 
 	function getTimeBasedGreeting(): string {
@@ -63,13 +63,13 @@
 		<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			{#each data.fixedPercentageVariance as variance}
-				<SectionFixedTransaction panel={variance} type="variance" />
+				<SectionTransaction panel={variance} type="variance" />
 			{/each}
 			{#each data.fixedIOLastShiftTrans as lastIO}
-				<SectionFixedTransaction panel={lastIO} type="last" />
+				<SectionTransaction panel={lastIO} type="last" />
 			{/each}
 			{#each data.fixedIOCurrentShiftTrans as currentIO}
-				<SectionFixedTransaction panel={currentIO} type="current" />
+				<SectionTransaction panel={currentIO} type="current" />
 			{/each}
 		</CardContent>
 	</Card>
@@ -78,7 +78,16 @@
 		<CardHeader class="text-xl">iFuel - Fuel Trucks</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			{#each data.mobileIOLastShiftTrans as lastIOMobile}
-				<SectionFixedTransaction panel={lastIOMobile} type="lastMobile" />
+				<SectionTransaction panel={lastIOMobile} type="lastMobile" />
+			{/each}
+		</CardContent>
+	</Card>
+
+	<Card class="w-full">
+		<CardHeader class="text-xl">Fuel Usage</CardHeader>
+		<CardContent class="flex flex-wrap gap-4">
+			{#each data.mobileIOLastShiftTrans as lastIOMobile}
+				<SectionTransaction panel={lastIOMobile} type="lastMobile" />
 			{/each}
 		</CardContent>
 	</Card>

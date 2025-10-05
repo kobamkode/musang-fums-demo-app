@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DataTable from '$lib/components/data-table.svelte';
+	import DataTableFuelUsage from '$lib/components/data-table-fuel-usage.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { columns } from './columns';
@@ -20,7 +20,7 @@
 				</Tabs.List>
 				{#if selectedAssetType === 'truck sdt'}
 					<Tabs.Content value={selectedAssetType}>
-						<DataTable {columns} data={data.sdt} />
+						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.sdt} />
 					</Tabs.Content>
 				{/if}
 			</Tabs.Root>

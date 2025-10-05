@@ -15,8 +15,12 @@ export const columns: ColumnDef<FuelUsage>[] = [
 		header: "Vehicle"
 	},
 	{
-		accessorKey: "start_time",
-		header: "Date"
+		accessorKey: 'start_time',
+		header: 'Date',
+		cell: ({ getValue }) => {
+			const isoString = getValue() as string;
+			return isoString.replace('T', ' ').substring(0, 16);
+		},
 	},
 	{
 		accessorKey: "volume",
