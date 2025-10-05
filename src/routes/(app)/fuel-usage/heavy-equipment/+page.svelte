@@ -43,7 +43,7 @@
 						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.excavator} />
 					</Tabs.Content>
 				{/if}
-				{#if selectedAssetType === 'dumptruck'}
+				{#if selectedAssetType === 'dump truck'}
 					<Tabs.Content value={selectedAssetType}>
 						<DataTableFuelUsage assetType={selectedAssetType} {columns} data={data.dumptruck} />
 					</Tabs.Content>
