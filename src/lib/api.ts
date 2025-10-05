@@ -1012,3 +1012,33 @@ export const getGroupedFixedData = async (
 	const { data } = await response.json()
 	return data ? data : []
 }
+
+export const getFuelUsagesByType = async (
+	locals: App.Locals,
+	assetType: string
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetType
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/heavyequipment?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
