@@ -10,7 +10,7 @@
 
 <div class="flex flex-col gap-4">
 	<Card>
-		<CardHeader class="text-xl">Unit Support</CardHeader>
+		<CardHeader class="text-xl">Site Dump Truck (SDT)</CardHeader>
 		<CardContent>
 			<Tabs.Root bind:value={selectedAssetType} class="w-full">
 				<Tabs.List>
