@@ -159,3 +159,10 @@ export interface FuelUsage {
 	volume: string
 	odometer: string
 }
+
+export interface PanelFuelUsage {
+	asset_category: string
+	outlets_volume: number
+	out_update: string
+	current_month: string
+}

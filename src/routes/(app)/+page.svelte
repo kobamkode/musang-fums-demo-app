@@ -86,9 +86,11 @@
 	<Card class="w-full">
 		<CardHeader class="text-xl">Fuel Usage</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
-			{#each data.mobileIOLastShiftTrans as lastIOMobile}
-				<SectionTransaction panel={lastIOMobile} type="lastMobile" />
-			{/each}
+			<SectionTransaction panel={data.heavyEquipmentsVolumeCurrentMonth} type="fuelUsage" />
+			<SectionTransaction panel={data.lightVehicleVolumeCurrentMonth} type="fuelUsage" />
+			<SectionTransaction panel={data.siteDumpTruckVolumeCurrentMonth} type="fuelUsage" />
+			<SectionTransaction panel={data.contractorsVolumeCurrentMonth} type="fuelUsage" />
+			<SectionTransaction panel={data.unitSupportsVolumeCurrentMonth} type="fuelUsage" />
 		</CardContent>
 	</Card>
 </div>

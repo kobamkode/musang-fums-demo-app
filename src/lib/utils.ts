@@ -53,3 +53,17 @@ export const downloadFromUrl = async (url: string, filename: string) => {
 		console.error('Download failed:', error);
 	}
 };
+
+export const currentMonthDateRange = () => {
+	const now = new Date()
+	const year = now.getFullYear()
+	const month = now.getMonth() + 1 // Convert to 1-indexed for date string
+
+	// Format as YYYY-MM-DD in local timezone
+	const start = `${year}-${month.toString().padStart(2, '0')}-01`
+
+	// Get last day of current month (use 0-indexed month in Date constructor)
+	const lastDay = new Date(year, now.getMonth() + 1, 0).getDate()
+	const end = `${year}-${month.toString().padStart(2, '0')}-${lastDay.toString().padStart(2, '0')}`
+	return { start, end }
+}

@@ -1,5 +1,5 @@
-import { getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getFuelUsagesByType, getGroupedAtgData, getGroupedFixedData, getMobileIOLastShiftTrans, getPercentageVariance } from "$lib/api"
-import type { ATG, FixedStat, PanelIO } from "$lib/types"
+import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getFuelUsagesByType, getGroupedAtgData, getGroupedFixedData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getPercentageVariance, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
+import type { ATG, FixedStat, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -40,12 +40,28 @@ export const load: PageServerLoad = async ({ locals }) => {
 	);
 
 	const fixedIOLastShiftTrans: PanelIO[] = await getFixedIOLastShiftTrans(locals)
-	const mobileIOLastShiftTrans: PanelIO[] = await getMobileIOLastShiftTrans(locals)
+	const mobileIOLastShiftTrans: PanelIOMobile[] = await getMobileIOLastShiftTrans(locals)
 	const fixedIOCurrentShiftTrans: PanelIO[] = await getFixedIOCurrentShiftTrans(locals)
 	const fixedPercentageVariance: PanelIO[] = await getPercentageVariance(locals)
-	const fuelUsage: PanelIO[] = await getFuelUsagesByType(locals)
+	const heavyEquipmentsVolumeCurrentMonth: PanelFuelUsage = await getHeavyEquipmentsFuelUsageTransaction(locals)
+	const unitSupportsVolumeCurrentMonth: PanelFuelUsage = await getUnitSupportsFuelUsageTransaction(locals)
+	const contractorsVolumeCurrentMonth: PanelFuelUsage = await getContractorsFuelUsageTransaction(locals)
+	const siteDumpTruckVolumeCurrentMonth: PanelFuelUsage = await getSiteDumpTruckFuelUsageTransaction(locals)
+	const lightVehicleVolumeCurrentMonth: PanelFuelUsage = await getLightVehicleFuelUsageTransaction(locals)
 
 	const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
 
-	return { atgStats, fixedStats, fixedIOLastShiftTrans, fixedIOCurrentShiftTrans, fixedPercentageVariance, mobileIOLastShiftTrans, fuelUsage }
+	return {
+		atgStats,
+		fixedStats,
+		fixedIOLastShiftTrans,
+		fixedIOCurrentShiftTrans,
+		fixedPercentageVariance,
+		mobileIOLastShiftTrans,
+		heavyEquipmentsVolumeCurrentMonth,
+		unitSupportsVolumeCurrentMonth,
+		contractorsVolumeCurrentMonth,
+		siteDumpTruckVolumeCurrentMonth,
+		lightVehicleVolumeCurrentMonth
+	}
 }
