@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "$env/static/private";
+import { currentMonthDateRange } from "./utils";
 
 export const getAllUsers = async (locals: App.Locals) => {
 	const response = await fetch(`${API_BASE_URL}/v1/users`, {
@@ -1034,6 +1035,194 @@ export const getFuelUsagesByType = async (
 	}
 
 	const response = await fetch(`${API_BASE_URL}/v1/fuelusage?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
+export const getHeavyEquipmentsFuelUsageTransaction = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const { start, end } = currentMonthDateRange()
+	const assetsType = [
+		'compact', 'crane truck', 'dozer', 'drilling', 'dump truck', 'excavator'
+	]
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetsType.join(",").toUpperCase(),
+		acat: "Heavy Equipments",
+		s: start,
+		e: end
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
+export const getUnitSupportsFuelUsageTransaction = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const { start, end } = currentMonthDateRange()
+	const assetsType = [
+		'fire truck',
+		'mesin las',
+		'mesin compressor',
+		'pompa',
+		'sarana manhaul',
+		'tower lamp',
+		'genset trust',
+		'genset bek',
+		'genset'
+	]
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetsType.join(",").toUpperCase(),
+		acat: "Unit Supports",
+		s: start,
+		e: end
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
+export const getContractorsFuelUsageTransaction = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const { start, end } = currentMonthDateRange()
+	const assetsType = [
+		'tangki kontraktor', 'fuel truck kontraktor'
+	]
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetsType.join(",").toUpperCase(),
+		acat: "Contractors",
+		s: start,
+		e: end
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
+export const getLightVehicleFuelUsageTransaction = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const { start, end } = currentMonthDateRange()
+	const assetsType = [
+		'lv bek', 'lv trust', 'lv kontraktor'
+	]
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetsType.join(",").toUpperCase(),
+		acat: "Light Vehicle",
+		s: start,
+		e: end
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
+export const getSiteDumpTruckFuelUsageTransaction = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const { start, end } = currentMonthDateRange()
+	const assetsType = [
+		'truck sdt'
+	]
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'MSTN',
+		atype: assetsType.join(",").toUpperCase(),
+		acat: "Site Dump Truck",
+		s: start,
+		e: end
+	})
+
+	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
