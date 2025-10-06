@@ -1211,12 +1211,10 @@ export const getSiteDumpTruckFuelUsageTransaction = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const { start, end } = currentMonthDateRange()
-	const assetsType = [
-		'truck sdt'
-	]
+	const assetsType = 'truck sdt'
 	const params = new URLSearchParams({
 		cc: activeTeam?.company_code || 'MSTN',
-		atype: assetsType.join(",").toUpperCase(),
+		atype: assetsType.toUpperCase(),
 		acat: "Site Dump Truck",
 		s: start,
 		e: end
