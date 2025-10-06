@@ -135,6 +135,10 @@
 				</table>
 			</Card.Title>
 			<Separator />
+			<div class="flex flex-col">
+				<div>Last update</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelFuelUsage).out_update)}</div>
+			</div>
 		{/if}
 	</Card.Header>
 </Card.Root>
