@@ -1,4 +1,4 @@
-import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getFuelUsagesByType, getGroupedAtgData, getGroupedFixedData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getPercentageVariance, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
+import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getGroupedFixedData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getPercentageVariance, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
 import type { ATG, FixedStat, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
