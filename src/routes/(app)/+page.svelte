@@ -62,9 +62,9 @@
 	<Card class="w-full">
 		<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
-			{#each data.fixedPercentageVariance as variance}
-				<SectionTransaction panel={variance} type="variance" />
-			{/each}
+			<!-- {#each data.fixedPercentageVariance as variance} -->
+			<!-- 	<SectionTransaction panel={variance} type="variance" /> -->
+			<!-- {/each} -->
 			{#each data.fixedIOLastShiftTrans as lastIO}
 				<SectionTransaction panel={lastIO} type="last" />
 			{/each}
