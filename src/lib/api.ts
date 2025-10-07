@@ -117,7 +117,7 @@ export const getAtgData = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		fs: fuelStation,
 		t: tankLabel,
 		dl: dataloggerId,
@@ -156,7 +156,7 @@ export const getGroupedAtgData = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/atg/dashboard?${params.toString()}`, {
@@ -277,7 +277,7 @@ export const getFlowmeterData = async (
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		p: panelId,
 		loc: location
 
@@ -829,7 +829,7 @@ export const findPermission = async (locals: App.Locals, ...query: string[]) => 
 export const downloadMaximo = async (locals: App.Locals, location?: string, panel?: string, startDate?: string, endDate?: string) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 	if (location) {
 		params.append('loc', location)
@@ -878,7 +878,7 @@ export const getFixedIOLastShiftTrans = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/lastshift-io?${params.toString()}`, {
@@ -906,7 +906,7 @@ export const getFixedIOCurrentShiftTrans = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/currentshift-io?${params.toString()}`, {
@@ -934,7 +934,7 @@ export const getPercentageVariance = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/percentage-variance?${params.toString()}`, {
@@ -963,7 +963,7 @@ export const getMobileIOLastShiftTrans = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/mobile/lastshift-io?${params.toString()}`, {
@@ -991,7 +991,7 @@ export const getGroupedFixedData = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 	})
 
 	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/dashboard?${params.toString()}`, {
@@ -1022,7 +1022,7 @@ export const getFuelUsagesByType = async (
 ) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetType
 	})
 
@@ -1063,7 +1063,7 @@ export const getHeavyEquipmentsFuelUsageTransaction = async (
 		'compact', 'crane truck', 'dozer', 'drilling', 'dump truck', 'excavator'
 	]
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetsType.join(",").toUpperCase(),
 		acat: "Heavy Equipments",
 		s: start,
@@ -1107,7 +1107,7 @@ export const getUnitSupportsFuelUsageTransaction = async (
 		'genset'
 	]
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetsType.join(",").toUpperCase(),
 		acat: "Unit Supports",
 		s: start,
@@ -1143,7 +1143,7 @@ export const getContractorsFuelUsageTransaction = async (
 		'tangki kontraktor', 'fuel truck kontraktor'
 	]
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetsType.join(",").toUpperCase(),
 		acat: "Contractors",
 		s: start,
@@ -1179,7 +1179,7 @@ export const getLightVehicleFuelUsageTransaction = async (
 		'lv bek', 'lv trust', 'lv kontraktor'
 	]
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetsType.join(",").toUpperCase(),
 		acat: "Light Vehicle",
 		s: start,
@@ -1213,7 +1213,7 @@ export const getSiteDumpTruckFuelUsageTransaction = async (
 	const { start, end } = currentMonthDateRange()
 	const assetsType = 'truck sdt'
 	const params = new URLSearchParams({
-		cc: activeTeam?.company_code || 'MSTN',
+		cc: activeTeam?.company_code || 'TRUST',
 		atype: assetsType.toUpperCase(),
 		acat: "Site Dump Truck",
 		s: start,
