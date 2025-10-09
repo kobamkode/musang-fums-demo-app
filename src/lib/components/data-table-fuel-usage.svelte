@@ -124,8 +124,8 @@
 
 				if (response.ok) {
 					const { flowmeters } = await response.json();
-					tableData = flowmeters;
-					pagination = { pageIndex: 0, pageSize: 10 };
+					tableData = transformDataWithSummaryRows(flowmeters);
+					pagination = { pageIndex: 0, pageSize: 20 };
 				} else {
 					const errorMessage = `Failed to fetch data: ${response.status} ${response.statusText}`;
 					toast.error(errorMessage);
