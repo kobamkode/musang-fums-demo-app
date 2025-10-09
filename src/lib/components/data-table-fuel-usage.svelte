@@ -43,8 +43,10 @@
 			{} as Record<string, TData[]>
 		);
 
-		// Sort dates and create enhanced data with summary rows
-		const sortedDates = Object.keys(groupedByDate).sort();
+		// Sort dates (newest first) and create enhanced data with summary rows
+		const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
+			return new Date(b).getTime() - new Date(a).getTime();
+		});
 		const enhancedData: EnhancedData<TData>[] = [];
 
 		sortedDates.forEach((date) => {
