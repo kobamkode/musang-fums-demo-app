@@ -23,11 +23,11 @@ export const columns: ColumnDef<FuelUsage>[] = [
 		},
 	},
 	{
-		accessorKey: "volume",
-		header: "Volume"
-	},
-	{
 		accessorKey: "odometer",
 		header: "Odometer"
+	},
+	{
+		accessorKey: "volume",
+		header: "Volume (ℓ)",
 	},
 ]

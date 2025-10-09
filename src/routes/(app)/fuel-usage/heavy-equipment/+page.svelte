@@ -2,7 +2,7 @@
 	import DataTableFuelUsage from '$lib/components/data-table-fuel-usage.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
-	import { columns } from './columns';
+	import { columns } from '../columns';
 	const { data } = $props();
 	const assetTypes = ['compact', 'crane truck', 'dozer', 'drilling', 'dump truck', 'excavator'];
 	let selectedAssetType = $state<string>(assetTypes?.[0] ?? '');

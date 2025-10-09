@@ -19,9 +19,68 @@
 		assetType: string;
 	};
 
+	type EnhancedData<T> = T & {
+		_isSummaryRow?: boolean;
+		_summaryDate?: string;
+		_summaryVolume?: number;
+	};
+
+	// Function to transform data with summary rows
+	function transformDataWithSummaryRows(rawData: TData[]): EnhancedData<TData>[] {
+		if (!rawData || rawData.length === 0) return [];
+
+		const groupedByDate = rawData.reduce(
+			(groups, item: any) => {
+				const dateStr = item.start_time;
+				const date = new Date(dateStr).toISOString().split('T')[0]; // Get YYYY-MM-DD format
+
+				if (!groups[date]) {
+					groups[date] = [];
+				}
+				groups[date].push(item);
+				return groups;
+			},
+			{} as Record<string, TData[]>
+		);
+
+		// Sort dates and create enhanced data with summary rows
+		const sortedDates = Object.keys(groupedByDate).sort();
+		const enhancedData: EnhancedData<TData>[] = [];
+
+		sortedDates.forEach((date) => {
+			const dateGroup = groupedByDate[date];
+
+			// Add regular data rows
+			dateGroup.forEach((item) => {
+				enhancedData.push(item as EnhancedData<TData>);
+			});
+
+			// Calculate total volume for this date (adjust field name as needed)
+			const totalVolume = dateGroup.reduce((sum, item: any) => {
+				return sum + (item.volume || 0);
+			}, 0);
+
+			// Add summary row
+			const summaryRow: EnhancedData<TData> = {
+				_isSummaryRow: true,
+				_summaryDate: date,
+				_summaryVolume: totalVolume
+			} as EnhancedData<TData>;
+
+			enhancedData.push(summaryRow);
+		});
+
+		return enhancedData;
+	}
+
+	// Transform data whenever raw data changes
+	$effect(() => {
+		tableData = transformDataWithSummaryRows(data);
+	});
+
 	let { data, columns, assetType }: DataTableProps<TData, TValue> = $props();
 	let tableData = $state<TData[]>(data);
-	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 10 });
+	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 20 });
 
 	const table = createSvelteTable({
 		get data() {
@@ -107,13 +166,25 @@
 		</Table.Header>
 		<Table.Body>
 			{#each table.getRowModel().rows as row (row.id)}
-				<Table.Row data-state={row.getIsSelected() && 'selected'}>
-					{#each row.getVisibleCells() as cell (cell.id)}
-						<Table.Cell>
-							<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+				{@const rowData = row.original as EnhancedData<TData>}
+				{#if rowData._isSummaryRow}
+					<Table.Row class="border-t-2 bg-muted/50 font-semibold">
+						<Table.Cell colspan={columns.length - 1}>
+							Daily Total ({rowData._summaryDate})
 						</Table.Cell>
-					{/each}
-				</Table.Row>
+						<Table.Cell>
+							{rowData._summaryVolume?.toLocaleString() || 0}
+						</Table.Cell>
+					</Table.Row>
+				{:else}
+					<Table.Row data-state={row.getIsSelected() && 'selected'}>
+						{#each row.getVisibleCells() as cell (cell.id)}
+							<Table.Cell>
+								<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+							</Table.Cell>
+						{/each}
+					</Table.Row>
+				{/if}
 			{:else}
 				<Table.Row>
 					<Table.Cell colspan={columns.length} class="h-24 text-center">No results.</Table.Cell>
