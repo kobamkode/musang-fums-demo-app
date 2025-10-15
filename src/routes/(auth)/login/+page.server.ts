@@ -29,7 +29,7 @@ export const actions: Actions = {
 
 		const user = await response.json();
 
-		if (user.data.email === "liveview@musangten.com") {
+		if (user.data.email === "asset_management@banpuindo.co.id") {
 			cookies.set('fumsauth', JSON.stringify(user.data), {
 				httpOnly: true,
 				secure: true,
