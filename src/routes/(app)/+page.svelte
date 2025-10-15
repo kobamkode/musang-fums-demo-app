@@ -3,8 +3,27 @@
 	import TankDashboard from '$lib/components/tank-dashboard.svelte';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import SectionTransaction from './section-transaction.svelte';
+	import { invalidate } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
+	import { Clock, RefreshCw } from '@lucide/svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { browser } from '$app/environment';
+
 	let { data } = $props();
+
+	let refreshInterval = $state<ReturnType<typeof setInterval> | null>(null);
+	let isManualRefreshing = $state(false);
+	let isAutoRefreshing = $state(false);
+	let lastRefreshTime = $state(new Date());
+
+	let isLoading = $derived(isManualRefreshing || isAutoRefreshing);
+
+	let refreshIconClass = $derived(`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`);
+	let loadingRefreshIconClass = $derived(
+		`h-4 w-4 animate-spin ${isLoading ? 'text-blue-600' : ''}`
+	);
 
 	function getTimeBasedGreeting(): string {
 		const hour = new Date().getHours();
@@ -21,13 +40,118 @@
 	}
 
 	let greeting = $state(getTimeBasedGreeting());
+
+	let formattedLastRefresh = $derived(
+		lastRefreshTime.toLocaleTimeString('en-US', {
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit'
+		})
+	);
+
+	// Auto-refresh function
+	async function autoRefresh() {
+		if (isLoading) return; // Prevent overlapping refreshes
+
+		isAutoRefreshing = true;
+		try {
+			await invalidate('app:dashboard-data');
+			lastRefreshTime = new Date();
+			toast.success('Dashboard data refreshed automatically');
+		} catch (error) {
+			console.error('Auto-refresh error:', error);
+			toast.error('Failed to refresh data automatically');
+		} finally {
+			isAutoRefreshing = false;
+		}
+	}
+
+	// Setup auto-refresh using onMount/onDestroy for better control
+	onMount(() => {
+		if (browser) {
+			lastRefreshTime = new Date();
+
+			// Set up the interval
+			refreshInterval = setInterval(autoRefresh, 60 * 1000); // 1 minute
+
+			// Handle visibility change to pause/resume when tab is hidden/shown
+			const handleVisibilityChange = () => {
+				if (document.hidden) {
+					if (refreshInterval) {
+						clearInterval(refreshInterval);
+						refreshInterval = null;
+					}
+				} else {
+					if (!refreshInterval) {
+						refreshInterval = setInterval(autoRefresh, 60 * 1000);
+					}
+				}
+			};
+
+			document.addEventListener('visibilitychange', handleVisibilityChange);
+
+			return () => {
+				document.removeEventListener('visibilitychange', handleVisibilityChange);
+			};
+		}
+	});
+
+	onDestroy(() => {
+		if (refreshInterval) {
+			clearInterval(refreshInterval);
+			refreshInterval = null;
+		}
+	});
+
+	async function handleManualRefresh() {
+		if (isLoading) return; // Prevent multiple simultaneous refreshes
+
+		isManualRefreshing = true;
+		try {
+			await invalidate('app:dashboard-data');
+			lastRefreshTime = new Date();
+			toast.success('Dashboard data refreshed manually');
+		} catch (error) {
+			toast.error('Failed to refresh data');
+			console.error('Refresh error:', error);
+		} finally {
+			isManualRefreshing = false;
+		}
+	}
 </script>
+
+{#if isLoading}
+	<div
+		class="fixed top-4 right-4 z-50 flex items-center gap-2 rounded-lg border bg-background px-3 py-2 shadow-lg"
+	>
+		<RefreshCw class={loadingRefreshIconClass} />
+		<span class="text-sm font-medium">Refreshing data...</span>
+	</div>
+{/if}
 
 <div class="flex flex-col gap-4">
 	<Card>
 		<CardHeader class="text-xl">
-			👋 {greeting}
-			{data.user?.name}!
+			<div class="flex flex-row gap-4">
+				<div class="flex-auto text-xl">
+					👋 {greeting}
+					{data.user?.name}!
+				</div>
+				<div class="flex items-center gap-2 text-sm text-muted-foreground">
+					<Clock class="h-3 w-3" />
+					Last updated: {formattedLastRefresh} • Auto-refresh every 1 minutes
+				</div>
+				<Button
+					variant="outline"
+					size="sm"
+					onclick={handleManualRefresh}
+					disabled={isLoading}
+					class="gap-2"
+				>
+					<RefreshCw class={refreshIconClass} />
+					Refresh
+				</Button>
+			</div>
 		</CardHeader>
 	</Card>
 

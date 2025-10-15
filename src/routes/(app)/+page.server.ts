@@ -2,7 +2,8 @@ import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFix
 import type { ATG, FixedStat, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, depends }) => {
+	depends('app:dashboard-data')
 	const groupedAtg: ATG[] = await getGroupedAtgData(locals)
 	const atgStats = await Promise.all(
 		groupedAtg.map(async (device) => {
