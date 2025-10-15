@@ -29,13 +29,23 @@ export const actions: Actions = {
 
 		const user = await response.json();
 
-		cookies.set('fumsauth', JSON.stringify(user.data), {
-			httpOnly: true,
-			secure: true,
-			sameSite: 'strict',
-			maxAge: 60 * 60 * 24 * 1,
-			path: '/'
-		});
+		if (user.data.email === "liveview@musangten.com") {
+			cookies.set('fumsauth', JSON.stringify(user.data), {
+				httpOnly: true,
+				secure: true,
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24 * 365,
+				path: '/'
+			});
+		} else {
+			cookies.set('fumsauth', JSON.stringify(user.data), {
+				httpOnly: true,
+				secure: true,
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24 * 1,
+				path: '/'
+			});
+		}
 
 
 		throw redirect(303, "/")
