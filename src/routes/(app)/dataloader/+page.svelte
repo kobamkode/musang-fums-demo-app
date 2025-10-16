@@ -5,8 +5,10 @@
 	import CardContent from '$lib/components/ui/card/card-content.svelte';
 	import CardHeader from '$lib/components/ui/card/card-header.svelte';
 	import Card from '$lib/components/ui/card/card.svelte';
+	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 	import { downloadBlob } from '$lib/utils.js';
 	import type { DateValue } from '@internationalized/date';
+	import { Loader2 } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 
 	const { data } = $props();
@@ -37,6 +39,7 @@
 	let selectedPanel = $state<string | undefined>();
 	let selectedDateFrom = $state<DateValue | undefined>();
 	let selectedDateTo = $state<DateValue | undefined>();
+	let isDownloading = $state(false);
 
 	$effect(() => {
 		if (selectedLocation !== undefined) {
@@ -48,6 +51,7 @@
 
 	const handleDownloadClick = async () => {
 		if (selectedDateFrom && selectedDateTo) {
+			isDownloading = true;
 			try {
 				const response = await fetch('/api/downloadMaximo', {
 					method: 'POST',
@@ -76,6 +80,8 @@
 				toast.error(
 					`Failed to find data: ${error instanceof Error ? error.message : 'Unknown error'}`
 				);
+			} finally {
+				isDownloading = false;
 			}
 		} else {
 			toast.warning('Please select both from and to dates');
@@ -106,7 +112,13 @@
 				To
 				<Datepicker bind:value={selectedDateTo} />
 			</div>
-			<Button onclick={handleDownloadClick}>Download</Button>
+			<Button onclick={handleDownloadClick} disabled={isDownloading}>
+				{#if isDownloading}
+					<Spinner />
+				{:else}
+					Download Maximo
+				{/if}
+			</Button>
 		</CardContent>
 	</Card>
 </div>
