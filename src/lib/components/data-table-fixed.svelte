@@ -13,6 +13,7 @@
 	import Datepicker from './datepicker.svelte';
 	import type { DateValue } from '@internationalized/date';
 	import { toast } from 'svelte-sonner';
+	import { downloadBlob } from '$lib/utils';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -46,8 +47,10 @@
 		getPaginationRowModel: getPaginationRowModel()
 	});
 
+	let isDownloading = $state(false);
 	let selectedDateFrom = $state<DateValue>();
 	let selectedDateTo = $state<DateValue>();
+	let isDateNotSet = $derived(!selectedDateFrom || !selectedDateTo);
 	const handleFindClick = async () => {
 		if (selectedDateFrom && selectedDateTo) {
 			try {
@@ -81,6 +84,45 @@
 			toast.warning('Please select both from and to dates');
 		}
 	};
+
+	const handleDownload = async () => {
+		if (selectedDateFrom && selectedDateTo) {
+			isDownloading = true;
+			try {
+				const response = await fetch('/api/downloadFixedStation', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						panelId,
+						location,
+						start: selectedDateFrom?.toString() ?? '',
+						end: selectedDateTo?.toString() ?? ''
+					})
+				});
+
+				if (response.ok) {
+					const blob = await response.blob();
+					const filename =
+						response.headers.get('content-disposition')?.split('filename=')[1]?.replace(/"/g, '') ||
+						'maximo_reports.xlsx';
+					downloadBlob(blob, filename);
+				} else {
+					const errorMessage = `Failed to fetch data: ${response.status} ${response.statusText}`;
+					toast.error(errorMessage);
+				}
+			} catch (error) {
+				toast.error(
+					`Failed to find data: ${error instanceof Error ? error.message : 'Unknown error'}`
+				);
+			} finally {
+				isDownloading = false;
+			}
+		} else {
+			toast.warning('Please select both from and to dates');
+		}
+	};
 </script>
 
 <div class="flex items-center gap-2 py-4">
@@ -88,7 +130,8 @@
 	<Datepicker bind:value={selectedDateFrom} />
 	To
 	<Datepicker bind:value={selectedDateTo} />
-	<Button onclick={handleFindClick}>Find</Button>
+	<Button onclick={handleFindClick} disabled={isDateNotSet}>Find</Button>
+	<Button onclick={handleDownload} disabled={isDateNotSet}>Download</Button>
 </div>
 <div class="rounded-md border">
 	<Table.Root>

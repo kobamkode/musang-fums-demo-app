@@ -872,6 +872,52 @@ export const downloadMaximo = async (locals: App.Locals, location?: string, pane
 
 }
 
+export const downloadFixedStation = async (locals: App.Locals, location?: string, panel?: string, startDate?: string, endDate?: string) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'TRUST',
+	})
+	if (location) {
+		params.append('loc', location)
+	}
+	if (panel) {
+		params.append('p', panel)
+	}
+	if (startDate) {
+		params.append('s', startDate)
+	}
+	if (endDate) {
+		params.append('e', endDate)
+	}
+
+	const response = await fetch(`${API_BASE_URL}/v1/loader/station?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${locals.user?.token}`,
+		},
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const contentDisposition = response.headers.get('content-disposition');
+	const filename = contentDisposition
+		? contentDisposition.split('filename=')[1]?.replace(/"/g, '')
+		: 'fixed_station.xlsx';
+
+	return {
+		response, filename
+	}
+
+}
+
 
 export const getFixedIOLastShiftTrans = async (
 	locals: App.Locals,
