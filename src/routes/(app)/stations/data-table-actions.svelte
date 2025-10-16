@@ -16,7 +16,7 @@
 		{#snippet child({ props })}
 			<Button
 				{...props}
-				variant="ghost"
+				variant="default"
 				size="icon"
 				class="relative size-8 p-0"
 				onclick={() => {
