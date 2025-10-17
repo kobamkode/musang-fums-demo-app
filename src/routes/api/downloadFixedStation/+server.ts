@@ -3,8 +3,8 @@ import type { RequestHandler } from './$types';
 import { downloadFixedStation } from '$lib/api';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	const { location, panel, start, end } = await request.json();
-	const result = await downloadFixedStation(locals, location, panel, start, end)
+	const { location, panelId, start, end } = await request.json();
+	const result = await downloadFixedStation(locals, location, panelId, start, end)
 
 	// Handle error case
 	if ('error' in result) {

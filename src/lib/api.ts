@@ -872,7 +872,7 @@ export const downloadMaximo = async (locals: App.Locals, location?: string, pane
 
 }
 
-export const downloadFixedStation = async (locals: App.Locals, location?: string, panel?: string, startDate?: string, endDate?: string) => {
+export const downloadFixedStation = async (locals: App.Locals, location?: string, panelId?: string, startDate?: string, endDate?: string) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
 	const params = new URLSearchParams({
 		cc: activeTeam?.company_code || 'TRUST',
@@ -880,8 +880,8 @@ export const downloadFixedStation = async (locals: App.Locals, location?: string
 	if (location) {
 		params.append('loc', location)
 	}
-	if (panel) {
-		params.append('p', panel)
+	if (panelId) {
+		params.append('p', panelId)
 	}
 	if (startDate) {
 		params.append('s', startDate)
