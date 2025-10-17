@@ -52,6 +52,7 @@
 	let selectedDateTo = $state<DateValue>();
 	let isDateNotSet = $derived(!selectedDateFrom || !selectedDateTo);
 	const handleFindClick = async () => {
+		isDownloading = true;
 		if (selectedDateFrom && selectedDateTo) {
 			try {
 				const response = await fetch('/api/findFixedByRangeDate', {
@@ -79,6 +80,8 @@
 				toast.error(
 					`Failed to find data: ${error instanceof Error ? error.message : 'Unknown error'}`
 				);
+			} finally {
+				isDownloading = false;
 			}
 		} else {
 			toast.warning('Please select both from and to dates');
