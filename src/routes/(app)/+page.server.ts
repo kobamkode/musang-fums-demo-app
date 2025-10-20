@@ -43,21 +43,21 @@ export const load: PageServerLoad = async ({ locals, depends }) => {
 	const fixedIOLastShiftTrans: PanelIO[] = await getFixedIOLastShiftTrans(locals)
 	const mobileIOLastShiftTrans: PanelIOMobile[] = await getMobileIOLastShiftTrans(locals)
 	const fixedIOCurrentShiftTrans: PanelIO[] = await getFixedIOCurrentShiftTrans(locals)
-	const fixedPercentageVariance: PanelIO[] = await getPercentageVariance(locals)
+	// const fixedPercentageVariance: PanelIO[] = await getPercentageVariance(locals)
 	const heavyEquipmentsVolumeCurrentMonth: PanelFuelUsage = await getHeavyEquipmentsFuelUsageTransaction(locals)
 	const unitSupportsVolumeCurrentMonth: PanelFuelUsage = await getUnitSupportsFuelUsageTransaction(locals)
 	const contractorsVolumeCurrentMonth: PanelFuelUsage = await getContractorsFuelUsageTransaction(locals)
 	const siteDumpTruckVolumeCurrentMonth: PanelFuelUsage = await getSiteDumpTruckFuelUsageTransaction(locals)
 	const lightVehicleVolumeCurrentMonth: PanelFuelUsage = await getLightVehicleFuelUsageTransaction(locals)
 
-	const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
+	// const fixedStats: FixedStat[] = await getGroupedFixedData(locals)
 
 	return {
 		atgStats,
-		fixedStats,
+		// fixedStats,
 		fixedIOLastShiftTrans,
 		fixedIOCurrentShiftTrans,
-		fixedPercentageVariance,
+		// fixedPercentageVariance,
 		mobileIOLastShiftTrans,
 		heavyEquipmentsVolumeCurrentMonth,
 		unitSupportsVolumeCurrentMonth,
