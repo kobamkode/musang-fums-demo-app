@@ -38,5 +38,14 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
+	<Form.Field {form} name="description">
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Description</Form.Label>
+				<Input {...props} bind:value={$formData.description} />
+			{/snippet}
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
 	<Form.Button>Update</Form.Button>
 </form>

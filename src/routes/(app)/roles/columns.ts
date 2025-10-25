@@ -9,6 +9,10 @@ export const columns: ColumnDef<Role>[] = [
 		header: "Name"
 	},
 	{
+		accessorKey: "description.String",
+		header: "Description"
+	},
+	{
 		id: 'actions',
 		cell: ({ row }) => {
 			return renderComponent(DataTableActions, {
