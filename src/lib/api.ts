@@ -343,6 +343,7 @@ export const createRole = async (
 	locals: App.Locals,
 	data: {
 		name: string;
+		description: string;
 	},
 
 ) => {
@@ -457,6 +458,7 @@ export const updateRole = async (
 	locals: App.Locals,
 	data: {
 		name: string;
+		description: string;
 	},
 	role_id: number
 ) => {

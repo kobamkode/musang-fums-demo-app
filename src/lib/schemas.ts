@@ -35,7 +35,6 @@ export const atgSchema = z.object({
 
 export type AtgSchema = typeof atgSchema
 
-
 export const permissionSchema = z.object({
 	user_id: z.string(),
 	company_id: z.string(),
@@ -64,6 +63,7 @@ export type EditUserSchema = typeof editUserSchema
 export const roleSchema = z.object({
 	"id": z.number(),
 	"name": z.string(),
+	"description": z.string(),
 });
 
 export type RoleSchema = typeof roleSchema
