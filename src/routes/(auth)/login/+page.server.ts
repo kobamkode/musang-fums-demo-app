@@ -1,5 +1,7 @@
 import { fail, redirect, type Actions } from "@sveltejs/kit";
 import { API_BASE_URL } from "$env/static/private";
+import { LIVE_VIEW_ACCOUNT } from "$env/static/private";
+import { encrypt } from "$lib/crypto";
 
 export const actions: Actions = {
 	login: async ({ request, cookies, fetch }) => {
@@ -29,23 +31,27 @@ export const actions: Actions = {
 
 		const user = await response.json();
 
-		if (user.data.email === "asset_management@banpuindo.co.id") {
-			cookies.set('fumsauth', JSON.stringify(user.data), {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'strict',
-				maxAge: 60 * 60 * 24 * 365,
-				path: '/'
-			});
-		} else {
-			cookies.set('fumsauth', JSON.stringify(user.data), {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'strict',
-				maxAge: 60 * 60 * 24 * 1,
-				path: '/'
-			});
-		}
+		const maxAge = user.data.email === `${LIVE_VIEW_ACCOUNT}`
+			? 60 * 60 * 24 * 365
+			: 60 * 60 * 24 * 1;
+
+		const tokenHashed = await encrypt(user.data.token)
+
+		cookies.set('token', tokenHashed, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'strict',
+			maxAge,
+			path: '/'
+		});
+
+		cookies.set('profile', JSON.stringify({ email: user.data.email }), {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'strict',
+			maxAge,
+			path: '/'
+		});
 
 
 		throw redirect(303, "/")
