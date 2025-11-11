@@ -2,8 +2,14 @@ import { SECRET_COOKIE_KEY } from '$env/static/private'
 
 // Generate or derive an encryption key
 async function getEncryptionKey(): Promise<CryptoKey> {
-	const encoder = new TextEncoder();
-	const keyData = encoder.encode(`${SECRET_COOKIE_KEY}`).slice(0, 32)
+
+	// Decode base64 key to get actual key material
+	const keyData = Uint8Array.from(atob(SECRET_COOKIE_KEY), c => c.charCodeAt(0));
+
+	// Ensure we have exactly 32 bytes for AES-256
+	if (keyData.length !== 32) {
+		throw new Error(`Invalid key length: expected 32 bytes, got ${keyData.length}`);
+	}
 
 	return crypto.subtle.importKey(
 		'raw',
