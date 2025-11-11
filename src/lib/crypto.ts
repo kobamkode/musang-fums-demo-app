@@ -3,17 +3,40 @@ import { SECRET_COOKIE_KEY } from '$env/static/private'
 // Generate or derive an encryption key
 async function getEncryptionKey(): Promise<CryptoKey> {
 
+	// Debug logging for production
+	if (typeof SECRET_COOKIE_KEY === 'undefined') {
+		console.error('SECRET_COOKIE_KEY is undefined!');
+		throw new Error('SECRET_COOKIE_KEY environment variable is not set');
+	}
+
+	console.log('SECRET_COOKIE_KEY length:', SECRET_COOKIE_KEY.length);
+	console.log('SECRET_COOKIE_KEY first 10 chars:', SECRET_COOKIE_KEY.substring(0, 10));
+
 	// Decode base64 key to get actual key material
-	const keyData = Uint8Array.from(atob(SECRET_COOKIE_KEY), c => c.charCodeAt(0));
+	let keyData;
+	try {
+		keyData = Uint8Array.from(atob(SECRET_COOKIE_KEY), c => c.charCodeAt(0));
+		console.log('Successfully decoded base64, length:', keyData.length);
+	} catch (error) {
+		console.log('Base64 decode failed, using string encoding:', error);
+		// If not valid base64, use the string directly
+		keyData = new TextEncoder().encode(SECRET_COOKIE_KEY);
+	}
 
 	// Ensure we have exactly 32 bytes for AES-256
-	if (keyData.length !== 32) {
-		throw new Error(`Invalid key length: expected 32 bytes, got ${keyData.length}`);
+	const normalizedKey = new Uint8Array(32);
+	if (keyData.length >= 32) {
+		normalizedKey.set(keyData.slice(0, 32));
+	} else {
+		normalizedKey.set(keyData);
+		// Pad with zeros if too short
 	}
+
+	console.log('Final normalized key length:', normalizedKey.length);
 
 	return crypto.subtle.importKey(
 		'raw',
-		keyData,
+		normalizedKey,
 		{ name: 'AES-GCM', length: 256 },
 		false,
 		['encrypt', 'decrypt']
