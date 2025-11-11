@@ -6,6 +6,7 @@
 	import type { ProcessedPermission } from '$lib/types';
 	import NavUserOrg from './nav-user-org.svelte';
 	import { navAdmin, navMain } from '$lib/navigations';
+	import Separator from './ui/separator/separator.svelte';
 
 	let {
 		ref = $bindable(null),
@@ -71,9 +72,9 @@
 <Sidebar.Root {collapsible} {...restProps}>
 	<Sidebar.Header>
 		<NavUserOrg user={data.userInfo} teams={data.companies()} activeTeam={data.active()} />
-		<!-- <TeamSwitcher teams={data.companies()} activeTeam={data.active()} /> -->
 	</Sidebar.Header>
-	<Sidebar.Content>
+	<Separator />
+	<Sidebar.Content class="bg-sidebar">
 		<NavMain items={data.navMain} />
 		{#if user.perms && user.perms.length > 0 && user.perms[0].role_id == 999}
 			<NavMain items={data.navAdmin} />
