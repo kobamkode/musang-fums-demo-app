@@ -19,6 +19,9 @@ export const columns: ColumnDef<User>[] = [
 			return renderComponent(DataTableActions, {
 				id: row.original.id,
 			})
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]

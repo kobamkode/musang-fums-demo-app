@@ -67,8 +67,10 @@
 						class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						{...props}
 					>
-						<Avatar.Root class="size-8 rounded-lg">
-							<Avatar.Fallback class="rounded-lg">{getInitials(user.name)}</Avatar.Fallback>
+						<Avatar.Root class="size-8 rounded-lg bg-secondary">
+							<Avatar.Fallback class="rounded-lg bg-secondary text-secondary-foreground"
+								>{getInitials(user.name)}</Avatar.Fallback
+							>
 						</Avatar.Root>
 						<div class="grid flex-1 text-left text-sm leading-tight">
 							<span class="truncate font-medium">{user.name}</span>

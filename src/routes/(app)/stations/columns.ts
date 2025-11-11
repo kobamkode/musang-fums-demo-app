@@ -6,19 +6,24 @@ import type { FlowmeterDevice } from "$lib/types"
 export const columns: ColumnDef<FlowmeterDevice>[] = [
 	{
 		accessorKey: "panel_id",
-		header: "Panel Id"
+		header: "Panel Id",
 	},
 	{
 		accessorKey: "location",
-		header: "Location"
+		header: "Location",
 	},
 	{
 		id: 'actions',
+		size: 100,
+		enableResizing: false,
 		cell: ({ row }) => {
 			return renderComponent(DataTableActions, {
 				p: row.original.panel_id,
 				loc: row.original.location
 			})
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]

@@ -39,6 +39,9 @@ export const columns: ColumnDef<ATGStatus>[] = [
 				t: row.original.tank_label,
 				dl: row.original.datalogger_id,
 			})
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]
