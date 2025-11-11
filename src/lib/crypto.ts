@@ -1,7 +1,8 @@
-import { SECRET_COOKIE_KEY } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 
 // Generate or derive an encryption key
 async function getEncryptionKey(): Promise<CryptoKey> {
+	const SECRET_COOKIE_KEY = env.SECRET_COOKIE_KEY;
 
 	// Debug logging for production
 	if (typeof SECRET_COOKIE_KEY === 'undefined') {
