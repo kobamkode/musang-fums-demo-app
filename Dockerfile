@@ -1,6 +1,8 @@
 FROM node:24-alpine AS builder
 ARG API_BASE_URL
+ARG SECRET_COOKIE_KEY
 ENV API_BASE_URL=$API_BASE_URL
+ENV SECRET_COOKIE_KEY=$SECRET_COOKIE_KEY
 RUN npm install -g pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
