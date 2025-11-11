@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const { teamCode } = await request.json();
 
-	cookies.set('activeTeam', teamCode, {
+	cookies.set('team', teamCode, {
 		path: '/',
 		httpOnly: true,
 		secure: true,

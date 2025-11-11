@@ -146,7 +146,7 @@
 					size="sm"
 					onclick={handleManualRefresh}
 					disabled={isLoading}
-					class="gap-2"
+					class="gap-2 bg-secondary text-secondary-foreground"
 				>
 					<RefreshCw class={refreshIconClass} />
 					Refresh

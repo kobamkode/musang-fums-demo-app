@@ -53,7 +53,7 @@
 						</div>
 						<Input name="password" id="password-{id}" type="password" required />
 					</div>
-					<Button type="submit" class="w-full">Login</Button>
+					<Button type="submit" class="w-full bg-secondary text-secondary-foreground">Login</Button>
 				</div>
 			</form>
 			<div class="relative hidden bg-muted md:block">

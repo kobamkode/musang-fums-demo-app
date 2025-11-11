@@ -16,7 +16,9 @@
 			return data;
 		},
 		columns,
-		getCoreRowModel: getCoreRowModel()
+		getCoreRowModel: getCoreRowModel(),
+		enableColumnResizing: true,
+		columnResizeMode: 'onChange'
 	});
 </script>
 
@@ -26,7 +28,11 @@
 			{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
 				<Table.Row>
 					{#each headerGroup.headers as header (header.id)}
-						<Table.Head colspan={header.colSpan}>
+						<Table.Head
+							colspan={header.colSpan}
+							class={(header.column.columnDef.meta as any)?.class || ''}
+							style="width: {header.getSize()}px"
+						>
 							{#if !header.isPlaceholder}
 								<FlexRender
 									content={header.column.columnDef.header}
@@ -42,7 +48,10 @@
 			{#each table.getRowModel().rows as row (row.id)}
 				<Table.Row data-state={row.getIsSelected() && 'selected'}>
 					{#each row.getVisibleCells() as cell (cell.id)}
-						<Table.Cell>
+						<Table.Cell
+							class={(cell.column.columnDef.meta as any)?.class || ''}
+							style="width: {cell.column.getSize()}px"
+						>
 							<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
 						</Table.Cell>
 					{/each}

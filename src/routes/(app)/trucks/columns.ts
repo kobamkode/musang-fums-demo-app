@@ -19,6 +19,9 @@ export const columns: ColumnDef<FlowmeterDevice>[] = [
 				p: row.original.panel_id,
 				loc: row.original.location
 			})
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]

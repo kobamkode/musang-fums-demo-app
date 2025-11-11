@@ -6,7 +6,9 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import { generateBreadcrumbs } from '$lib/navigations';
+	import { ModeWatcher } from 'mode-watcher';
 	import '../../app.css';
+	import ThemeToggle from '$lib/components/theme-toggle.svelte';
 
 	let { children, data } = $props();
 	const user = {
@@ -21,14 +23,15 @@
 </script>
 
 <Toaster position="top-right" />
+<ModeWatcher />
 
 <Sidebar.Provider>
 	<AppSidebar {user} />
 	<Sidebar.Inset>
 		<header
-			class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
+			class="flex h-16 shrink-0 items-center gap-2 px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
 		>
-			<div class="flex items-center gap-2 px-4">
+			<div class="flex w-full items-center gap-2 px-4">
 				<Sidebar.Trigger class="-ml-1" />
 				<Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
 				<Breadcrumb.Root>
@@ -48,8 +51,11 @@
 					</Breadcrumb.List>
 				</Breadcrumb.Root>
 			</div>
+			<ThemeToggle />
 		</header>
-		<div class="flex flex-1 flex-col gap-4 p-4 pt-0">
+		<div
+			class="flex flex-1 flex-col gap-4 from-primary/100 to-secondary/80 p-4 not-dark:bg-gradient-to-b"
+		>
 			{@render children()}
 		</div>
 	</Sidebar.Inset>

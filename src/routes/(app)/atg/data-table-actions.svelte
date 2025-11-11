@@ -18,7 +18,7 @@
 				{...props}
 				variant="default"
 				size="icon"
-				class="relative size-8 p-0"
+				class="relative size-8 bg-secondary p-0 text-secondary-foreground"
 				onclick={() => {
 					handleDetail(fs, t, dl);
 				}}

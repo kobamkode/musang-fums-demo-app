@@ -3,6 +3,7 @@
 	import CompanyForm from './company-form.svelte';
 	import type { Country } from '$lib/types';
 	import type { CompanySchema } from '$lib/schemas';
+	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 
 	let {
 		data
@@ -15,5 +16,10 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<CompanyForm {data} />
+	<Card>
+		<CardHeader class="text-xl">Edit Company</CardHeader>
+		<CardContent>
+			<CompanyForm {data} />
+		</CardContent>
+	</Card>
 </div>

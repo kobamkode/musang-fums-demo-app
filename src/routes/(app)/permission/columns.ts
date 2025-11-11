@@ -45,6 +45,9 @@ export const createColumns = (users: User[], companies: Company[], roles: Role[]
 					id: row.original.id,
 				})
 			}
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]

@@ -2,6 +2,7 @@
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 	import UserForm from './user-form.svelte';
 	import type { EditUserSchema } from '$lib/schemas';
+	import { Card, CardHeader, CardContent } from '$lib/components/ui/card';
 
 	let {
 		data
@@ -13,5 +14,10 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<UserForm {data} />
+	<Card>
+		<CardHeader class="text-xl">Edit User</CardHeader>
+		<CardContent>
+			<UserForm {data} />
+		</CardContent>
+	</Card>
 </div>

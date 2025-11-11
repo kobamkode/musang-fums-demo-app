@@ -27,6 +27,9 @@ export const createColumns = (countries: Country[]): ColumnDef<Company>[] => [
 			return renderComponent(DataTableActions, {
 				id: row.original.id,
 			})
+		},
+		meta: {
+			class: "text-right"
 		}
 	}
 ]
