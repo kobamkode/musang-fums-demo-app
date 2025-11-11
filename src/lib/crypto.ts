@@ -2,34 +2,16 @@ import { SECRET_COOKIE_KEY } from '$env/static/private'
 
 // Generate or derive an encryption key
 async function getEncryptionKey(): Promise<CryptoKey> {
-	console.log('Original SECRET_COOKIE_KEY:', SECRET_COOKIE_KEY);
-	console.log('Key length (characters):', SECRET_COOKIE_KEY.length);
+	const encoder = new TextEncoder();
+	const keyData = encoder.encode(`${SECRET_COOKIE_KEY}`).slice(0, 32)
 
-	try {
-		// Decode the base64 key to get the actual bytes
-		const decodedString = atob(SECRET_COOKIE_KEY);
-		console.log('Decoded string length:', decodedString.length);
-
-		const keyData = Uint8Array.from(decodedString, c => c.charCodeAt(0));
-		console.log('Key data length (bytes):', keyData.length);
-		console.log('Key data:', Array.from(keyData));
-
-		// Ensure we have exactly 32 bytes for AES-256
-		if (keyData.length !== 32) {
-			throw new Error(`Invalid key length: expected 32 bytes, got ${keyData.length}`);
-		}
-
-		return crypto.subtle.importKey(
-			'raw',
-			keyData,
-			{ name: 'AES-GCM', length: 256 },
-			false,
-			['encrypt', 'decrypt']
-		);
-	} catch (error) {
-		console.error('Error processing key:', error);
-		throw new Error(`Key processing failed: ${error}`);
-	}
+	return crypto.subtle.importKey(
+		'raw',
+		keyData,
+		{ name: 'AES-GCM', length: 256 },
+		false,
+		['encrypt', 'decrypt']
+	);
 }
 
 export async function encrypt(data: string): Promise<string> {

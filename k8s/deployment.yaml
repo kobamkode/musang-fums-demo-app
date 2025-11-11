@@ -24,7 +24,7 @@ data:
   API_BASE_URL: "https://fums-api.banpuindo.co.id/api"
   ORIGIN: "https://fums.banpuindo.co.id"
   LIVE_VIEW_ACCOUNT: "asset_management@banpuindo.co.id"
-  SECRET_COOKIE_KEY: "3vewPhA2cB4mVocBT4elz+JFaB19eFxt3EfAKMDjB+c="
+  SECRET_COOKIE_KEY: "BhPQF5qwkXnDxNeswFBGqO3GaqX6UEns2bjhglj3W10="
 ---
 apiVersion: apps/v1
 kind: Deployment
