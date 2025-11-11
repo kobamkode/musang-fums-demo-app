@@ -29,11 +29,11 @@
 	<AppSidebar {user} />
 	<Sidebar.Inset>
 		<header
-			class="flex h-16 shrink-0 items-center gap-2 px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
+			class="flex h-16 shrink-0 items-center gap-2 px-4 transition-[width,height] ease-linear not-dark:bg-primary group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
 		>
 			<div class="flex w-full items-center gap-2 px-4">
-				<Sidebar.Trigger class="-ml-1" />
-				<Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
+				<Sidebar.Trigger size="icon" class="-ml-4 not-dark:bg-white" />
+				<Separator orientation="vertical" class="mr-2 bg-white data-[orientation=vertical]:h-4" />
 				<Breadcrumb.Root>
 					<Breadcrumb.List>
 						{#each breadcrumbs() as crumb, index}
@@ -54,7 +54,7 @@
 			<ThemeToggle />
 		</header>
 		<div
-			class="flex flex-1 flex-col gap-4 from-primary/100 to-secondary/80 p-4 not-dark:bg-gradient-to-b"
+			class="flex flex-1 flex-col gap-4 from-primary/100 to-secondary/80 p-4 pt-0 not-dark:bg-gradient-to-b"
 		>
 			{@render children()}
 		</div>
