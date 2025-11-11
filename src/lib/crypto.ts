@@ -4,23 +4,11 @@ import { env } from '$env/dynamic/private'
 async function getEncryptionKey(): Promise<CryptoKey> {
 	const SECRET_COOKIE_KEY = env.SECRET_COOKIE_KEY;
 
-	// Debug logging for production
-	if (typeof SECRET_COOKIE_KEY === 'undefined') {
-		console.error('SECRET_COOKIE_KEY is undefined!');
-		throw new Error('SECRET_COOKIE_KEY environment variable is not set');
-	}
-
-	console.log('SECRET_COOKIE_KEY length:', SECRET_COOKIE_KEY.length);
-	console.log('SECRET_COOKIE_KEY first 10 chars:', SECRET_COOKIE_KEY.substring(0, 10));
-
 	// Decode base64 key to get actual key material
 	let keyData;
 	try {
 		keyData = Uint8Array.from(atob(SECRET_COOKIE_KEY), c => c.charCodeAt(0));
-		console.log('Successfully decoded base64, length:', keyData.length);
 	} catch (error) {
-		console.log('Base64 decode failed, using string encoding:', error);
-		// If not valid base64, use the string directly
 		keyData = new TextEncoder().encode(SECRET_COOKIE_KEY);
 	}
 
@@ -32,8 +20,6 @@ async function getEncryptionKey(): Promise<CryptoKey> {
 		normalizedKey.set(keyData);
 		// Pad with zeros if too short
 	}
-
-	console.log('Final normalized key length:', normalizedKey.length);
 
 	return crypto.subtle.importKey(
 		'raw',
