@@ -23,6 +23,7 @@ data:
   NODE_ENV: "production"
   API_BASE_URL: "https://fums-api.banpuindo.co.id/api"
   ORIGIN: "https://fums.banpuindo.co.id"
+  LIVE_VIEW_ACCOUNT: "asset_management@banpuindo.co.id"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -73,6 +74,11 @@ spec:
             configMapKeyRef:
               name: musang-fums-app-config
               key: ORIGIN
+        - name: LIVE_VIEW_ACCOUNT
+          valueFrom:
+            configMapKeyRef:
+              name: musang-fums-app-config
+              key: LIVE_VIEW_ACCOUNT
         # Health checks
         livenessProbe:
           httpGet:
