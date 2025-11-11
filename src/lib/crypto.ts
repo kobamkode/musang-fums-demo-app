@@ -3,6 +3,7 @@ import { SECRET_COOKIE_KEY } from '$env/static/private'
 // Generate or derive an encryption key
 async function getEncryptionKey(): Promise<CryptoKey> {
 	const encoder = new TextEncoder();
+	console.log(SECRET_COOKIE_KEY)
 	const keyData = encoder.encode(SECRET_COOKIE_KEY).slice(0, 32)
 
 	return crypto.subtle.importKey(
