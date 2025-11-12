@@ -1,5 +1,5 @@
-import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getGroupedFixedData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getPercentageVariance, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
-import type { ATG, FixedStat, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
+import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
+import type { ATG, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ locals, depends }) => {
