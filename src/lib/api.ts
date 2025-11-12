@@ -1,8 +1,8 @@
-import { API_BASE_URL } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { currentMonthDateRange } from "./utils";
 
 export const getAllUsers = async (locals: App.Locals) => {
-	const response = await fetch(`${API_BASE_URL}/v1/users`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/users`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -23,7 +23,7 @@ export const getAllUsers = async (locals: App.Locals) => {
 }
 
 export const getAllRoles = async (locals: App.Locals) => {
-	const response = await fetch(`${API_BASE_URL}/v1/roles`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/roles`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -44,7 +44,7 @@ export const getAllRoles = async (locals: App.Locals) => {
 }
 
 export const getAllCompanies = async (locals: App.Locals) => {
-	const response = await fetch(`${API_BASE_URL}/v1/companies`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/companies`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -65,7 +65,7 @@ export const getAllCompanies = async (locals: App.Locals) => {
 }
 
 export const getAllCountries = async (locals: App.Locals) => {
-	const response = await fetch(`${API_BASE_URL}/v1/countries`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/countries`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -86,7 +86,7 @@ export const getAllCountries = async (locals: App.Locals) => {
 }
 
 export const getAllPermissions = async (locals: App.Locals) => {
-	const response = await fetch(`${API_BASE_URL}/v1/permissions`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/permissions`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -131,7 +131,7 @@ export const getAtgData = async (
 		params.append('e', endDate)
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/atg?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/atg?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -159,7 +159,7 @@ export const getGroupedAtgData = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/atg/dashboard?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/atg/dashboard?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -181,7 +181,7 @@ export const getGroupedAtgData = async (
 
 export const findAtgByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/atgstatus?cc=${activeTeam?.company_code}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/atgstatus?cc=${activeTeam?.company_code}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -203,7 +203,7 @@ export const findAtgByCC = async (locals: App.Locals) => {
 
 export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter/fixed?cc=${activeTeam?.company_code}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/flowmeter/fixed?cc=${activeTeam?.company_code}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -225,7 +225,7 @@ export const findFixedFlowmeterByCC = async (locals: App.Locals) => {
 
 export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter/mobile?cc=${activeTeam?.company_code}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/flowmeter/mobile?cc=${activeTeam?.company_code}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -247,7 +247,7 @@ export const findMobileFlowmeterByCC = async (locals: App.Locals) => {
 
 export const findAllFlowmeterByCC = async (locals: App.Locals) => {
 	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter/all?cc=${activeTeam?.company_code}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/flowmeter/all?cc=${activeTeam?.company_code}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -291,7 +291,7 @@ export const getFlowmeterData = async (
 		params.append('e', endDate)
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/flowmeter?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/flowmeter?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -320,7 +320,7 @@ export const createUser = async (
 	},
 
 ) => {
-	const response = await fetch(`${API_BASE_URL}/v1/users`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/users`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -347,7 +347,7 @@ export const createRole = async (
 	},
 
 ) => {
-	const response = await fetch(`${API_BASE_URL}/v1/roles`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/roles`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -375,7 +375,7 @@ export const createCompany = async (
 	},
 
 ) => {
-	const response = await fetch(`${API_BASE_URL}/v1/companies`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/companies`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -403,7 +403,7 @@ export const createPermission = async (
 	},
 
 ) => {
-	const response = await fetch(`${API_BASE_URL}/v1/permissions`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/permissions`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -435,7 +435,7 @@ export const updateUser = async (
 	user_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/users/${user_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/users/${user_id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -463,7 +463,7 @@ export const updateRole = async (
 	role_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/roles/${role_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/roles/${role_id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -492,7 +492,7 @@ export const updateCompany = async (
 	company_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/companies/${company_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/companies/${company_id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -521,7 +521,7 @@ export const updatePermission = async (
 	permission_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/permissions/${permission_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/permissions/${permission_id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -549,7 +549,7 @@ export const deleteUser = async (
 	user_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/users/${user_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/users/${user_id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
@@ -572,7 +572,7 @@ export const deleteRole = async (
 	role_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/roles/${role_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/roles/${role_id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
@@ -595,7 +595,7 @@ export const deleteCompany = async (
 	company_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/companies/${company_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/companies/${company_id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
@@ -618,7 +618,7 @@ export const deletePermission = async (
 	permission_id: number
 ) => {
 
-	const response = await fetch(`${API_BASE_URL}/v1/permission/${permission_id}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/permission/${permission_id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
@@ -652,7 +652,7 @@ export const findRole = async (locals: App.Locals, ...query: string[]) => {
 		queryString = params.toString() ? `?${params.toString()}` : '';
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/roles${queryString}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/roles${queryString}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -691,7 +691,7 @@ export const findUser = async (locals: App.Locals, ...query: string[]) => {
 
 		queryString = params.toString() ? `?${params.toString()}` : '';
 	}
-	const response = await fetch(`${API_BASE_URL}/v1/users${queryString}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/users${queryString}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -728,7 +728,7 @@ export const findCompany = async (locals: App.Locals, ...query: string[]) => {
 		queryString = params.toString() ? `?${params.toString()}` : '';
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/companies${queryString}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/companies${queryString}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -766,7 +766,7 @@ export const findCountry = async (locals: App.Locals, ...query: string[]) => {
 		queryString = params.toString() ? `?${params.toString()}` : '';
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/countries${queryString}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/countries${queryString}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -807,7 +807,7 @@ export const findPermission = async (locals: App.Locals, ...query: string[]) => 
 		queryString = params.toString() ? `?${params.toString()}` : '';
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/permissions${queryString}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/permissions${queryString}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -846,7 +846,7 @@ export const downloadMaximo = async (locals: App.Locals, location?: string, pane
 		params.append('e', endDate)
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/loader/maximo?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/loader/maximo?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -892,7 +892,7 @@ export const downloadFixedStation = async (locals: App.Locals, location?: string
 		params.append('e', endDate)
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/loader/station?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/loader/station?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -929,7 +929,7 @@ export const getFixedIOLastShiftTrans = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/lastshift-io?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/fixed/lastshift-io?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -957,7 +957,7 @@ export const getFixedIOCurrentShiftTrans = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/currentshift-io?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/fixed/currentshift-io?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -985,7 +985,7 @@ export const getPercentageVariance = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/percentage-variance?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/fixed/percentage-variance?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1014,7 +1014,7 @@ export const getMobileIOLastShiftTrans = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/mobile/lastshift-io?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/mobile/lastshift-io?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1042,7 +1042,7 @@ export const getGroupedFixedData = async (
 		cc: activeTeam?.company_code || 'TRUST',
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/devices/fixed/dashboard?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/fixed/dashboard?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1082,7 +1082,7 @@ export const getFuelUsagesByType = async (
 		params.append('e', endDate)
 	}
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1118,7 +1118,7 @@ export const getHeavyEquipmentsFuelUsageTransaction = async (
 		e: end
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1162,7 +1162,7 @@ export const getUnitSupportsFuelUsageTransaction = async (
 		e: end
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1198,7 +1198,7 @@ export const getContractorsFuelUsageTransaction = async (
 		e: end
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1234,7 +1234,7 @@ export const getLightVehicleFuelUsageTransaction = async (
 		e: end
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
@@ -1268,7 +1268,7 @@ export const getSiteDumpTruckFuelUsageTransaction = async (
 		e: end
 	})
 
-	const response = await fetch(`${API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
+	const response = await fetch(`${env.API_BASE_URL}/v1/fuelusage/assets?${params.toString()}`, {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${locals.user?.token}`,
