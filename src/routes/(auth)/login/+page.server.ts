@@ -1,5 +1,4 @@
 import { fail, redirect, type Actions } from "@sveltejs/kit";
-import { API_BASE_URL } from "$env/static/private";
 import { env } from "$env/dynamic/private";
 import { encrypt } from "$lib/crypto";
 
@@ -15,7 +14,7 @@ export const actions: Actions = {
 			})
 		}
 
-		const response = await fetch(`${API_BASE_URL}/v1/auth/login`, {
+		const response = await fetch(`${env.API_BASE_URL}/v1/auth/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
