@@ -21,7 +21,7 @@ metadata:
   namespace: fums-dev-ns
 data:
   NODE_ENV: "production"
-  API_BASE_URL: "https://fums-api.banpuindo.co.id/api"
+  API_BASE_URL: "http://10.224.0.4/api"
   ORIGIN: "https://fums.banpuindo.co.id"
   LIVE_VIEW_ACCOUNT: "asset_management@banpuindo.co.id"
   SECRET_COOKIE_KEY: "BhPQF5qwkXnDxNeswFBGqO3GaqX6UEns2bjhglj3W10="
