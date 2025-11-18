@@ -155,57 +155,60 @@
 		</CardHeader>
 	</Card>
 
-	<Card class="w-full">
-		<CardHeader class="text-xl">Automatic Tank Gauging (ATG)</CardHeader>
-		<CardContent class="flex flex-wrap gap-4">
-			{#each data.atgStats as atg}
-				<Card class="w-80">
-					<CardHeader class="flex items-center">
-						<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
-						<Separator orientation="vertical" />
-						<p>{atg.location} - {atg.tank_label}</p>
-					</CardHeader>
-					<CardContent>
-						<TankDashboard
-							product={atg.volume}
-							water={atg.water_volume}
-							ullage={atg.ullage}
-							temp={atg.temp}
-							lastUpdate={atg.date_update}
-							location={atg.location}
-							fuelStation={atg.fuel_station}
-							dataloggerId={atg.datalogger_id}
-							tankLabel={atg.tank_label}
-						/>
-					</CardContent>
-				</Card>
-			{/each}
-		</CardContent>
-	</Card>
+	<div class="flex flex-wrap gap-4">
+		<Card class="w-[650px]">
+			<CardHeader class="text-xl">Automatic Tank Gauging (ATG)</CardHeader>
+			<CardContent class="flex flex-wrap gap-4">
+				{#each data.atgStats as atg}
+					<Card class="w-full">
+						<CardHeader class="flex items-center">
+							<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
+							<Separator orientation="vertical" />
+							<p>{atg.location} - {atg.tank_label}</p>
+						</CardHeader>
+						<CardContent>
+							<TankDashboard
+								product={atg.volume}
+								water={atg.water_volume}
+								ullage={atg.ullage}
+								temp={atg.temp}
+								lastUpdate={atg.date_update}
+								location={atg.location}
+								fuelStation={atg.fuel_station}
+								dataloggerId={atg.datalogger_id}
+								tankLabel={atg.tank_label}
+							/>
+						</CardContent>
+					</Card>
+				{/each}
+			</CardContent>
+		</Card>
+		<div class="flex flex-col gap-4">
+			<Card class="w-full">
+				<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
+				<CardContent class="flex flex-wrap gap-4">
+					<!-- {#each data.fixedPercentageVariance as variance} -->
+					<!-- 	<SectionTransaction panel={variance} type="variance" /> -->
+					<!-- {/each} -->
+					{#each data.fixedIOLastShiftTrans as lastIO}
+						<SectionTransaction panel={lastIO} type="last" />
+					{/each}
+					{#each data.fixedIOCurrentShiftTrans as currentIO}
+						<SectionTransaction panel={currentIO} type="current" />
+					{/each}
+				</CardContent>
+			</Card>
 
-	<Card class="w-full">
-		<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
-		<CardContent class="flex flex-wrap gap-4">
-			<!-- {#each data.fixedPercentageVariance as variance} -->
-			<!-- 	<SectionTransaction panel={variance} type="variance" /> -->
-			<!-- {/each} -->
-			{#each data.fixedIOLastShiftTrans as lastIO}
-				<SectionTransaction panel={lastIO} type="last" />
-			{/each}
-			{#each data.fixedIOCurrentShiftTrans as currentIO}
-				<SectionTransaction panel={currentIO} type="current" />
-			{/each}
-		</CardContent>
-	</Card>
-
-	<Card class="w-full">
-		<CardHeader class="text-xl">iFuel - Fuel Trucks</CardHeader>
-		<CardContent class="flex flex-wrap gap-4">
-			{#each data.mobileIOLastShiftTrans as lastIOMobile}
-				<SectionTransaction panel={lastIOMobile} type="lastMobile" />
-			{/each}
-		</CardContent>
-	</Card>
+			<Card class="w-full">
+				<CardHeader class="text-xl">iFuel - Fuel Trucks</CardHeader>
+				<CardContent class="flex flex-wrap gap-4">
+					{#each data.mobileIOLastShiftTrans as lastIOMobile}
+						<SectionTransaction panel={lastIOMobile} type="lastMobile" />
+					{/each}
+				</CardContent>
+			</Card>
+		</div>
+	</div>
 
 	<Card class="w-full">
 		<CardHeader class="text-xl">Fuel Usage</CardHeader>
