@@ -156,7 +156,7 @@
 	</Card>
 
 	<div class="flex gap-4">
-		<Card class="w-[850px]">
+		<Card class="w-[850px] bg-muted">
 			<CardHeader class="text-xl font-bold lg:text-2xl">Automatic Tank Gauging (ATG)</CardHeader>
 			<CardContent class="flex flex-wrap gap-4">
 				{#each data.atgStats as atg}
@@ -184,7 +184,7 @@
 			</CardContent>
 		</Card>
 		<div class="flex w-[100%] flex-col gap-4">
-			<Card class="w-full">
+			<Card class="w-full bg-muted">
 				<CardHeader class="text-xl font-bold lg:text-2xl">iFuel - Fixed Stations</CardHeader>
 				<CardContent class="flex flex-wrap gap-4">
 					<!-- {#each data.fixedPercentageVariance as variance} -->
@@ -199,7 +199,7 @@
 				</CardContent>
 			</Card>
 
-			<Card class="w-full">
+			<Card class="w-full bg-muted">
 				<CardHeader class="text-xl font-bold lg:text-2xl">iFuel - Fuel Trucks</CardHeader>
 				<CardContent class="flex flex-wrap gap-4">
 					{#each data.mobileIOLastShiftTrans as lastIOMobile}
@@ -210,7 +210,7 @@
 		</div>
 	</div>
 
-	<Card class="w-full">
+	<Card class="w-full bg-muted">
 		<CardHeader class="text-xl font-black lg:text-2xl">Fuel Usage</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			<SectionTransaction panel={data.heavyEquipmentsVolumeCurrentMonth} type="fuelUsage" />
