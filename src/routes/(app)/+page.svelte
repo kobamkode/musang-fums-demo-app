@@ -155,16 +155,16 @@
 		</CardHeader>
 	</Card>
 
-	<div class="flex flex-wrap gap-4">
-		<Card class="w-[650px]">
-			<CardHeader class="text-xl">Automatic Tank Gauging (ATG)</CardHeader>
+	<div class="flex gap-4">
+		<Card class="w-[850px]">
+			<CardHeader class="text-xl font-bold lg:text-2xl">Automatic Tank Gauging (ATG)</CardHeader>
 			<CardContent class="flex flex-wrap gap-4">
 				{#each data.atgStats as atg}
 					<Card class="w-full">
 						<CardHeader class="flex items-center">
 							<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
 							<Separator orientation="vertical" />
-							<p>{atg.location} - {atg.tank_label}</p>
+							<p class="lg:text-2xl">{atg.location} - {atg.tank_label}</p>
 						</CardHeader>
 						<CardContent>
 							<TankDashboard
@@ -183,9 +183,9 @@
 				{/each}
 			</CardContent>
 		</Card>
-		<div class="flex flex-col gap-4">
+		<div class="flex w-[100%] flex-col gap-4">
 			<Card class="w-full">
-				<CardHeader class="text-xl">iFuel - Fixed Stations</CardHeader>
+				<CardHeader class="text-xl font-bold lg:text-2xl">iFuel - Fixed Stations</CardHeader>
 				<CardContent class="flex flex-wrap gap-4">
 					<!-- {#each data.fixedPercentageVariance as variance} -->
 					<!-- 	<SectionTransaction panel={variance} type="variance" /> -->
@@ -200,7 +200,7 @@
 			</Card>
 
 			<Card class="w-full">
-				<CardHeader class="text-xl">iFuel - Fuel Trucks</CardHeader>
+				<CardHeader class="text-xl font-bold lg:text-2xl">iFuel - Fuel Trucks</CardHeader>
 				<CardContent class="flex flex-wrap gap-4">
 					{#each data.mobileIOLastShiftTrans as lastIOMobile}
 						<SectionTransaction panel={lastIOMobile} type="lastMobile" />
@@ -211,7 +211,7 @@
 	</div>
 
 	<Card class="w-full">
-		<CardHeader class="text-xl">Fuel Usage</CardHeader>
+		<CardHeader class="text-xl font-black lg:text-2xl">Fuel Usage</CardHeader>
 		<CardContent class="flex flex-wrap gap-4">
 			<SectionTransaction panel={data.heavyEquipmentsVolumeCurrentMonth} type="fuelUsage" />
 			<SectionTransaction panel={data.lightVehicleVolumeCurrentMonth} type="fuelUsage" />
