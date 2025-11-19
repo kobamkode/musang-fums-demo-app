@@ -161,18 +161,18 @@
 
 	<div class="flex items-center gap-4">
 		<div class="h-5 w-5 rounded bg-amber-800"></div>
-		<span>Product: {product} ℓ</span>
+		<span class="lg:text-2xl">Product: {product} ℓ</span>
 	</div>
 	<div class="flex items-center gap-4">
 		<div class="h-5 w-5 rounded bg-blue-500"></div>
-		<span>Water: {water} ℓ</span>
+		<span class="lg:text-2xl">Water: {water} ℓ</span>
 	</div>
 	<div class="flex items-center gap-4">
 		<Thermometer size={24} />
-		<span>{temp ?? 0}°C</span>
+		<span class="lg:text-2xl">{temp ?? 0}°C</span>
 	</div>
 	<div class="flex items-center gap-4">
 		<ClockArrowUp size={24} />
-		<span>{formattedLastUpdate}</span>
+		<span class="lg:text-2xl">{formattedLastUpdate}</span>
 	</div>
 </div>

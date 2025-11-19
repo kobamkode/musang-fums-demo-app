@@ -13,7 +13,7 @@
 	}
 </script>
 
-<Card.Root class="@container/card h-72 w-72">
+<Card.Root class="@container/card h-72 w-72 lg:h-82">
 	<Card.Header>
 		{#if type == 'variance'}
 			<Card.Description>Variance</Card.Description>
@@ -45,8 +45,10 @@
 			</div>
 		{/if}
 		{#if type == 'last'}
-			<Card.Description>Last Shift Transaction</Card.Description>
-			<Card.Description>{(panel as PanelIO).location}</Card.Description>
+			<Card.Description class="lg:text-xl">Last Shift Transaction</Card.Description>
+			<Card.Description class="font-semibold lg:text-xl"
+				>{(panel as PanelIO).location}</Card.Description
+			>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				<table class="w-full">
@@ -63,7 +65,7 @@
 				</table>
 			</Card.Title>
 			<Separator />
-			<div class="flex flex-col">
+			<div class="flex flex-col lg:text-xl">
 				<div>Inlet last update</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelIO).in_update)}</div>
 				<div>Outlet last update</div>
@@ -71,8 +73,10 @@
 			</div>
 		{/if}
 		{#if type == 'current'}
-			<Card.Description>Current Shift Transaction</Card.Description>
-			<Card.Description>{(panel as PanelIO).location}</Card.Description>
+			<Card.Description class="lg:text-xl">Current Shift Transaction</Card.Description>
+			<Card.Description class="font-semibold lg:text-xl"
+				>{(panel as PanelIO).location}</Card.Description
+			>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				<table class="w-full">
@@ -89,7 +93,7 @@
 				</table>
 			</Card.Title>
 			<Separator />
-			<div class="flex flex-col">
+			<div class="flex flex-col lg:text-xl">
 				<div>Inlet last update</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelIO).in_update)}</div>
 				<div>Outlet last update</div>
@@ -97,8 +101,10 @@
 			</div>
 		{/if}
 		{#if type == 'lastMobile'}
-			<Card.Description>Total Last Shift Transaction</Card.Description>
-			<Card.Description>{(panel as PanelIOMobile).fuel_truck}</Card.Description>
+			<Card.Description class="lg:text-xl">Total Last Shift Transaction</Card.Description>
+			<Card.Description class="font-semibold lg:text-xl"
+				>{(panel as PanelIOMobile).fuel_truck}</Card.Description
+			>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				<table class="w-full">
@@ -111,7 +117,7 @@
 				</table>
 			</Card.Title>
 			<Separator />
-			<div class="flex flex-col">
+			<div class="flex flex-col lg:text-xl">
 				<div>Start shift</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelIOMobile).start_update)}</div>
 				<div>Last update</div>
@@ -119,10 +125,12 @@
 			</div>
 		{/if}
 		{#if type == 'fuelUsage'}
-			<Card.Description
+			<Card.Description class="lg:text-xl"
 				>{(panel as PanelFuelUsage).current_month} Fuel Usage Transaction</Card.Description
 			>
-			<Card.Description>{(panel as PanelFuelUsage).asset_category}</Card.Description>
+			<Card.Description class="font-semibold lg:text-xl"
+				>{(panel as PanelFuelUsage).asset_category}</Card.Description
+			>
 			<Separator />
 			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
 				<table class="w-full">
@@ -135,7 +143,7 @@
 				</table>
 			</Card.Title>
 			<Separator />
-			<div class="flex flex-col">
+			<div class="flex flex-col lg:text-xl">
 				<div>Last update</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelFuelUsage).out_update)}</div>
 			</div>
