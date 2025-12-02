@@ -1,16 +1,27 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import type { PanelFuelUsage, PanelIO, PanelIOMobile, PanelVariance } from '$lib/types';
+	import type {
+		PanelFuelUsage,
+		PanelInput,
+		PanelIO,
+		PanelIOMobile,
+		PanelVariance
+	} from '$lib/types';
 
 	const {
 		panel,
 		type
-	}: { panel: PanelIO | PanelVariance | PanelIOMobile | PanelFuelUsage; type: string } = $props();
+	}: {
+		panel: PanelIO | PanelVariance | PanelIOMobile | PanelFuelUsage | PanelInput;
+		type: string;
+	} = $props();
 
 	function formatTimestamp(timestamp: string): string {
 		return timestamp.replace(' +0000 UTC', '');
 	}
+
+	const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
 </script>
 
 <Card.Root class="@container/card h-72 w-72 lg:h-82">
@@ -98,6 +109,28 @@
 				<div class="font-semibold">{formatTimestamp((panel as PanelIO).in_update)}</div>
 				<div>Outlet last update</div>
 				<div class="font-semibold">{formatTimestamp((panel as PanelIO).out_update)}</div>
+			</div>
+		{/if}
+		{#if type == 'monthlycumin'}
+			<Card.Description class="lg:text-xl">{currentMonth} In Transactions</Card.Description>
+			<Card.Description class="font-semibold lg:text-xl"
+				>{(panel as PanelIO).location}</Card.Description
+			>
+			<Separator />
+			<Card.Title class="text-xl font-semibold tabular-nums @[250px]/card:text-3xl">
+				<table class="w-full">
+					<tbody>
+						<tr>
+							<td class="font-light">IN</td>
+							<td class="text-right">{(panel as PanelInput).inlets_volume} ℓ</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card.Title>
+			<Separator />
+			<div class="flex flex-col lg:text-xl">
+				<div>Inlet last update</div>
+				<div class="font-semibold">{formatTimestamp((panel as PanelInput).in_update)}</div>
 			</div>
 		{/if}
 		{#if type == 'lastMobile'}

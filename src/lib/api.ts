@@ -977,6 +977,34 @@ export const getFixedIOCurrentShiftTrans = async (
 	return data ? data : []
 }
 
+export const getFixedInputMonthlyCumTrans = async (
+	locals: App.Locals,
+) => {
+	const activeTeam = locals.user?.perms?.find((c) => (c.company_active === true))
+	const params = new URLSearchParams({
+		cc: activeTeam?.company_code || 'TRUST',
+	})
+
+	const response = await fetch(`${env.API_BASE_URL}/v1/devices/fixed/monthly-cum-in?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${locals.user?.token}`,
+		}
+	});
+
+	if (!response.ok) {
+		return {
+			error: {
+				status: response.status,
+				message: response.statusText
+			}
+		}
+	}
+
+	const { data } = await response.json()
+	return data ? data : []
+}
+
 export const getPercentageVariance = async (
 	locals: App.Locals,
 ) => {

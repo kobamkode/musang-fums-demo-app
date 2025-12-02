@@ -1,5 +1,5 @@
-import { getContractorsFuelUsageTransaction, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
-import type { ATG, PanelFuelUsage, PanelIO, PanelIOMobile } from "$lib/types"
+import { getContractorsFuelUsageTransaction, getFixedInputMonthlyCumTrans, getFixedIOCurrentShiftTrans, getFixedIOLastShiftTrans, getGroupedAtgData, getHeavyEquipmentsFuelUsageTransaction, getLightVehicleFuelUsageTransaction, getMobileIOLastShiftTrans, getSiteDumpTruckFuelUsageTransaction, getUnitSupportsFuelUsageTransaction } from "$lib/api"
+import type { ATG, PanelFuelUsage, PanelInput, PanelIO, PanelIOMobile } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ locals, depends }) => {
@@ -43,6 +43,7 @@ export const load: PageServerLoad = async ({ locals, depends }) => {
 	const fixedIOLastShiftTrans: PanelIO[] = await getFixedIOLastShiftTrans(locals)
 	const mobileIOLastShiftTrans: PanelIOMobile[] = await getMobileIOLastShiftTrans(locals)
 	const fixedIOCurrentShiftTrans: PanelIO[] = await getFixedIOCurrentShiftTrans(locals)
+	const fixedInputMonthlyCumTrans: PanelInput[] = await getFixedInputMonthlyCumTrans(locals)
 	// const fixedPercentageVariance: PanelIO[] = await getPercentageVariance(locals)
 	const heavyEquipmentsVolumeCurrentMonth: PanelFuelUsage = await getHeavyEquipmentsFuelUsageTransaction(locals)
 	const unitSupportsVolumeCurrentMonth: PanelFuelUsage = await getUnitSupportsFuelUsageTransaction(locals)
@@ -63,6 +64,7 @@ export const load: PageServerLoad = async ({ locals, depends }) => {
 		unitSupportsVolumeCurrentMonth,
 		contractorsVolumeCurrentMonth,
 		siteDumpTruckVolumeCurrentMonth,
-		lightVehicleVolumeCurrentMonth
+		lightVehicleVolumeCurrentMonth,
+		fixedInputMonthlyCumTrans
 	}
 }
