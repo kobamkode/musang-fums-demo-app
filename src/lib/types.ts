@@ -135,6 +135,14 @@ export interface PanelIO {
 	shift_end: string
 }
 
+export interface PanelInput {
+	location: string
+	inlets_volume: number
+	in_update: string
+	shift_start: string
+	shift_end: string
+}
+
 export interface PanelVariance {
 	location: string
 	rob_init_value: number

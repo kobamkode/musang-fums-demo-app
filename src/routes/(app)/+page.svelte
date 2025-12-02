@@ -196,6 +196,9 @@
 					{#each data.fixedIOCurrentShiftTrans as currentIO}
 						<SectionTransaction panel={currentIO} type="current" />
 					{/each}
+					{#each data.fixedInputMonthlyCumTrans as monthlyCumIn}
+						<SectionTransaction panel={monthlyCumIn} type="monthlycumin" />
+					{/each}
 				</CardContent>
 			</Card>
 
