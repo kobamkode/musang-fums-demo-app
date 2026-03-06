@@ -16,5 +16,5 @@ RUN addgroup --system --gid 1001 musang
 RUN adduser --system --uid 1001 musang
 USER musang
 
-EXPOSE 3000
+EXPOSE 3003
 CMD ["node", "build"]
