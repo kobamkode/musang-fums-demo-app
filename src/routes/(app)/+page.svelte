@@ -10,6 +10,7 @@
 	import { Clock, RefreshCw } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { browser } from '$app/environment';
+	import CardAtg from '$lib/components/card-atg.svelte';
 
 	let { data } = $props();
 
@@ -160,7 +161,7 @@
 			<CardHeader class="text-xl font-bold lg:text-2xl">Automatic Tank Gauging (ATG)</CardHeader>
 			<CardContent class="flex flex-wrap gap-4">
 				{#each data.atgStats as atg}
-					<Card class="w-full">
+					<CardAtg class="w-full" noUpdate={atg.noUpdate} since={atg.date_update}>
 						<CardHeader class="flex items-center">
 							<StatusActions status={atg.status} noUpdate={atg.noUpdate} />
 							<Separator orientation="vertical" />
@@ -179,7 +180,7 @@
 								tankLabel={atg.tank_label}
 							/>
 						</CardContent>
-					</Card>
+					</CardAtg>
 				{/each}
 			</CardContent>
 		</Card>
